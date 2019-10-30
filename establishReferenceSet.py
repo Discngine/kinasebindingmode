@@ -9,7 +9,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import numpy as np
 from rdkit import Chem
 import xmltodict
-
+import time
 
 
 def getLigandStructure(structure_id,session):
@@ -57,7 +57,7 @@ ligandDict={}
 
 #prepare outputfile handle so we can reuse what we extract here later for training etc
 of=open("kinaseBindingModsKlifs.csv","w")
-of.write("Kinase ID\tKinase Name\tsmiles\tstructure_ID\tpdb\talt\tchain\tmissing_residues\tligand\tallosteric_ligand\tDFG\taC_helix\tback\n")
+of.write("Kinase ID\tKinase Name\tsmiles\tstructure_ID\tpdb\talt\tchain\tmissing_residues\tligand\tallosteric_ligand\tDFG\taC_helix\tback\tspecies\n")
 if response.status_code==200:
     for kinase in response.json():
         kinaseID=kinase["kinase_ID"]
@@ -65,7 +65,13 @@ if response.status_code==200:
         print("Analyzing Kinase "+kinase["name"])
         #if kinaseID==441:
         endpoint=klifsHost+"/structures_list?kinase_ID="+str(kinaseID)
-        structureResponse=sklifs.get(endpoint)
+        try:
+            structureResponse=sklifs.get(endpoint)
+        except Exception as err:
+            print(err)
+            time.sleep(10)
+            structureResponse=sklifs.get(endpoint)
+            pass
 
         descriptors=["structure_ID","pdb","alt","chain","missing_residues","ligand","allosteric_ligand","DFG","aC_helix","back"]
         if structureResponse.status_code==200:
@@ -86,6 +92,8 @@ if response.status_code==200:
                 of.write(str(kinaseID)+"\t"+kinase["name"]+"\t"+smiles)
                 for descriptor in descriptors:
                     of.write("\t"+str(structure[descriptor]))
-                of.write("\n")
+                of.write("\t"+species+"\n")
+
+
 of.close()
 
