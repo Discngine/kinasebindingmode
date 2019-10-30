@@ -8,7 +8,7 @@ import urllib.parse
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 import numpy as np
 from rdkit import Chem
-
+import xmltodict
 
 
 
@@ -26,15 +26,34 @@ def getLigandStructure(structure_id,session):
             return("NA")
 
 
+def getLigandStructureFromPDB(het,session):
+    """Retrieve mol2 structure of the ligand for one particular structure id and 
+    transform this to a smiles string"""
+    query="https://www.rcsb.org/pdb/rest/describeHet?chemicalID="+str(het)
+    response=session.get(query)
+    if response.status_code==200:
+        try:
+            d=xmltodict.parse(response.content)
+            return(d["describeHet"]["ligandInfo"]["ligand"]["smiles"])
+        except Exception as err:
+            print("Error fetching smiles from PDB for het code: "+str(het))
+            print(err)
+            return("NA")
+
 
 #let's get all structures available in KLIFS currently
 
 sklifs = Session()
+spdb = Session()
 klifsHost="http://klifs.vu-compmedchem.nl/api/"
 
 #get all kinase names :
 endpoint=klifsHost+"/kinase_names"
 response=sklifs.get(endpoint)
+
+#just not to call the PDB unnecessarily
+ligandDict={}
+
 
 #prepare outputfile handle so we can reuse what we extract here later for training etc
 of=open("kinaseBindingModsKlifs.csv","w")
@@ -54,7 +73,15 @@ if response.status_code==200:
             structureList=structureResponse.json()
             for structure in structureList:
                 structureID=structure["structure_ID"]
-                smiles=getLigandStructure(structureID,sklifs)
+                #smiles=getLigandStructure(structureID,sklifs)
+                if len(str(structure["ligand"]))==3 : 
+                    if structure["ligand"] not in ligandDict:
+                        smiles=getLigandStructureFromPDB(structure["ligand"],spdb)
+                        ligandDict[structure["ligand"]]=smiles
+                    else :
+                        smiles=ligandDict[structure["ligand"]]
+                else :
+                    smiles="NA"
 
                 of.write(str(kinaseID)+"\t"+kinase["name"]+"\t"+smiles)
                 for descriptor in descriptors:
