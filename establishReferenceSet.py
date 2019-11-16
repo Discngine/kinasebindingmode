@@ -56,7 +56,7 @@ ligandDict={}
 
 
 #prepare outputfile handle so we can reuse what we extract here later for training etc
-of=open("kinaseBindingModsKlifs.csv","w")
+of=open("kinaseBindingModesKlifs.csv","w")
 of.write("Kinase ID\tKinase Name\tsmiles\tstructure_ID\tpdb\talt\tchain\tmissing_residues\tligand\tallosteric_ligand\tDFG\taC_helix\tback\tspecies\n")
 if response.status_code==200:
     for kinase in response.json():
