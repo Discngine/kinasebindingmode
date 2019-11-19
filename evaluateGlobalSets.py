@@ -133,7 +133,13 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
                     #similarity=DataStructs.FingerprintSimilarity(trainFp,fp1)
                     
                     if similarityMethod.__name__=="GetFraggleSimilarity":
-                        similarity,match=similarityMethod(Chem.MolFromSmiles(molSmile),Chem.MolFromSmiles(smiles_train[fpidx]))
+                        try:
+                            similarity,match=similarityMethod(Chem.MolFromSmiles(molSmile),Chem.MolFromSmiles(smiles_train[fpidx]))
+                        except Exception:
+                            print("Failed for smiles : "+smiles_train[fpidx]+" and "+molSmile)
+                            similarity=0.0
+                            pass
+
                     else:
                         similarity=similarityMethod(trainFp,fp1)
                     
