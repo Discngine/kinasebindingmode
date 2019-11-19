@@ -1,8 +1,9 @@
 import pandas as pd
 import random
 import sys
-from rdkit.Chem import AllChem
+from rdkit.Chem import AllChem,rdReducedGraphs
 import rdkit.Chem as Chem
+
 from rdkit.Chem.Fraggle.FraggleSim import GetFraggleSimilarity
 from rdkit import DataStructs
 import numpy as np
@@ -15,6 +16,12 @@ from rdkit import rdBase
 rdBase.DisableLog('rdApp.error')
 
 mtran=np.random.RandomState(seed=3333)
+
+def calc_ergfp( fp1, fp2 ):
+    #from https://iwatobipen.wordpress.com/2016/01/16/ergfingerprint-in-rdkit/
+    denominator = np.sum( np.dot(fp1,fp1) ) + np.sum( np.dot(fp2,fp2) ) - np.sum( np.dot(fp1,fp2 ))
+    numerator = np.sum( np.dot(fp1,fp2) )
+    return numerator / denominator
 
 def getMeasures(d):
     tp=d["type1_ok"]
@@ -54,14 +61,18 @@ def getTrainTestSet(fileName,fraction,random_seed=0):
 """TODO: introduce pointers to functions for fingerprints"""
 def generateFingerprints(smiles,fingerprintMethod):
     fp=[]
+    mols=[]
     for smi in smiles:
         try:
-            fp.append(fingerprintMethod(Chem.MolFromSmiles(smi),2))
+            mol=Chem.MolFromSmiles(smi)
+            fp.append(fingerprintMethod(mol,2))
+            mols.append(mol)
             #trainFps.append(MACCSkeys.GenMACCSKeys(Chem.MolFromSmiles(smi)))
         except Exception as err:
             fp.append("")
+            #print(err)
             pass
-    return(fp)
+    return(fp,mols)
 
 
 def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptanceRatio=0.5,debug=0):
@@ -108,8 +119,8 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
     n_train_type2=len(type2_train)
     n_train_type1_2=len(type1_2_train)
     
-    fp_train=generateFingerprints(smiles_train,fingerprintMethod)
-    fp_test=generateFingerprints(smiles_test,fingerprintMethod)
+    (fp_train,mol_train)=generateFingerprints(smiles_train,fingerprintMethod)
+    (fp_test,mol_test)=generateFingerprints(smiles_test,fingerprintMethod)
     
     resList=[]
     nFound=0
@@ -119,6 +130,7 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
 
     #now test every molecule in the test set
     for idx,molSmile in enumerate(smiles_test):
+        print(idx/len(smiles_test)*100.0)
         #only if the fingerprint could be calculated
         if fp_test[idx]!="":
             realBindingMode=getBindingModeFromSmiles(molSmile)  #get the known real binding mode of the test molecule
@@ -134,7 +146,11 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
                     
                     if similarityMethod.__name__=="GetFraggleSimilarity":
                         try:
-                            similarity,match=similarityMethod(Chem.MolFromSmiles(molSmile),Chem.MolFromSmiles(smiles_train[fpidx]))
+                            #print(idx,len(mol_test),len(mol_train),fpidx)
+                            t1=time.time()
+                            similarity,match=similarityMethod(mol_test[idx],mol_train[fpidx])
+                            #print(time.time()-t1)
+                            #print(similarity)
                         except Exception:
                             print("Failed for smiles : "+smiles_train[fpidx]+" and "+molSmile)
                             similarity=0.0
@@ -142,6 +158,7 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
 
                     else:
                         similarity=similarityMethod(trainFp,fp1)
+                        print(similarity)
                     
                     if(similarity>=similarityThreshold):
                         matchingTrainIdx.append(fpidx)
@@ -208,7 +225,8 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
 
 
 if __name__ == "__main__":
-    similarityMethods=[GetFraggleSimilarity,DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity]
+    similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,GetFraggleSimilarity]
+    fingerprintMethods=[rdReducedGraphs.GetErGFingerprint,AllChem.GetMorganFingerprint]
     #similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.FingerprintSimilarity,DataStructs.DiceSimilarity,DataStructs.AsymmetricSimilarity,DataStructs.BraunBlanquetSimilarity,DataStructs.CosineSimilarity,DataStructs.KulczynskiSimilarity,DataStructs.McConnaugheySimilarity, DataStructs.RogotGoldbergSimilarity, DataStructs.RusselSimilarity,DataStructs.SokalSimilarity,DataStructs.TverskySimilarity]
     #acceptanceRatios=np.arange(0.1,1.1,0.1)
     acceptanceRatios=[0.1]
