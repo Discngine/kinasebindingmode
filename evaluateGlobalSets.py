@@ -14,6 +14,10 @@ from statistics import mode
 import statistics
 from rdkit import rdBase
 rdBase.DisableLog('rdApp.error')
+import multiprocessing
+import logging
+
+
 
 mtran=np.random.RandomState(seed=3333)
 
@@ -59,13 +63,16 @@ def getTrainTestSet(fileName,fraction,random_seed=0):
     return(train_set,test_set)
 
 """TODO: introduce pointers to functions for fingerprints"""
-def generateFingerprints(smiles,fingerprintMethod):
+def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
     fp=[]
     mols=[]
     for smi in smiles:
         try:
             mol=Chem.MolFromSmiles(smi)
-            fp.append(fingerprintMethod(mol,2))
+            if fingerprintMethod==AllChem.GetMorganFingerprint:
+                fp.append(fingerprintMethod(mol,morganFpRadius))
+            elif fingerprintMethod== rdReducedGraphs.GetErGFingerprint: 
+                fp.append(fingerprintMethod(mol))
             mols.append(mol)
             #trainFps.append(MACCSkeys.GenMACCSKeys(Chem.MolFromSmiles(smi)))
         except Exception as err:
@@ -75,7 +82,7 @@ def generateFingerprints(smiles,fingerprintMethod):
     return(fp,mols)
 
 
-def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptanceRatio=0.5,debug=0):
+def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,morganFpRadius=2):
     def getBindingModeFromSmiles(smiles):
         if(sum(type1_train.smiles==smiles) or sum(type1_test.smiles==smiles)): return "type1"
         if(sum(type2_train.smiles==smiles) or sum(type2_test.smiles==smiles)): return "type2"
@@ -119,8 +126,8 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
     n_train_type2=len(type2_train)
     n_train_type1_2=len(type1_2_train)
     
-    (fp_train,mol_train)=generateFingerprints(smiles_train,fingerprintMethod)
-    (fp_test,mol_test)=generateFingerprints(smiles_test,fingerprintMethod)
+    (fp_train,mol_train)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
+    (fp_test,mol_test)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
     
     resList=[]
     nFound=0
@@ -130,7 +137,7 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
 
     #now test every molecule in the test set
     for idx,molSmile in enumerate(smiles_test):
-        print(idx/len(smiles_test)*100.0)
+        #print(idx/len(smiles_test)*100.0)
         #only if the fingerprint could be calculated
         if fp_test[idx]!="":
             realBindingMode=getBindingModeFromSmiles(molSmile)  #get the known real binding mode of the test molecule
@@ -147,18 +154,19 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
                     if similarityMethod.__name__=="GetFraggleSimilarity":
                         try:
                             #print(idx,len(mol_test),len(mol_train),fpidx)
-                            t1=time.time()
+                            
                             similarity,match=similarityMethod(mol_test[idx],mol_train[fpidx])
                             #print(time.time()-t1)
                             #print(similarity)
                         except Exception:
-                            print("Failed for smiles : "+smiles_train[fpidx]+" and "+molSmile)
+                            #print("Failed for smiles : "+smiles_train[fpidx]+" and "+molSmile)
                             similarity=0.0
                             pass
-
+                    elif similarityMethod.__name__=="TverskySimilarity":
+                        similarity=similarityMethod(trainFp,fp1,0.1,0.9)
                     else:
                         similarity=similarityMethod(trainFp,fp1)
-                        print(similarity)
+                        
                     
                     if(similarity>=similarityThreshold):
                         matchingTrainIdx.append(fpidx)
@@ -224,37 +232,70 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,acceptan
     return(confusionDict)
 
 
+def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2):
+    results=[]
+    for i in range(n):   
+       
+        if(similarityMethod==calc_ergfp):
+            results.append(evaluate(rdReducedGraphs.GetErGFingerprint,similarityMethod,similarityThreshold=similarityThreshold))
+        else:
+            results.append(evaluate(AllChem.GetMorganFingerprint,similarityMethod,similarityThreshold=similarityThreshold,morganFpRadius=morganFpRadius))
+
+    ba=[]
+    f1=[]
+    mcc=[]
+    notFound=[]
+    found=[]
+
+    for result in results:
+        m=getMeasures(result)
+        ba.append(m["ba"])
+        f1.append(m["f1"])
+        mcc.append(m["mcc"])
+        notFound.append(m["notFound"])
+        found.append(m["found"])
+        
+    print("%s : FPRadius: %d similarityThreshold: %.2f  ba: %.5f+/-%.5f   f1: %.5f+/-%.5f   mcc: %.5f+/-%.5f   found: %d+/-%.2f    notFound %d+/-%.2f"%(similarityMethod.__name__,morganFpRadius,similarityThreshold,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
+
 if __name__ == "__main__":
-    similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,GetFraggleSimilarity]
+    similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity, calc_ergfp,GetFraggleSimilarity]
     fingerprintMethods=[rdReducedGraphs.GetErGFingerprint,AllChem.GetMorganFingerprint]
+    threads=[]
     #similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.FingerprintSimilarity,DataStructs.DiceSimilarity,DataStructs.AsymmetricSimilarity,DataStructs.BraunBlanquetSimilarity,DataStructs.CosineSimilarity,DataStructs.KulczynskiSimilarity,DataStructs.McConnaugheySimilarity, DataStructs.RogotGoldbergSimilarity, DataStructs.RusselSimilarity,DataStructs.SokalSimilarity,DataStructs.TverskySimilarity]
-    #acceptanceRatios=np.arange(0.1,1.1,0.1)
-    acceptanceRatios=[0.1]
-    similarityThresholds=np.arange(0.9,0.1,-0.05)
+    
+    similarityThresholds=np.arange(0.9,0.25,-0.05)
     for similarityMethod in similarityMethods:
-        for acceptanceRatio in acceptanceRatios:
-            for similarityThreshold in similarityThresholds:
-                    results=[]
-                    
+        for similarityThreshold in similarityThresholds:
+
+            if similarityMethod != calc_ergfp and similarityMethod != GetFraggleSimilarity:
+                for morganFpRadius in range(1,4):
+                    x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,morganFpRadius))
+                    threads.append(x)
+                    x.start()
+                    while (len(threads)>=16):
+                        for tix,thread in enumerate(threads):
+                            if not thread.is_alive():
+                                threads.pop(tix)
+                                break
+                        time.sleep(2)
+            else : 
+                x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10))
+                threads.append(x)
+                x.start()
+
+                while (len(threads)>=16):
+                    for tix,thread in enumerate(threads):
+                        if not thread.is_alive():
+                            threads.pop(tix)
+                            break
+                    time.sleep(2)
+        #for index, thread in enumerate(threads):
+        #    thread.join()
+        
+            
+        #for acceptanceRatio in acceptanceRatios:
+        
                 #try:
-                    for i in range(2):    
-                        results.append(evaluate(AllChem.GetMorganFingerprint,similarityMethod,acceptanceRatio=acceptanceRatio,similarityThreshold=similarityThreshold))
-
-                    ba=[]
-                    f1=[]
-                    mcc=[]
-                    notFound=[]
-                    found=[]
-
-                    for result in results:
-                        m=getMeasures(result)
-                        ba.append(m["ba"])
-                        f1.append(m["f1"])
-                        mcc.append(m["mcc"])
-                        notFound.append(m["notFound"])
-                        found.append(m["found"])
-                        
-                    print("%s : similarityThreshold: %.2f  acceptanceRatio: %.2f   ba: %.5f+/-%.5f   f1: %.5f+/-%.5f   mcc: %.5f+/-%.5f   found: %d+/-%.2f    notFound %d+/-%.2f"%(similarityMethod.__name__,similarityThreshold,acceptanceRatio,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
                 #except Exception as err:
                 #    print(similarityMethod.__name__+" no results")
                 #    print(err)
