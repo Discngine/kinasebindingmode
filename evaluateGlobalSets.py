@@ -82,7 +82,7 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
     return(fp,mols)
 
 
-def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,morganFpRadius=2):
+def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,morganFpRadius=2,evaluationMode="top"):
     def getBindingModeFromSmiles(smiles):
         if(sum(type1_train.smiles==smiles) or sum(type1_test.smiles==smiles)): return "type1"
         if(sum(type2_train.smiles==smiles) or sum(type2_test.smiles==smiles)): return "type2"
@@ -137,7 +137,8 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,
 
     #now test every molecule in the test set
     for idx,molSmile in enumerate(smiles_test):
-        #print(idx/len(smiles_test)*100.0)
+        if similarityMethod.__name__=="GetFraggleSimilarity":
+            print(idx/len(smiles_test)*100.0)
         #only if the fingerprint could be calculated
         if fp_test[idx]!="":
             realBindingMode=getBindingModeFromSmiles(molSmile)  #get the known real binding mode of the test molecule
@@ -190,32 +191,41 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,
                 #if more than x of these matching molecules are correct we consider that the similarity search result is "predictive"
                 #this is very biased ... in a proper prediction setting, here we need to define what that actually means. 
                 #Explanation: if acceptanceRatio >0.6, this means that in accepted similar molecules, more than 60% are in the correct class.
+                
                 try:
-                    a = np.array(matchingBindingModes)
-                    unique, counts = np.unique(a, return_counts=True)
-                    bindingModeData = pd.DataFrame({'mode':unique, 'counts':counts})
-                    bindingModeData.loc[(bindingModeData["mode"]=="type1"),"counts"]/=n_train_type1
-                    bindingModeData.loc[(bindingModeData["mode"]=="type2"),"counts"]/=n_train_type2
-                    bindingModeData.loc[(bindingModeData["mode"]=="type1_2"),"counts"]/=n_train_type1_2
 
-                    # for bidx,bindingMode in enumerat(unique):
-                    #     if bindingMode=="type1":
+                    if evaluationMode=="probability":
+                        
+                            a = np.array(matchingBindingModes)
+                            unique, counts = np.unique(a, return_counts=True)
+                            bindingModeData = pd.DataFrame({'mode':unique, 'counts':counts})
+                            bindingModeData.loc[(bindingModeData["mode"]=="type1"),"counts"]/=n_train_type1
+                            bindingModeData.loc[(bindingModeData["mode"]=="type2"),"counts"]/=n_train_type2
+                            bindingModeData.loc[(bindingModeData["mode"]=="type1_2"),"counts"]/=n_train_type1_2
+
+                            # for bidx,bindingMode in enumerat(unique):
+                            #     if bindingMode=="type1":
+                                    
+                            #     elif bindingMode=="type2":
+
+                            #     elif bindingMode=="type1_2":
                             
-                    #     elif bindingMode=="type2":
-
-                    #     elif bindingMode=="type1_2":
+                            #matchingBindingMode=mode(matchingBindingModes)
+                            predictedBindingMode=bindingModeData.loc[bindingModeData['counts'].idxmax(),"mode"]
                     
-                    #matchingBindingMode=mode(matchingBindingModes)
-                    predictedBindingMode=bindingModeData.loc[bindingModeData['counts'].idxmax(),"mode"]
+                    elif evaluationMode=="top":
+                        topSimilarIdx=np.argsort(matchingSimilarities)[-1]
+                        predictedBindingMode=matchingBindingModes[topSimilarIdx]
+                    
                     if predictedBindingMode==realBindingMode:
                         nCorrectTotal+=1
                         confusionDict[realBindingMode+"_ok"]+=1
                     else :
                         confusionDict[realBindingMode+"_false"]+=1
-                
+
                 except statistics.StatisticsError:
                     confusionDict[realBindingMode+"_false"]+=1
-                
+
                 
                 #if(nCorrect/float((len(matchingTrainIdx)))>=acceptanceRatio):
                 #    nCorrectTotal+=1
@@ -232,14 +242,14 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,
     return(confusionDict)
 
 
-def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2):
+def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2,evaluationMode="top"):
     results=[]
     for i in range(n):   
        
         if(similarityMethod==calc_ergfp):
-            results.append(evaluate(rdReducedGraphs.GetErGFingerprint,similarityMethod,similarityThreshold=similarityThreshold))
+            results.append(evaluate(rdReducedGraphs.GetErGFingerprint,similarityMethod,similarityThreshold=similarityThreshold,evaluationMode=evaluationMode))
         else:
-            results.append(evaluate(AllChem.GetMorganFingerprint,similarityMethod,similarityThreshold=similarityThreshold,morganFpRadius=morganFpRadius))
+            results.append(evaluate(AllChem.GetMorganFingerprint,similarityMethod,similarityThreshold=similarityThreshold,morganFpRadius=morganFpRadius,evaluationMode=evaluationMode))
 
     ba=[]
     f1=[]
@@ -254,41 +264,42 @@ def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2
         mcc.append(m["mcc"])
         notFound.append(m["notFound"])
         found.append(m["found"])
-        
-    print("%s : FPRadius: %d similarityThreshold: %.2f  ba: %.5f+/-%.5f   f1: %.5f+/-%.5f   mcc: %.5f+/-%.5f   found: %d+/-%.2f    notFound %d+/-%.2f"%(similarityMethod.__name__,morganFpRadius,similarityThreshold,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
+    #print((similarityMethod.__name__,evaluationMode,morganFpRadius,similarityThreshold,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
+    print("%s\tevaluationMode:\t%s\tFPRadius\t%d\tsimilarityThreshold:\t%.2f\tba:\t%.5f\t%.5f\tf1:\t%.5f\t%.5f\tmcc\t%.5f\t%.5f\tfound:\t%d\t%.2f\tnotFound\t%d\t%.2f"%(similarityMethod.__name__,evaluationMode,morganFpRadius,similarityThreshold,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
 
 if __name__ == "__main__":
-    similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity, calc_ergfp,GetFraggleSimilarity]
+    similarityMethods=[calc_ergfp]#,DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity, calc_ergfp]#,GetFraggleSimilarity]
     fingerprintMethods=[rdReducedGraphs.GetErGFingerprint,AllChem.GetMorganFingerprint]
     threads=[]
+    evaluationModes=["top","probability"]
     #similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.FingerprintSimilarity,DataStructs.DiceSimilarity,DataStructs.AsymmetricSimilarity,DataStructs.BraunBlanquetSimilarity,DataStructs.CosineSimilarity,DataStructs.KulczynskiSimilarity,DataStructs.McConnaugheySimilarity, DataStructs.RogotGoldbergSimilarity, DataStructs.RusselSimilarity,DataStructs.SokalSimilarity,DataStructs.TverskySimilarity]
     
     similarityThresholds=np.arange(0.9,0.25,-0.05)
     for similarityMethod in similarityMethods:
         for similarityThreshold in similarityThresholds:
-
-            if similarityMethod != calc_ergfp and similarityMethod != GetFraggleSimilarity:
-                for morganFpRadius in range(1,4):
-                    x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,morganFpRadius))
+            for evaluationMode in evaluationModes:
+                if similarityMethod != calc_ergfp and similarityMethod != GetFraggleSimilarity:
+                    for morganFpRadius in range(1,4):
+                        x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,morganFpRadius,evaluationMode))
+                        threads.append(x)
+                        x.start()
+                        while (len(threads)>=14):
+                            for tix,thread in enumerate(threads):
+                                if not thread.is_alive():
+                                    threads.pop(tix)
+                                    break
+                            time.sleep(2)
+                else : 
+                    x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,1,evaluationMode))
                     threads.append(x)
                     x.start()
-                    while (len(threads)>=16):
+
+                    while (len(threads)>=14):
                         for tix,thread in enumerate(threads):
                             if not thread.is_alive():
                                 threads.pop(tix)
                                 break
                         time.sleep(2)
-            else : 
-                x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10))
-                threads.append(x)
-                x.start()
-
-                while (len(threads)>=16):
-                    for tix,thread in enumerate(threads):
-                        if not thread.is_alive():
-                            threads.pop(tix)
-                            break
-                    time.sleep(2)
         #for index, thread in enumerate(threads):
         #    thread.join()
         
