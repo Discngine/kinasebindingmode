@@ -32,7 +32,7 @@ def getAlphHelixType(distance):
 
 
 parser = PDBParser()
-structure = parser.get_structure('AAK1', '/Users/Anne-SophieBarthelet/Documents/PeterProject/5l4q.pdb')
+structure = parser.get_structure('AAK1', '../prepared_data/structures/5l4q.pdb')
 i = 0
 for atom in structure.get_atoms():
     if atom.get_serial_number() == 5:
