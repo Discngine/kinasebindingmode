@@ -164,7 +164,7 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,
                             similarity=0.0
                             pass
                     elif similarityMethod.__name__=="TverskySimilarity":
-                        similarity=similarityMethod(trainFp,fp1,0.1,0.9)
+                        similarity=similarityMethod(trainFp,fp1,0.9,0.1)
                     else:
                         similarity=similarityMethod(trainFp,fp1)
                         
@@ -268,7 +268,7 @@ def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2
     print("%s\tevaluationMode:\t%s\tFPRadius\t%d\tsimilarityThreshold:\t%.2f\tba:\t%.5f\t%.5f\tf1:\t%.5f\t%.5f\tmcc\t%.5f\t%.5f\tfound:\t%d\t%.2f\tnotFound\t%d\t%.2f"%(similarityMethod.__name__,evaluationMode,morganFpRadius,similarityThreshold,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
 
 if __name__ == "__main__":
-    similarityMethods=[calc_ergfp]#,DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity, calc_ergfp]#,GetFraggleSimilarity]
+    similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity,calc_ergfp]#,GetFraggleSimilarity]
     fingerprintMethods=[rdReducedGraphs.GetErGFingerprint,AllChem.GetMorganFingerprint]
     threads=[]
     evaluationModes=["top","probability"]
@@ -283,18 +283,18 @@ if __name__ == "__main__":
                         x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,morganFpRadius,evaluationMode))
                         threads.append(x)
                         x.start()
-                        while (len(threads)>=14):
+                        while (len(threads)>=12):
                             for tix,thread in enumerate(threads):
                                 if not thread.is_alive():
                                     threads.pop(tix)
                                     break
                             time.sleep(2)
                 else : 
-                    x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,1,evaluationMode))
+                    x = multiprocessing.Process(target=getEvaluationStats, args=(similarityMethod,similarityThreshold,10,0,evaluationMode))
                     threads.append(x)
                     x.start()
 
-                    while (len(threads)>=14):
+                    while (len(threads)>=12):
                         for tix,thread in enumerate(threads):
                             if not thread.is_alive():
                                 threads.pop(tix)
