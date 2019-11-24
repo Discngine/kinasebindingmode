@@ -22,12 +22,17 @@ import logging
 mtran=np.random.RandomState(seed=3333)
 
 def calc_ergfp( fp1, fp2 ):
+    """Calulate reduced graph based similarity
     #from https://iwatobipen.wordpress.com/2016/01/16/ergfingerprint-in-rdkit/
+    """
     denominator = np.sum( np.dot(fp1,fp1) ) + np.sum( np.dot(fp2,fp2) ) - np.sum( np.dot(fp1,fp2 ))
     numerator = np.sum( np.dot(fp1,fp2) )
     return numerator / denominator
 
 def getMeasures(d):
+    """clunky integration of performance measures for the validation
+    @d: dictionary of true/false predictions
+    return: dictionary of performance measures"""
     tp=d["type1_ok"]
     tn=d["type2_ok"]
     fp=d["type1_false"]
@@ -56,13 +61,26 @@ def getMeasures(d):
     return({"ba":ba,"f1":f1,"mcc":mcc,"notFound":d["notFound"],"found":d["found"]})
 
 def getTrainTestSet(fileName,fraction,random_seed=0):
+    """split training and test set
+    @ filename: Filename to read smiles from
+    @ fraction: fraction of dataset to build the training set, the rest will be used for testing
+    @ random_seed: Optional random seed
+    return: list of 2 pandas data frames, first training set, second test set
+    """
     data=pd.read_csv(fileName)
     data_copy = data.copy()
+    mtran=np.random.RandomState(seed=random_seed)
+
     train_set = data_copy.sample(frac=fraction, random_state=mtran)
     test_set = data_copy.drop(train_set.index)
     return(train_set,test_set)
 
 def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
+    """generic fingerprint generation method that works with Morgan Fingerprints & reduced graphs
+    @smiles: input smiles string
+    @fingerprintMethod: pointer to fingerprint method to use to encode the molecules
+    @morganFpRadius: Optional radius for morgan fingerprints
+    return: list of fingerprints and corresponding rdkit molecules"""
     fp=[]
     mols=[]
     for smi in smiles:
