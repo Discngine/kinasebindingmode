@@ -62,7 +62,6 @@ def getTrainTestSet(fileName,fraction,random_seed=0):
     test_set = data_copy.drop(train_set.index)
     return(train_set,test_set)
 
-"""TODO: introduce pointers to functions for fingerprints"""
 def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
     fp=[]
     mols=[]
@@ -138,7 +137,7 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,
     #now test every molecule in the test set
     for idx,molSmile in enumerate(smiles_test):
         if similarityMethod.__name__=="GetFraggleSimilarity":
-            print(idx/len(smiles_test)*100.0)
+            sys.stderr.write(str(idx/len(smiles_test)*100.0)+"\n")
         #only if the fingerprint could be calculated
         if fp_test[idx]!="":
             realBindingMode=getBindingModeFromSmiles(molSmile)  #get the known real binding mode of the test molecule
@@ -269,6 +268,7 @@ def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2
 
 if __name__ == "__main__":
     similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity,calc_ergfp]#,GetFraggleSimilarity]
+    similarityMethods=[GetFraggleSimilarity]
     fingerprintMethods=[rdReducedGraphs.GetErGFingerprint,AllChem.GetMorganFingerprint]
     threads=[]
     evaluationModes=["top","probability"]
