@@ -87,10 +87,12 @@ def main():
         phe_res_num = int(argt[2])
         glu_res_num = int(argt[3])
         lys_res_num = int(argt[4])
+        chain       = argt[5]
+        
 
         structure = parser.get_structure('KinaseName', pdbFile)
         model = structure[0]
-        chain = model["A"]
+        chain = model[chain]
         
         #getting the position of each atoms
         czeta_pos = getCzetaFromDfgMotif(chain, phe_res_num)
