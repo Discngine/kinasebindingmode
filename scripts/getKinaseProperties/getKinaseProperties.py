@@ -4,6 +4,7 @@ import argparse
 from os import path
 from Bio import PDB
 
+# ex :  python getKinaseProperties.py  1:B:194 1:B:90 ../../prepared_data/structures/5l4q.pdb -v
 
 # Start with some argument parsing and checks
 parser = argparse.ArgumentParser()
