@@ -1,4 +1,4 @@
-"","V1","V2","V3","V4","V5","V6","V7","V8","V9","V10","V11","V12","V13","V14","V15","V16","V17","V18","V19","V20","V21","V22"
+"ID","SimilarityMetric","Label1","evaluationMode","Label2","FingerprintRadius","Label3","similarityThreshold","Label4","BA","sdBA","Label5","F1","sdF1","Label6","MCC","sdMCC","Label7","nFound","sdnFound","Label8","nNotFound","sdnNotFound"
 "9","TanimotoSimilarity","evaluationMode:","top","FPRadius",3,"similarityThreshold:",0.9,"ba:",0.5,0,"f1:",1,0,"mcc",0,0,"found:",6,2.09,"notFound",1005,2.29
 "11","TanimotoSimilarity","evaluationMode:","probability","FPRadius",3,"similarityThreshold:",0.9,"ba:",0.5,0,"f1:",1,0,"mcc",0,0,"found:",6,2.09,"notFound",1005,2.29
 "260","calc_ergfp","evaluationMode:","probability","FPRadius",0,"similarityThreshold:",0.3,"ba:",0.55967,0.00479,"f1:",0.23937,0.03385,"mcc",0.11892,0.01696,"found:",1009,1.36,"notFound",2,1
