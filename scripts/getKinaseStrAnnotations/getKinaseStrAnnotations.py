@@ -2,6 +2,7 @@ import math
 import sys
 import argparse
 from os import path
+from os import mkdir
 from Bio import PDB
 
 # ex :  python getKinaseProperties.py  1:B:194 1:B:90 1:B:74 ../../prepared_data/structures/5l4q.pdb -v
@@ -14,6 +15,7 @@ parser.add_argument("e", help="Conserved E in the alphaC helix (String), formatt
 parser.add_argument("k", help="Front Cleft Beta Sheet LYS (String), formatted as MODEL:CHAIN:RESNUM", type=str) 
 parser.add_argument("PDB_File", help="Full file path to the PDB structure file to process (String)", type=str)
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument("-d", "--download", help="allow the download of missing pdb file in a pdb subfolder. Ensure that PDB_File argument is a simple 4 letter pdb code instead a woole file name", action="store_true")
 args = parser.parse_args()
 
 
@@ -26,6 +28,11 @@ if args.verbose:
     print("PDB file Path : "+ args.PDB_File)
     if path.isfile(args.PDB_File):
         print("File is found")
+    if args.download and path.isdir("pdb") and path.isfile("pdb/pdb"+args.PDB_File+'.ent'):
+        print("File "+args.PDB_File+".ent is found in the  pdb/ subfolder")
+    elif args.download :
+        print("File "+args.PDB_File+" will be downloaded in the pdb/ subfolder")
+
 
 # StringRepresentsInt
 # This small helper function allow a check on a string and return True if the string can be converted into an integer
@@ -41,9 +48,23 @@ def StringRepresentsInt(s):
         return False
 
 def CheckParameters():
+    if args.download :
+        if not path.isdir("pdb"):
+            if args.verbose:
+                print("Creating pdb subfolder")
+            mkdir("pdb")
+        if(path.isfile("pdb/pdb"+args.PDB_File+'.ent')):
+            args.PDB_File = "pdb/pdb"+args.PDB_File+'.ent';
+        else:
+            if args.verbose:
+                print("Ready to download structure")
+            pdbl = PDB.PDBList()
+            pdbl.download_pdb_files([args.PDB_File.upper()], pdir='pdb', file_format='pdb')
+            args.PDB_File = "pdb/pdb"+args.PDB_File+'.ent';
+     
     # if pdb file is not found, exit
     if not path.isfile(args.PDB_File):
-        sys.exit('Error! file not found!')
+        sys.exit('Error! file '+args.PDB_File+' not found!')
     # basic check on first residue definition
     d_split=args.d.split(':')
     if not StringRepresentsInt(d_split[0]):
