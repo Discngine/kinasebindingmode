@@ -4,6 +4,8 @@ import argparse
 from os import path
 from os import mkdir
 from Bio import PDB
+import gzip
+import shutil
 
 # ex :  python getKinaseProperties.py  1:B:194 1:B:90 1:B:74 ../../prepared_data/structures/5l4q.pdb -v
 
@@ -16,6 +18,7 @@ parser.add_argument("k", help="Front Cleft Beta Sheet LYS (String), formatted as
 parser.add_argument("PDB_File", help="Full file path to the PDB structure file to process (String)", type=str)
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-d", "--download", help="allow the download of missing pdb file in a pdb subfolder. Ensure that PDB_File argument is a simple 4 letter pdb code instead a woole file name", action="store_true")
+#parser.add_argument("-r", "--repository", help="suport the use of a pdb repository containing gzip pdb in subfolder (ex: wr/pdb4wrc.ent.gz)", action="store")
 args = parser.parse_args()
 
 
@@ -25,13 +28,15 @@ if args.verbose:
     print("F from DFG is : "+ args.f)
     print("E from helix AlphaC is : "+ args.e)
     print("K from front clft Bsheet : "+ args.k)
-    print("PDB file Path : "+ args.PDB_File)
+    print("PDB file Path : -"+ args.PDB_File+"-")
     if path.isfile(args.PDB_File):
         print("File is found")
     if args.download and path.isdir("pdb") and path.isfile("pdb/pdb"+args.PDB_File+'.ent'):
         print("File "+args.PDB_File+".ent is found in the  pdb/ subfolder")
     elif args.download :
         print("File "+args.PDB_File+" will be downloaded in the pdb/ subfolder")
+    #if args.repository :
+    #    print("Structure repositoy used : " + args.repository)
 
 
 # StringRepresentsInt
@@ -89,9 +94,15 @@ def CheckParameters():
         sys.exit('Error with argument k format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
     if len(k_split) != 3:
         sys.exit('Error with argument k format. format should be MODEL:CHAIN:RESNUM')
+    if args.PDB_File.endswith('.gz') :
+        if args.verbose:
+            print("Ready to unzip the pdb file")
+        with gzip.open(args.PDB_File, 'r') as f_in, open('_localPdbFile.pdb', 'wb') as f_out:
+            shutil.copyfileobj(f_in, f_out)
+        args.PDB_File = '_localPdbFile.pdb'
 
 
-
+    
 # getCzetaFromDfgMotif
 # This function calculates get the position from the Zeta carbon from the DFG motif
 # @param chain         the chain from the pdb used for the calculation
@@ -160,15 +171,15 @@ def getAtomDistance(atomVect1, atomVect2):
 #
 # @return   the type of the Alpha Helix (in, out, out-like)
 #
-def getAlphHelixType(distance):
+def getAlphaCHelixType_fromDistance(distance):
     if distance > 4 and distance <= 7.2:
-        type = 'alphaC-in'
+        type = 'HaC:in'
     elif distance > 7.2 and distance <= 9.3:
-        type = 'alphaC-out-like'
+        type = 'HaC:out-like'
     elif distance > 9.3 and distance <= 14:
-        type = 'alphaC-out'
+        type = 'HaC:out'
     else:
-        type = 'Not Applicable'
+        type = 'HaC:na'
     return type
 
 
@@ -185,7 +196,9 @@ def getResidueAtom(strct, stringDefOfResidue, AtomName):
     try:
         atom = strct[model][chain][residue][AtomName]
     except KeyError:
-        print('failed to get atom '+stringDefOfResidue+' with name '+AtomName)
+        if args.verbose:
+            print('failed to get atom '+stringDefOfResidue+' with name '+AtomName)
+        atom = None
     return atom
 
 def getAtomPosition(atom):
@@ -215,6 +228,10 @@ def getAlphaCHelixType(strct, d, e):
     atom1 = getResidueAtom(strct, d, "CA")
     atom2 = getResidueAtom(strct, e, "CA")
 
+    if atom1 is None or atom2 is None :
+        return 'HaC:na'
+
+
     if args.verbose:
         print('ASP atom :')
         print(atom1)
@@ -234,13 +251,16 @@ def getAlphaCHelixType(strct, d, e):
         print('Distance : ')
         print(distance)
         print('Helix type :')
-        print(getAlphHelixType(distance))
-    return getAlphHelixType(distance)
+        print(getAlphaCHelixType_fromDistance(distance))
+    return getAlphaCHelixType_fromDistance(distance)
 
 def getDFGType(strct,f,e,k):
     atom_F = getResidueAtom(strct, f, "CZ")
     atom_E = getResidueAtom(strct, e, "CA")
     atom_K = getResidueAtom(strct, k, "CA")
+
+    if atom_F is None or atom_F is None or atom_F is None :
+        return 'DFG:na'
 
     atomVect_F = getAtomPosition(atom_F)
     atomVect_E = getAtomPosition(atom_E)
@@ -250,11 +270,11 @@ def getDFGType(strct,f,e,k):
     D2 = getAtomDistance(atomVect_F, atomVect_K)
 
     if D1 <= 11 and D2 <= 11:
-        type = 'DFGinter'
+        type = 'DFG:inter'
     elif D1 > 11 and D2 <= 14:
-        type = 'DFGout'
+        type = 'DFG:out'
     else:
-        type = 'DFGin'
+        type = 'DFG:in'
     if args.verbose:
         print('Distance 1 : '+str(D1))
         print('Distacnce2 : '+str(D2))
