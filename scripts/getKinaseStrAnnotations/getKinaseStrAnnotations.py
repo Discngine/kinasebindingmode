@@ -17,6 +17,7 @@ parser.add_argument("e", help="Conserved E in the alphaC helix (String), formatt
 parser.add_argument("k", help="Front Cleft Beta Sheet LYS (String), formatted as MODEL:CHAIN:RESNUM", type=str) 
 parser.add_argument("PDB_File", help="Full file path to the PDB structure file to process (String)", type=str)
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
+parser.add_argument("-hac", "--helixAlphaCDist", help="add the DFG alphaC helix distance to the main output line", action="store_true")
 parser.add_argument("-d", "--download", help="allow the download of missing pdb file in a pdb subfolder. Ensure that PDB_File argument is a simple 4 letter pdb code instead a woole file name", action="store_true")
 #parser.add_argument("-r", "--repository", help="suport the use of a pdb repository containing gzip pdb in subfolder (ex: wr/pdb4wrc.ent.gz)", action="store")
 args = parser.parse_args()
@@ -224,6 +225,19 @@ def checkResidueName(strct, stringDefOfResidue, residueName):
     else:
         raise Exception('Expected residue seems wrong. ' + stringDefOfResidue + ' should be a '+ residueName + ' but a '+structResName +' was found')
 
+
+def getAlphaCHelix_DFG_dist(strct, d, e):
+    atom1 = getResidueAtom(strct, d, "CA")
+    atom2 = getResidueAtom(strct, e, "CA")
+
+    if atom1 is None or atom2 is None :
+        return 'na'
+    atomVect1 = getAtomPosition(atom1)
+    atomVect2 = getAtomPosition(atom2)
+    distance = getAtomDistance(atomVect1, atomVect2)
+    return distance
+
+
 def getAlphaCHelixType(strct, d, e):
     atom1 = getResidueAtom(strct, d, "CA")
     atom2 = getResidueAtom(strct, e, "CA")
@@ -297,13 +311,17 @@ def main():
 
     helixType = getAlphaCHelixType(structure, args.d, args.e)
     dfgType =  getDFGType(structure, args.f, args.e, args.k)
+    if args.helixAlphaCDist:
+        dfg_helixAc_dist = getAlphaCHelix_DFG_dist(structure, args.d, args.e)
+
     if args.verbose:
         print('______________________')
         print('pdb: '+args.PDB_File)
         print('aC helix: ' + helixType)
         print('DFG: '+dfgType)
         print('______________________')
-    else:
-        print (dfgType +' '+helixType)
-
+    elif args.helixAlphaCDist:
+        print (dfgType +' '+helixType + ' '+ str( dfg_helixAc_dist)   )
+    else :
+        print (dfgType +' '+helixType);
 main()  
