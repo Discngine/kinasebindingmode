@@ -202,6 +202,24 @@ def getResidueAtom(strct, stringDefOfResidue, AtomName):
         atom = None
     return atom
 
+def getResidue_plus_4_Atom(strct, stringDefOfResidue, AtomName):
+      splitStr=stringDefOfResidue.split(':')
+      if not StringRepresentsInt(splitStr[0]):
+          sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+      if len(splitStr) != 3:
+          sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM')
+
+      model=int(splitStr[0])-1
+      chain=splitStr[1]
+      residue=int(splitStr[2]) + 4
+      try:
+          atom = strct[model][chain][residue][AtomName]
+      except KeyError:
+          if args.verbose:
+              print('failed to get atom '+stringDefOfResidue+' with name '+AtomName)
+          atom = None
+      return atom
+
 def getAtomPosition(atom):
     return atom.get_vector()
 
@@ -237,6 +255,36 @@ def getAlphaCHelix_DFG_dist(strct, d, e):
     distance = getAtomDistance(atomVect1, atomVect2)
     return distance
 
+def getAlphaCHelixType_v2(strct, f, e):
+    atom1 = getResidueAtom(strct, f, "CA")
+    atom2 = getResidueAtom(strct, e, "CA")
+
+    if atom1 is None or atom2 is None :
+        return 'HaC:na'
+
+
+    if args.verbose:
+        print('PHE atom :')
+        print(atom1)
+        print('GLU atom :')
+        print(atom2)
+
+    atomVect1 = getAtomPosition(atom1)
+    atomVect2 = getAtomPosition(atom2)
+
+    if args.verbose:
+        print('PHE of dfg position :')
+        print(atomVect1)
+        print('GLU of alpha C helix position :')
+        print(atomVect2)
+    distance = getAtomDistance(atomVect1, atomVect2)
+    if args.verbose:
+        print('Distance : ')
+        print(distance)
+        print('Helix type :')
+        print(getAlphaCHelixType_fromDistance(distance))
+    return getAlphaCHelixType_fromDistance(distance)
+
 
 def getAlphaCHelixType(strct, d, e):
     atom1 = getResidueAtom(strct, d, "CA")
@@ -270,14 +318,14 @@ def getAlphaCHelixType(strct, d, e):
 
 def getDFGType(strct,f,e,k):
     atom_F = getResidueAtom(strct, f, "CZ")
-    atom_E = getResidueAtom(strct, e, "CA")
+    #atom_E = getResidueAtom(strct, e, "CA")
     atom_K = getResidueAtom(strct, k, "CA")
-
+    atom_E_plus_4 = getResidue_plus_4_Atom(strct, e, "CA")
     if atom_F is None or atom_F is None or atom_F is None :
         return 'DFG:na'
 
     atomVect_F = getAtomPosition(atom_F)
-    atomVect_E = getAtomPosition(atom_E)
+    atomVect_E = getAtomPosition(atom_E_plus_4)
     atomVect_K = getAtomPosition(atom_K)
     
     D1 = getAtomDistance(atomVect_F, atomVect_E)
@@ -303,16 +351,16 @@ def main():
         parser = PDB.PDBParser(QUIET=True)    
 
     structure = parser.get_structure('myPDB', args.PDB_File)
-    checkResidueName(structure, args.f, "PHE")
-    checkResidueName(structure, args.d, "ASP")
+    #checkResidueName(structure, args.f, "PHE")
+    #checkResidueName(structure, args.d, "ASP")
     checkResidueName(structure, args.e, "GLU")
     checkResidueName(structure, args.k, "LYS")
 
 
-    helixType = getAlphaCHelixType(structure, args.d, args.e)
+    helixType = getAlphaCHelixType_v2(structure, args.f, args.e)
     dfgType =  getDFGType(structure, args.f, args.e, args.k)
     if args.helixAlphaCDist:
-        dfg_helixAc_dist = getAlphaCHelix_DFG_dist(structure, args.d, args.e)
+        dfg_helixAc_dist = getAlphaCHelix_DFG_dist(structure, args.f, args.e)
 
     if args.verbose:
         print('______________________')
@@ -321,7 +369,7 @@ def main():
         print('DFG: '+dfgType)
         print('______________________')
     elif args.helixAlphaCDist:
-        print (dfgType +' '+helixType + ' '+ str( dfg_helixAc_dist)   )
+        print (dfgType +' '+helixType + ' '+ str( dfg_helixAc_dist))  
     else :
         print (dfgType +' '+helixType);
 main()  
