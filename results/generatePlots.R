@@ -58,6 +58,7 @@ scale_colour_Publication <- function(...){
 
 createPlot<-function(data,title){
   p=ggplot(data, aes(similarityThreshold)) + 
+  geom_line(aes(y=(MCC*nFound/nData)/(MCC+3*nFound/nData)))+
   geom_line(aes(y=MCC,colour="MCC")) +
   geom_errorbar(aes(ymin=MCC-sdMCC, ymax=MCC+sdMCC,colour="MCC"), width=.01) +
   geom_line(aes(y=F1,colour="F1")) +
