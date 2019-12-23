@@ -7,8 +7,6 @@ from Bio import PDB
 import gzip
 import shutil
 
-# ex :  python getKinaseProperties.py  1:B:194 1:B:90 1:B:74 ../../prepared_data/structures/5l4q.pdb -v
-
 # Start with some argument parsing and checks
 parser = argparse.ArgumentParser()
 parser.add_argument("d", help="D of DFG pattern (String), formatted as MODEL:CHAIN:RESNUM", type=str)
@@ -16,28 +14,12 @@ parser.add_argument("f", help="F of DFG pattern (String), formatted as MODEL:CHA
 parser.add_argument("e", help="Conserved E in the alphaC helix (String), formatted as MODEL:CHAIN:RESNUM", type=str) 
 parser.add_argument("k", help="Front Cleft Beta Sheet LYS (String), formatted as MODEL:CHAIN:RESNUM", type=str) 
 parser.add_argument("PDB_File", help="Full file path to the PDB structure file to process (String)", type=str)
+# optional args
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-hac", "--helixAlphaCDist", help="add the DFG alphaC helix distance to the main output line", action="store_true")
 parser.add_argument("-d", "--download", help="allow the download of missing pdb file in a pdb subfolder. Ensure that PDB_File argument is a simple 4 letter pdb code instead a woole file name", action="store_true")
-#parser.add_argument("-r", "--repository", help="suport the use of a pdb repository containing gzip pdb in subfolder (ex: wr/pdb4wrc.ent.gz)", action="store")
 args = parser.parse_args()
 
-
-if args.verbose:
-    print("verbosity turned on")
-    print("D from DFG is : "+ args.d)
-    print("F from DFG is : "+ args.f)
-    print("E from helix AlphaC is : "+ args.e)
-    print("K from front clft Bsheet : "+ args.k)
-    print("PDB file Path : -"+ args.PDB_File+"-")
-    if path.isfile(args.PDB_File):
-        print("File is found")
-    if args.download and path.isdir("pdb") and path.isfile("pdb/pdb"+args.PDB_File+'.ent'):
-        print("File "+args.PDB_File+".ent is found in the  pdb/ subfolder")
-    elif args.download :
-        print("File "+args.PDB_File+" will be downloaded in the pdb/ subfolder")
-    #if args.repository :
-    #    print("Structure repositoy used : " + args.repository)
 
 
 # StringRepresentsInt
@@ -54,6 +36,21 @@ def StringRepresentsInt(s):
         return False
 
 def CheckParameters():
+    if args.verbose:
+        print("verbosity turned on")
+        print("D from DFG is : "+ args.d)
+        print("F from DFG is : "+ args.f)
+        print("E from helix AlphaC is : "+ args.e)
+        print("K from front clft Bsheet : "+ args.k)
+        print("PDB file Path : -"+ args.PDB_File+"-")
+
+    if path.isfile(args.PDB_File):
+        print("File is found")
+    if args.download and path.isdir("pdb") and path.isfile("pdb/pdb"+args.PDB_File+'.ent'):
+        print("File "+args.PDB_File+".ent is found in the  pdb/ subfolder")
+    elif args.download :
+        print("File "+args.PDB_File+" will be downloaded in the pdb/ subfolder")
+
     if args.download :
         if not path.isdir("pdb"):
             if args.verbose:
@@ -101,58 +98,6 @@ def CheckParameters():
         with gzip.open(args.PDB_File, 'r') as f_in, open('_localPdbFile.pdb', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
         args.PDB_File = '_localPdbFile.pdb'
-
-
-    
-# getCzetaFromDfgMotif
-# This function calculates get the position from the Zeta carbon from the DFG motif
-# @param chain         the chain from the pdb used for the calculation
-# @param phe_number    the number of the Phenylalanine residue from the Kinase DFG motif.
-#
-# @return   the position of the Zeta Carbon of the phenylalamide
-#
-def getCzetaFromDfgMotif(chain, phe_number):
-    for residue in chain.get_residues():
-        if residue.get_id()[1] == phe_number and residue.get_resname()  == 'PHE':
-            for atom in residue:
-                if atom.get_name() == "CZ":
-                    position = atom.get_vector()
-        elif residue.get_id()[1] == phe_number and residue.get_resname()  != 'PHE':
-            raise Exception('The residue mentionned is not a phenylalamide. The Calculation can not continue.')
-    return position
-
-# getCalphaFromAlphaHelix
-# This function calculates get the position from the alpha carbon from the alpha helix
-# @param chain         the chain from the pdb used for the calculation
-# @param gly_number    the number of the glutamine residue from the kinase alpha helix.
-#
-# @return   the position of the alpha Carbon of the alpha helix
-#
-def getCalphaFromAlphaHelix(chain, glu_number):
-    res_position = glu_number + 4 
-    for residue in chain.get_residues():
-        if residue.get_id()[1] == res_position:
-            for atom in residue:
-                if atom.get_name() == "CA":
-                    position = atom.get_vector()
-    return position
-
-# getCalphaFromBeta3
-# This function calculates get the position from the alpha carbon from the Beta-sheet 3
-# @param chain         the chain from the pdb used for the calculation
-# @param lys_number    the number of the Lysine residue from the Kinase Beta-sheet 3.
-#
-# @return   the position of the alpha Carbon of the lysine
-#
-def getCalphaFromBeta3(chain, lys_number):
-    for residue in chain.get_residues():
-        if residue.get_id()[1] == lys_number and residue.get_resname()  == 'LYS':
-            for atom in residue:
-                if atom.get_name() == "CA":
-                    position = atom.get_vector()
-        elif residue.get_id()[1] == lys_number and residue.get_resname()  != 'LYS':
-            raise Exception('The residue mentionned is not a lysine. The Calculation can not continue.')
-    return position
 
 # getAtomDstance
 # This function calculates the distance between 2 atoms based on the 3D coordinate vector of each atom
@@ -202,23 +147,17 @@ def getResidueAtom(strct, stringDefOfResidue, AtomName):
         atom = None
     return atom
 
-def getResidue_plus_4_Atom(strct, stringDefOfResidue, AtomName):
-      splitStr=stringDefOfResidue.split(':')
-      if not StringRepresentsInt(splitStr[0]):
-          sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
-      if len(splitStr) != 3:
-          sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM')
+def getResidueBasedOnRefResidueAndShift(stringDefOfResidue, shift):
+    splitStr=stringDefOfResidue.split(':')
+    if not StringRepresentsInt(splitStr[0]):
+        sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+    if len(splitStr) != 3:
+        sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM')
 
-      model=int(splitStr[0])-1
-      chain=splitStr[1]
-      residue=int(splitStr[2]) + 4
-      try:
-          atom = strct[model][chain][residue][AtomName]
-      except KeyError:
-          if args.verbose:
-              print('failed to get atom '+stringDefOfResidue+' with name '+AtomName)
-          atom = None
-      return atom
+    model=splitStr[0]
+    chain=splitStr[1]
+    residue=int(splitStr[2]) + int(shift)
+    return model+':'+chain+':'+str(residue)
 
 def getAtomPosition(atom):
     return atom.get_vector()
@@ -255,13 +194,12 @@ def getAlphaCHelix_DFG_dist(strct, d, e):
     distance = getAtomDistance(atomVect1, atomVect2)
     return distance
 
-def getAlphaCHelixType_v2(strct, f, e):
+def getAlphaCHelixType(strct, f, e):
     atom1 = getResidueAtom(strct, f, "CA")
     atom2 = getResidueAtom(strct, e, "CA")
 
     if atom1 is None or atom2 is None :
         return 'HaC:na'
-
 
     if args.verbose:
         print('PHE atom :')
@@ -286,42 +224,12 @@ def getAlphaCHelixType_v2(strct, f, e):
     return getAlphaCHelixType_fromDistance(distance)
 
 
-def getAlphaCHelixType(strct, d, e):
-    atom1 = getResidueAtom(strct, d, "CA")
-    atom2 = getResidueAtom(strct, e, "CA")
-
-    if atom1 is None or atom2 is None :
-        return 'HaC:na'
-
-
-    if args.verbose:
-        print('ASP atom :')
-        print(atom1)
-        print('GLU atom :')
-        print(atom2)
-
-    atomVect1 = getAtomPosition(atom1)
-    atomVect2 = getAtomPosition(atom2)
-
-    if args.verbose:
-        print('ASP of dfg position :')
-        print(atomVect1)
-        print('GLU of alpha C helix position :')
-        print(atomVect2)
-    distance = getAtomDistance(atomVect1, atomVect2)
-    if args.verbose:
-        print('Distance : ')
-        print(distance)
-        print('Helix type :')
-        print(getAlphaCHelixType_fromDistance(distance))
-    return getAlphaCHelixType_fromDistance(distance)
-
 def getDFGType(strct,f,e,k):
     atom_F = getResidueAtom(strct, f, "CZ")
-    #atom_E = getResidueAtom(strct, e, "CA")
     atom_K = getResidueAtom(strct, k, "CA")
-    atom_E_plus_4 = getResidue_plus_4_Atom(strct, e, "CA")
-    if atom_F is None or atom_F is None or atom_F is None :
+    atom_string_id_e_plus_4 = getResidueBasedOnRefResidueAndShift(e,4) 
+    atom_E_plus_4 = getResidueAtom(strct, atom_string_id_e_plus_4 , "CA")
+    if atom_F is None or atom_K is None or atom_E_plus_4 is None :
         return 'DFG:na'
 
     atomVect_F = getAtomPosition(atom_F)
@@ -351,17 +259,18 @@ def main():
         parser = PDB.PDBParser(QUIET=True)    
 
     structure = parser.get_structure('myPDB', args.PDB_File)
+
+    # some checks over residue names are not required, as sequence is not constant
     #checkResidueName(structure, args.f, "PHE")
     #checkResidueName(structure, args.d, "ASP")
     checkResidueName(structure, args.e, "GLU")
     checkResidueName(structure, args.k, "LYS")
 
 
-    helixType = getAlphaCHelixType_v2(structure, args.f, args.e)
+    helixType = getAlphaCHelixType(structure, args.f, args.e)
     dfgType =  getDFGType(structure, args.f, args.e, args.k)
-    if args.helixAlphaCDist:
-        dfg_helixAc_dist = getAlphaCHelix_DFG_dist(structure, args.f, args.e)
 
+    # ready for output (verbose, basic + distance, basic)
     if args.verbose:
         print('______________________')
         print('pdb: '+args.PDB_File)
@@ -369,7 +278,7 @@ def main():
         print('DFG: '+dfgType)
         print('______________________')
     elif args.helixAlphaCDist:
-        print (dfgType +' '+helixType + ' '+ str( dfg_helixAc_dist))  
+        print (dfgType +' '+helixType + ' '+ str( getAlphaCHelix_DFG_dist(structure, args.f, args.e) )   )  
     else :
         print (dfgType +' '+helixType);
 main()  
