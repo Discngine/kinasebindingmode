@@ -7,10 +7,11 @@ from Bio import PDB
 import gzip
 import shutil
 import csv
+import pandas
 
 # Start with some argument parsing and checks
 parser = argparse.ArgumentParser()
-parser.add_argument("d", help="D of DFG pattern (String), formatted as MODEL:CHAIN:RESNUM", type=str)
+# parser.add_argument("d", help="D of DFG pattern (String), formatted as MODEL:CHAIN:RESNUM", type=str)
 parser.add_argument("f", help="F of DFG pattern (String), formatted as MODEL:CHAIN:RESNUM", type=str)
 parser.add_argument("e", help="Conserved E in the alphaC helix (String), formatted as MODEL:CHAIN:RESNUM", type=str) 
 parser.add_argument("k", help="Front Cleft Beta Sheet LYS (String), formatted as MODEL:CHAIN:RESNUM", type=str) 
@@ -38,69 +39,80 @@ def StringRepresentsInt(s):
     except ValueError:
         return False
 
-def CheckParameters():
+def CheckParameters_andPreparePDB(f, e, k, PDB_File):
+
     if args.verbose:
         print("verbosity turned on")
-        print("D from DFG is : "+ args.d)
-        print("F from DFG is : "+ args.f)
-        print("E from helix AlphaC is : "+ args.e)
-        print("K from front clft Bsheet : "+ args.k)
-        print("PDB file Path : -"+ args.PDB_File+"-")
+        print("F from DFG is : "+ f)
+        print("E from helix AlphaC is : "+ e)
+        print("K from front clft Bsheet : "+ k)
+        print("PDB file Path : -"+ PDB_File+"-")
 
-    if path.isfile(args.PDB_File):
-        print("File is found")
-    if args.download and path.isdir("pdb") and path.isfile("pdb/pdb"+args.PDB_File+'.ent'):
-        print("File "+args.PDB_File+".ent is found in the  pdb/ subfolder")
-    elif args.download :
-        print("File "+args.PDB_File+" will be downloaded in the pdb/ subfolder")
+        if path.isfile(PDB_File):
+            print("File is found")
+        if args.download and path.isdir("pdb") and path.isfile("pdb/pdb"+PDB_File+'.ent'):
+            print("File "+PDB_File+".ent is found in the  pdb/ subfolder")
+        elif args.download :
+            print("File "+PDB_File+" will be downloaded in the pdb/ subfolder")
 
     if args.download :
         if not path.isdir("pdb"):
             if args.verbose:
                 print("Creating pdb subfolder")
             mkdir("pdb")
-        if(path.isfile("pdb/pdb"+args.PDB_File+'.ent')):
-            args.PDB_File = "pdb/pdb"+args.PDB_File+'.ent';
+        if(path.isfile("pdb/pdb"+PDB_File+'.ent')):
+            PDB_File = "pdb/pdb"+PDB_File+'.ent';
         else:
             if args.verbose:
                 print("Ready to download structure")
             pdbl = PDB.PDBList()
-            pdbl.download_pdb_files([args.PDB_File.upper()], pdir='pdb', file_format='pdb')
-            args.PDB_File = "pdb/pdb"+args.PDB_File+'.ent';
+            pdbl.download_pdb_files([PDB_File.upper()], pdir='pdb', file_format='pdb')
+            PDB_File = "pdb/pdb"+PDB_File+'.ent';
      
     # if pdb file is not found, exit
-    if not path.isfile(args.PDB_File):
-        sys.exit('Error! file '+args.PDB_File+' not found!')
-    # basic check on first residue definition
-    d_split=args.d.split(':')
-    if not StringRepresentsInt(d_split[0]):
-        sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
-    if len(d_split) != 3:
-        sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM')
+    if not path.isfile(PDB_File):
+        if args.verbose:
+            print('Error! file '+PDB_File+' not found!')
+        return None
     # basic check on secondresidue definition
-    f_split=args.f.split(':')
+    f_split=f.split(':')
     if not StringRepresentsInt(f_split[0]):
-        sys.exit('Error with argument f format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        if args.verbose:
+            print('Error with argument f format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        return None
+        
     if len(f_split) != 3:
-        sys.exit('Error with argument f format. format should be MODEL:CHAIN:RESNUM')
+        if args.verbose:
+            print('Error with argument f format. format should be MODEL:CHAIN:RESNUM')
+        return None
     # basic check on third residue definition
-    e_split=args.e.split(':')
+    e_split=e.split(':')
     if not StringRepresentsInt(e_split[0]):
-        sys.exit('Error with argument e format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        if args.verbose:
+            print('Error with argument e format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        return None
     if len(e_split) != 3:
-        sys.exit('Error with argument e format. format should be MODEL:CHAIN:RESNUM')
+        if args.verbose:
+            print('Error with argument e format. format should be MODEL:CHAIN:RESNUM')
+        return None
     # basic check on fourth residue definition
-    k_split=args.k.split(':')
+    k_split=k.split(':')
     if not StringRepresentsInt(k_split[0]):
-        sys.exit('Error with argument k format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        if args.verbose:
+            print('Error with argument k format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        return None
     if len(k_split) != 3:
-        sys.exit('Error with argument k format. format should be MODEL:CHAIN:RESNUM')
-    if args.PDB_File.endswith('.gz') :
+        if args.verbose:
+            print('Error with argument k format. format should be MODEL:CHAIN:RESNUM')
+        return None
+    if PDB_File.endswith('.gz') :
         if args.verbose:
             print("Ready to unzip the pdb file")
-        with gzip.open(args.PDB_File, 'r') as f_in, open('_localPdbFile.pdb', 'wb') as f_out:
+        with gzip.open(PDB_File, 'r') as f_in, open('_localPdbFile.pdb', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
-        args.PDB_File = '_localPdbFile.pdb'
+        PDB_File = '_localPdbFile.pdb'
+    return PDB_File
+
 
 # getAtomDstance
 # This function calculates the distance between 2 atoms based on the 3D coordinate vector of each atom
@@ -254,42 +266,50 @@ def getDFGType(strct,f,e,k):
         print('DFG type : '+type)
     return type    
 
-def main():
-
-    if args.loadFromCsvFile :
-        with open( args.loadFromCsvFile, newline='') as csvfile:
-            csvreader = csv.reader(csvfile, delimiter= args.fieldSeparator, quotechar='"')
-            for row in csvreader:
-                print(', '.join(row))
-
-
-    CheckParameters()
+def process(PDB_File, f, e, k):
+    PDBFilePath = CheckParameters_andPreparePDB(f, e, k, str(PDB_File))
+    if PDBFilePath is None:
+        return "error" +  args.fieldSeparator+"error"
     if args.verbose:
         parser = PDB.PDBParser()    
     else:
         parser = PDB.PDBParser(QUIET=True)    
 
-    structure = parser.get_structure('myPDB', args.PDB_File)
+    structure = parser.get_structure('myPDB', PDBFilePath)
 
     # some checks over residue names are not required, as sequence is not constant
-    #checkResidueName(structure, args.f, "PHE")
-    #checkResidueName(structure, args.d, "ASP")
-    checkResidueName(structure, args.e, "GLU")
-    checkResidueName(structure, args.k, "LYS")
+    #checkResidueName(structure, f, "PHE")
+    checkResidueName(structure, e, "GLU")
+    checkResidueName(structure, k, "LYS")
 
-
-    helixType = getAlphaCHelixType(structure, args.f, args.e)
-    dfgType =  getDFGType(structure, args.f, args.e, args.k)
+    helixType = getAlphaCHelixType(structure, f, e)
+    dfgType =  getDFGType(structure, f, e, k)
 
     # ready for output (verbose, basic + distance, basic)
     if args.verbose:
         print('______________________')
-        print('pdb: '+args.PDB_File)
+        print('pdb: '+PDB_File)
         print('aC helix: ' + helixType)
         print('DFG: '+dfgType)
         print('______________________')
+        return dfgType + args.fieldSeparator+helixType
     elif args.helixAlphaCDist:
-        print (dfgType + args.fieldSeparator +helixType +  args.fieldSeparator+ str( getAlphaCHelix_DFG_dist(structure, args.f, args.e) )   )  
+        return dfgType + args.fieldSeparator +helixType +  args.fieldSeparator+ str( getAlphaCHelix_DFG_dist(structure, f, e) ) 
     else :
-        print (dfgType + args.fieldSeparator+helixType);
+        return dfgType + args.fieldSeparator+helixType
+
+def main():
+
+    if args.loadFromCsvFile :
+        dataframe = pandas.read_csv(args.loadFromCsvFile, sep=args.fieldSeparator)
+        print(dataframe)
+        print(len(dataframe))
+        for index, row in dataframe.iterrows() :
+            #print(row["FilePath"])
+#Kinase_ID;Kinase_Name;smiles;structure_ID;pdb;alt;chain;missing_residues;ligand;allosteric_ligand;DFG;aC_helix;back;species;
+            print(row[args.PDB_File],  row[args.f], row[args.e], row[args.k],process(row[args.PDB_File],  row[args.f], row[args.e], row[args.k] ))
+            
+    else :
+        print(process(args.PDB_File,  args.f, args.e, args.k ))
+
 main()  
