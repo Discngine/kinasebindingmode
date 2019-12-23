@@ -6,6 +6,7 @@ from os import mkdir
 from Bio import PDB
 import gzip
 import shutil
+import csv
 
 # Start with some argument parsing and checks
 parser = argparse.ArgumentParser()
@@ -17,7 +18,9 @@ parser.add_argument("PDB_File", help="Full file path to the PDB structure file t
 # optional args
 parser.add_argument("-v", "--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("-hac", "--helixAlphaCDist", help="add the DFG alphaC helix distance to the main output line", action="store_true")
+parser.add_argument("-FS", "--fieldSeparator", help="replace the default filed separator (in non verbose mode). Default is a space", nargs='?', const=' ', type=str,  action="store", default=' ')
 parser.add_argument("-d", "--download", help="allow the download of missing pdb file in a pdb subfolder. Ensure that PDB_File argument is a simple 4 letter pdb code instead a woole file name", action="store_true")
+parser.add_argument("-csv", "--loadFromCsvFile", help="use a csv file to perform the analysis on multiple entries. When this option is active, d, f, e, k, and PDB_File parameters are column names instead of values", action="store")
 args = parser.parse_args()
 
 
@@ -252,6 +255,14 @@ def getDFGType(strct,f,e,k):
     return type    
 
 def main():
+
+    if args.loadFromCsvFile :
+        with open( args.loadFromCsvFile, newline='') as csvfile:
+            csvreader = csv.reader(csvfile, delimiter= args.fieldSeparator, quotechar='"')
+            for row in csvreader:
+                print(', '.join(row))
+
+
     CheckParameters()
     if args.verbose:
         parser = PDB.PDBParser()    
@@ -278,7 +289,7 @@ def main():
         print('DFG: '+dfgType)
         print('______________________')
     elif args.helixAlphaCDist:
-        print (dfgType +' '+helixType + ' '+ str( getAlphaCHelix_DFG_dist(structure, args.f, args.e) )   )  
+        print (dfgType + args.fieldSeparator +helixType +  args.fieldSeparator+ str( getAlphaCHelix_DFG_dist(structure, args.f, args.e) )   )  
     else :
-        print (dfgType +' '+helixType);
+        print (dfgType + args.fieldSeparator+helixType);
 main()  
