@@ -22,6 +22,7 @@ parser.add_argument("-hac", "--helixAlphaCDist", help="add the DFG alphaC helix 
 parser.add_argument("-FS", "--fieldSeparator", help="replace the default filed separator (in non verbose mode). Default is a space", nargs='?', const=' ', type=str,  action="store", default=' ')
 parser.add_argument("-d", "--download", help="allow the download of missing pdb file in a pdb subfolder. Ensure that PDB_File argument is a simple 4 letter pdb code instead a woole file name", action="store_true")
 parser.add_argument("-csv", "--loadFromCsvFile", help="use a csv file to perform the analysis on multiple entries. When this option is active, d, f, e, k, and PDB_File parameters are column names instead of values", action="store")
+parser.add_argument("-expCSV", "--exportToCsvFile", help="export the content of the dataframe into a csv file. This option is available only if you use use the -csv option.", action="store")
 args = parser.parse_args()
 
 
@@ -40,6 +41,9 @@ def StringRepresentsInt(s):
         return False
 
 def CheckParameters_andPreparePDB(f, e, k, PDB_File):
+    if args.exportToCsvFile and not args.loadFromCsvFile:
+        print("You can't export data to csv if you did not start from a csv.")
+        return None
 
     if args.verbose:
         print("verbosity turned on")
@@ -134,11 +138,11 @@ def getAtomDistance(atomVect1, atomVect2):
 #
 def getAlphaCHelixType_fromDistance(distance):
     if distance > 4 and distance <= 7.2:
-        type = 'HaC:in'
+        type = 'in'
     elif distance > 7.2 and distance <= 9.3:
-        type = 'HaC:out-like'
+        type = 'out-like'
     elif distance > 9.3 and distance <= 14:
-        type = 'HaC:out'
+        type = 'out'
     else:
         type = 'HaC:na'
     return type
@@ -255,11 +259,11 @@ def getDFGType(strct,f,e,k):
     D2 = getAtomDistance(atomVect_F, atomVect_K)
 
     if D1 <= 11 and D2 <= 11:
-        type = 'DFG:inter'
+        type = 'inter'
     elif D1 > 11 and D2 <= 14:
-        type = 'DFG:out'
+        type = 'out'
     else:
-        type = 'DFG:in'
+        type = 'in'
     if args.verbose:
         print('Distance 1 : '+str(D1))
         print('Distacnce2 : '+str(D2))
@@ -294,21 +298,46 @@ def process(PDB_File, f, e, k):
         print('______________________')
         return dfgType + args.fieldSeparator+helixType
     elif args.helixAlphaCDist:
-        return dfgType + args.fieldSeparator +helixType +  args.fieldSeparator+ str( getAlphaCHelix_DFG_dist(structure, f, e) ) 
+        resDict = {"dfgType": dfgType, "helixType":helixType, "helixDistance":getAlphaCHelix_DFG_dist(structure, f, e)}
+        return resDict
+        #return dfgType + args.fieldSeparator +helixType +  args.fieldSeparator+ str( getAlphaCHelix_DFG_dist(structure, f, e) ) 
     else :
-        return dfgType + args.fieldSeparator+helixType
+        resDict = {"dfgType": dfgType, "helixType":helixType}
+        return resDict
+        #return dfgType + args.fieldSeparator+helixType
 
 def main():
 
     if args.loadFromCsvFile :
         dataframe = pandas.read_csv(args.loadFromCsvFile, sep=args.fieldSeparator)
-        print(dataframe)
-        print(len(dataframe))
+        #print(dataframe)
+        #print(len(dataframe))
+        dfgTypeList = [None]* len(dataframe) #creating an empty array of the size of the file
+        helixTypeList = [None]* len(dataframe) 
+        helixDistList = [None]* len(dataframe) 
         for index, row in dataframe.iterrows() :
             #print(row["FilePath"])
 #Kinase_ID;Kinase_Name;smiles;structure_ID;pdb;alt;chain;missing_residues;ligand;allosteric_ligand;DFG;aC_helix;back;species;
-            print(row[args.PDB_File],  row[args.f], row[args.e], row[args.k],process(row[args.PDB_File],  row[args.f], row[args.e], row[args.k] ))
+            #print(row[args.PDB_File],  row[args.f], row[args.e], row[args.k],process(row[args.PDB_File],  row[args.f], row[args.e], row[args.k] ))
+            res = process(row[args.PDB_File],  row[args.f], row[args.e], row[args.k] )
+            if args.helixAlphaCDist:
+                helixDistList[index] = res["helixDistance"]
+            dfgTypeList[index] = res["dfgType"]
+            helixTypeList[index] = res["helixType"]
+        
+        #create new data in the dataframe
+        dataframe["DFG_Type"] =  dfgTypeList
+        dataframe["Helix_Type"] = helixTypeList
+        if args.helixAlphaCDist:
+            dataframe["Helix_Distance"] = helixDistList
             
+        if args.exportToCsvFile:
+            dataframe.to_csv(args.exportToCsvFile,sep=args.fieldSeparator)
+            print('Your File '+args.exportToCsvFile+' is ready.')
+        else:
+            print(dataframe)
+        
+
     else :
         print(process(args.PDB_File,  args.f, args.e, args.k ))
 
