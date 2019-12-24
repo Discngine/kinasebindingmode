@@ -6,8 +6,12 @@ from os import mkdir
 from Bio import PDB
 import gzip
 import shutil
-import csv
+#import csv
 import pandas
+import re
+import datetime
+
+
 
 # Start with some argument parsing and checks
 parser = argparse.ArgumentParser()
@@ -34,6 +38,8 @@ args = parser.parse_args()
 # return a boolean
 #
 def StringRepresentsInt(s):
+    if s == '':
+      return False
     try: 
         int(s)
         return True
@@ -43,7 +49,8 @@ def StringRepresentsInt(s):
 def CheckParameters_andPreparePDB(f, e, k, PDB_File):
     if args.exportToCsvFile and not args.loadFromCsvFile:
         print("You can't export data to csv if you did not start from a csv.")
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Parameters error"}
+        return resDict
 
     if args.verbose:
         print("verbosity turned on")
@@ -77,45 +84,52 @@ def CheckParameters_andPreparePDB(f, e, k, PDB_File):
     if not path.isfile(PDB_File):
         if args.verbose:
             print('Error! file '+PDB_File+' not found!')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"File Not Found"}
+        return resDict
     # basic check on secondresidue definition
-    f_split=f.split(':')
+    f_split=str(f).split(':')
     if not StringRepresentsInt(f_split[0]):
         if args.verbose:
             print('Error with argument f format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Error with parameter F"}
+        return resDict
         
     if len(f_split) != 3:
         if args.verbose:
             print('Error with argument f format. format should be MODEL:CHAIN:RESNUM')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Error with parameter F"}
+        return resDict
     # basic check on third residue definition
-    e_split=e.split(':')
+    e_split=str(e).split(':')
     if not StringRepresentsInt(e_split[0]):
         if args.verbose:
             print('Error with argument e format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Error with parameter E"}
+        return resDict
     if len(e_split) != 3:
         if args.verbose:
             print('Error with argument e format. format should be MODEL:CHAIN:RESNUM')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Error with parameter E"}
+        return resDict
     # basic check on fourth residue definition
-    k_split=k.split(':')
+    k_split=str(k).split(':')
     if not StringRepresentsInt(k_split[0]):
         if args.verbose:
             print('Error with argument k format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":""}
+        return resDict
     if len(k_split) != 3:
         if args.verbose:
             print('Error with argument k format. format should be MODEL:CHAIN:RESNUM')
-        return None
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":""}
+        return resDict
     if PDB_File.endswith('.gz') :
         if args.verbose:
             print("Ready to unzip the pdb file")
         with gzip.open(PDB_File, 'r') as f_in, open('_localPdbFile.pdb', 'wb') as f_out:
             shutil.copyfileobj(f_in, f_out)
         PDB_File = '_localPdbFile.pdb'
-    return PDB_File
+    return {"filePath": PDB_File}
 
 
 # getAtomDstance
@@ -184,14 +198,26 @@ def getAtomPosition(atom):
 def getResidueName(strct, stringDefOfResidue):
     splitStr=stringDefOfResidue.split(':')
     if not StringRepresentsInt(splitStr[0]):
-        sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        #sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        return "Error"
     if len(splitStr) != 3:
-        sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM')
+        #sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM')
+        return "Error"
+    if not StringRepresentsInt(splitStr[2]):
+        #sys.exit('Error with argument d format. format should be MODEL:CHAIN:RESNUM and here MODEL is not a number')
+        return "Error"
+    p = re.compile('^[A-Z]$', re.IGNORECASE)
+    if( not p.match(splitStr[1]) ):
+        return "Error"
 
     model=int(splitStr[0])-1
     chain=splitStr[1]
     residue=int(splitStr[2])
-    res = strct[model][chain][residue]
+    #print("res = str["+ str(model) +"]["+str(chain)+"]["+str(residue)+"]")
+    try:
+    	res = strct[model][chain][residue]
+    except KeyError:
+        return "Error"
     return res.get_resname()
 
 def checkResidueName(strct, stringDefOfResidue, residueName):
@@ -271,9 +297,13 @@ def getDFGType(strct,f,e,k):
     return type    
 
 def process(PDB_File, f, e, k):
-    PDBFilePath = CheckParameters_andPreparePDB(f, e, k, str(PDB_File))
-    if PDBFilePath is None:
-        return "error" +  args.fieldSeparator+"error"
+    response = CheckParameters_andPreparePDB(f, e, k, str(PDB_File))
+    if "filePath" in response :
+        PDBFilePath = str(response["filePath"])
+    else:
+        # case with an error. Error allready formatted for output
+        return response
+
     if args.verbose:
         parser = PDB.PDBParser()    
     else:
@@ -283,8 +313,13 @@ def process(PDB_File, f, e, k):
 
     # some checks over residue names are not required, as sequence is not constant
     #checkResidueName(structure, f, "PHE")
-    checkResidueName(structure, e, "GLU")
-    checkResidueName(structure, k, "LYS")
+    if getResidueName(structure, e) != "GLU":
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Expected E is not a Glu"}
+        return resDict
+    if getResidueName(structure, k) != "LYS":
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Expected K is not a Lys"}
+        return resDict
+
 
     helixType = getAlphaCHelixType(structure, f, e)
     dfgType =  getDFGType(structure, f, e, k)
@@ -296,7 +331,9 @@ def process(PDB_File, f, e, k):
         print('aC helix: ' + helixType)
         print('DFG: '+dfgType)
         print('______________________')
-        return dfgType + args.fieldSeparator+helixType
+        resDict = {"dfgType": dfgType, "helixType":helixType}
+        return resDict
+        #return dfgType + args.fieldSeparator+helixType
     elif args.helixAlphaCDist:
         resDict = {"dfgType": dfgType, "helixType":helixType, "helixDistance":getAlphaCHelix_DFG_dist(structure, f, e)}
         return resDict
@@ -306,15 +343,27 @@ def process(PDB_File, f, e, k):
         return resDict
         #return dfgType + args.fieldSeparator+helixType
 
-def main():
+def progbar(curr, total, full_progbar):
+    frac = curr/total
+    filled_progbar = round(frac*full_progbar)
+    print('\r', '#'*filled_progbar + '-'*(full_progbar-filled_progbar), '[{:>7.2%}]'.format(frac), end='')
 
+def displayDateTime():
+    now = datetime.datetime.now()
+    print ("Current date and time : ")
+    print (now.strftime("%Y-%m-%d %H:%M:%S"))
+
+
+def main():
+    displayDateTime()
     if args.loadFromCsvFile :
         dataframe = pandas.read_csv(args.loadFromCsvFile, sep=args.fieldSeparator)
         #print(dataframe)
-        #print(len(dataframe))
+        totalRowNum = len(dataframe)
         dfgTypeList = [None]* len(dataframe) #creating an empty array of the size of the file
         helixTypeList = [None]* len(dataframe) 
         helixDistList = [None]* len(dataframe) 
+        errorTypeList = [None]* len(dataframe) 
         for index, row in dataframe.iterrows() :
             #print(row["FilePath"])
 #Kinase_ID;Kinase_Name;smiles;structure_ID;pdb;alt;chain;missing_residues;ligand;allosteric_ligand;DFG;aC_helix;back;species;
@@ -324,10 +373,17 @@ def main():
                 helixDistList[index] = res["helixDistance"]
             dfgTypeList[index] = res["dfgType"]
             helixTypeList[index] = res["helixType"]
-        
+            if "errorType" in res :
+                errorTypeList[index] = res["errorType"]
+            else :
+                errorTypeList[index] = "none"
+            progbar(index, totalRowNum, 50);
+            sys.stdout.flush() #avoid console buffering of output
+ 
         #create new data in the dataframe
         dataframe["DFG_Type"] =  dfgTypeList
         dataframe["Helix_Type"] = helixTypeList
+        dataframe["errorType"] = errorTypeList
         if args.helixAlphaCDist:
             dataframe["Helix_Distance"] = helixDistList
             
@@ -340,5 +396,5 @@ def main():
 
     else :
         print(process(args.PDB_File,  args.f, args.e, args.k ))
-
+    displayDateTime()
 main()  
