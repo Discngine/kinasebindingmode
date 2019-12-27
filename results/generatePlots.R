@@ -1,6 +1,6 @@
 library(ggplot2)
 library(gridExtra)
-
+library(reshape2)
 
 r=read.table("orderGlobalEval.csv",header=TRUE,sep=",")
 
@@ -71,8 +71,11 @@ createPlot<-function(data,title){
   labs(y = "",
                 x = "Similarity Threshold",colour="",title=title) + 
                 scale_colour_Publication() +
-                
-                theme_Publication()
+                theme_Publication() + 
+                ylim(0,1.0)
+
+  
+  
 
   return(p)
   
@@ -80,7 +83,20 @@ createPlot<-function(data,title){
 
 }
 
+getPerformance<-function(data,threshold){
+  data=data[order(-data["MCC"]),]
+  idx=which(data[,"nFound"]/nData>=threshold)
+  print(idx)
+  idx=idx[1]
+  return(c(data[idx,"BA"],data[idx,"sdBA"],data[idx,"F1"],data[idx,"sdF1"],data[idx,"MCC"],data[idx,"sdMCC"],data[idx,"similarityThreshold"]))
+}
 
+
+catPerformance<-function(perf,title,file){
+  cat(title,"\t",perf[1],"\t",perf[2],"\t",perf[3],"\t",perf[4],"\t",perf[5],"\t",perf[6],"\t",perf[7],"\n",file=file,append=TRUE)
+
+  
+}
 
 tanimoto_top_radius_1=r[r[,"FingerprintRadius"]==1 & r[,"SimilarityMetric"]=="TanimotoSimilarity" & r[,"evaluationMode"]=="top",]
 tanimoto_top_radius_2=r[r[,"FingerprintRadius"]==2 & r[,"SimilarityMetric"]=="TanimotoSimilarity" & r[,"evaluationMode"]=="top",]
@@ -108,6 +124,136 @@ tversky_proba_radius_3=r[r[,"FingerprintRadius"]==3 & r[,"SimilarityMetric"]=="T
 
 ergfp_top=r[r[,"FingerprintRadius"]==0 & r[,"SimilarityMetric"]=="calc_ergfp" & r[,"evaluationMode"]=="top",]
 ergfp_proba=r[r[,"FingerprintRadius"]==0 & r[,"SimilarityMetric"]=="calc_ergfp" & r[,"evaluationMode"]=="probability",]
+
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="top_results_05.csv",sep="\n")
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="top_results_08.csv",sep="\n")
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="top_results_09.csv",sep="\n")
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="top_results_1.csv",sep="\n")
+catPerformance(getPerformance(tanimoto_top_radius_1,0.8),"Tanimoto_top_1_0.8%","top_results_08.csv")
+catPerformance(getPerformance(tanimoto_top_radius_2,0.8),"Tanimoto_top_2_0.8%","top_results_08.csv")
+catPerformance(getPerformance(tanimoto_top_radius_3,0.8),"Tanimoto_top_3_0.8%","top_results_08.csv")
+catPerformance(getPerformance(dice_top_radius_1,0.8),"Dice_top_1_0.8%","top_results_08.csv")
+catPerformance(getPerformance(dice_top_radius_2,0.8),"Dice_top_2_0.8%","top_results_08.csv")
+catPerformance(getPerformance(dice_top_radius_3,0.8),"Dice_top_3_0.8%","top_results_08.csv")
+catPerformance(getPerformance(tversky_top_radius_1,0.8),"Tversky_top_1_0.8%","top_results_08.csv")
+catPerformance(getPerformance(tversky_top_radius_2,0.8),"Tversky_top_2_0.8%","top_results_08.csv")
+catPerformance(getPerformance(tversky_top_radius_3,0.8),"Tversky_top_3_0.8%","top_results_08.csv")
+
+catPerformance(getPerformance(tanimoto_top_radius_1,0.9),"Tanimoto_top_1_0.9%","top_results_09.csv")
+catPerformance(getPerformance(tanimoto_top_radius_2,0.9),"Tanimoto_top_2_0.9%","top_results_09.csv")
+catPerformance(getPerformance(tanimoto_top_radius_3,0.9),"Tanimoto_top_3_0.9%","top_results_09.csv")
+catPerformance(getPerformance(dice_top_radius_1,0.9),"Dice_top_1_0.9%","top_results_09.csv")
+catPerformance(getPerformance(dice_top_radius_2,0.9),"Dice_top_2_0.9%","top_results_09.csv")
+catPerformance(getPerformance(dice_top_radius_3,0.9),"Dice_top_3_0.9%","top_results_09.csv")
+catPerformance(getPerformance(tversky_top_radius_1,0.9),"Tversky_top_1_0.9%","top_results_09.csv")
+catPerformance(getPerformance(tversky_top_radius_2,0.9),"Tversky_top_2_0.9%","top_results_09.csv")
+catPerformance(getPerformance(tversky_top_radius_3,0.9),"Tversky_top_3_0.9%","top_results_09.csv")
+
+catPerformance(getPerformance(tanimoto_top_radius_1,0.5),"Tanimoto_top_1_0.5%","top_results_05.csv")
+catPerformance(getPerformance(tanimoto_top_radius_2,0.5),"Tanimoto_top_2_0.5%","top_results_05.csv")
+catPerformance(getPerformance(tanimoto_top_radius_3,0.5),"Tanimoto_top_3_0.5%","top_results_05.csv")
+catPerformance(getPerformance(dice_top_radius_1,0.5),"Dice_top_1_0.5%","top_results_05.csv")
+catPerformance(getPerformance(dice_top_radius_2,0.5),"Dice_top_2_0.5%","top_results_05.csv")
+catPerformance(getPerformance(dice_top_radius_3,0.5),"Dice_top_3_0.5%","top_results_05.csv")
+catPerformance(getPerformance(tversky_top_radius_1,0.5),"Tversky_top_1_0.5%","top_results_05.csv")
+catPerformance(getPerformance(tversky_top_radius_2,0.5),"Tversky_top_2_0.5%","top_results_05.csv")
+catPerformance(getPerformance(tversky_top_radius_3,0.5),"Tversky_top_3_0.5%","top_results_05.csv")
+
+catPerformance(getPerformance(tanimoto_top_radius_1,0.99),"Tanimoto_top_1_0.99%","top_results_099.csv")
+catPerformance(getPerformance(tanimoto_top_radius_2,0.99),"Tanimoto_top_2_0.99%","top_results_099.csv")
+catPerformance(getPerformance(tanimoto_top_radius_3,0.99),"Tanimoto_top_3_0.99%","top_results_099.csv")
+catPerformance(getPerformance(dice_top_radius_1,0.99),"Dice_top_1_0.99%","top_results_099.csv")
+catPerformance(getPerformance(dice_top_radius_2,0.99),"Dice_top_2_0.99%","top_results_099.csv")
+catPerformance(getPerformance(dice_top_radius_3,0.99),"Dice_top_3_0.99%","top_results_099.csv")
+catPerformance(getPerformance(tversky_top_radius_1,0.99),"Tversky_top_1_0.99%","top_results_099.csv")
+catPerformance(getPerformance(tversky_top_radius_2,0.99),"Tversky_top_2_0.99%","top_results_099.csv")
+catPerformance(getPerformance(tversky_top_radius_3,0.99),"Tversky_top_3_0.99%","top_results_099.csv")
+
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="proba_results_05.csv",sep="\n")
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="proba_results_08.csv",sep="\n")
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="proba_results_09.csv",sep="\n")
+cat("Combination\tBA\tsdBA\tF1\tsdF1\tMCC\tsdMCC\tsimilarityThreshold",file="proba_results_1.csv",sep="\n")
+
+catPerformance(getPerformance(tanimoto_proba_radius_1,0.8),"Tanimoto_proba_1_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_2,0.8),"Tanimoto_proba_2_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_3,0.8),"Tanimoto_proba_3_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(dice_proba_radius_1,0.8),"Dice_proba_1_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(dice_proba_radius_2,0.8),"Dice_proba_2_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(dice_proba_radius_3,0.8),"Dice_proba_3_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(tversky_proba_radius_1,0.8),"Tversky_proba_1_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(tversky_proba_radius_2,0.8),"Tversky_proba_2_0.8%","proba_results_08.csv")
+catPerformance(getPerformance(tversky_proba_radius_3,0.8),"Tversky_proba_3_0.8%","proba_results_08.csv")
+
+catPerformance(getPerformance(tanimoto_proba_radius_1,0.9),"Tanimoto_proba_1_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_2,0.9),"Tanimoto_proba_2_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_3,0.9),"Tanimoto_proba_3_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(dice_proba_radius_1,0.9),"Dice_proba_1_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(dice_proba_radius_2,0.9),"Dice_proba_2_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(dice_proba_radius_3,0.9),"Dice_proba_3_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(tversky_proba_radius_1,0.9),"Tversky_proba_1_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(tversky_proba_radius_2,0.9),"Tversky_proba_2_0.9%","proba_results_09.csv")
+catPerformance(getPerformance(tversky_proba_radius_3,0.9),"Tversky_proba_3_0.9%","proba_results_09.csv")
+
+catPerformance(getPerformance(tanimoto_proba_radius_1,0.5),"Tanimoto_proba_1_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_2,0.5),"Tanimoto_proba_2_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_3,0.5),"Tanimoto_proba_3_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(dice_proba_radius_1,0.5),"Dice_proba_1_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(dice_proba_radius_2,0.5),"Dice_proba_2_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(dice_proba_radius_3,0.5),"Dice_proba_3_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(tversky_proba_radius_1,0.5),"Tversky_proba_1_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(tversky_proba_radius_2,0.5),"Tversky_proba_2_0.5%","proba_results_05.csv")
+catPerformance(getPerformance(tversky_proba_radius_3,0.5),"Tversky_proba_3_0.5%","proba_results_05.csv")
+
+catPerformance(getPerformance(tanimoto_proba_radius_1,0.99),"Tanimoto_proba_1_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_2,0.99),"Tanimoto_proba_2_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(tanimoto_proba_radius_3,0.99),"Tanimoto_proba_3_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(dice_proba_radius_1,0.99),"Dice_proba_1_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(dice_proba_radius_2,0.99),"Dice_proba_2_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(dice_proba_radius_3,0.99),"Dice_proba_3_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(tversky_proba_radius_1,0.99),"Tversky_proba_1_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(tversky_proba_radius_2,0.99),"Tversky_proba_2_0.99%","proba_results_099.csv")
+catPerformance(getPerformance(tversky_proba_radius_3,0.99),"Tversky_proba_3_0.99%","proba_results_099.csv")
+
+
+t1_t2_ref <- data.frame(
+  name=factor(c("RF","SVM","DNN","Tversky 99%","Tanimoto 50%"),levels = c("RF","SVM","DNN","Tversky 99%","Tanimoto 50%")),
+  BA=c(0.75,0.85,0.88,0.91011,0.96934),
+  F1=c(0.66,0.8,0.8,0.97213,0.99194),
+  MCC=c(0.68,0.79,0.77,0.76161,0.94208)
+)
+#  sdBA=c(0.02,0.02,0.02,0.01643,0.0114),
+#  sdF1=c(0.04,0.03,0.02,0.00246,0.00252),
+#  sdMCC=c(0.03,0.03,0.02,0.02119,0.01739)
+
+
+
+t1_t2_ref.m <- melt(t1_t2_ref, id.vars='name')
+t1_t2_ref.m=cbind(t1_t2_ref.m,rep(0,length(t1_t2_ref.m[,1])))
+colnames(t1_t2_ref.m)[4]="sd"
+t1_t2_ref.m[4]=c(0.02,0.02,0.02,0.01643,0.0114,0.04,0.03,0.02,0.00246,0.00252,0.03,0.03,0.02,0.02119,0.01739)
+
+p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
+  geom_bar( position = "dodge", stat="identity") + 
+  geom_errorbar(aes(ymin=value-sd, ymax=value+sd), width=.2,position=position_dodge(.9)) +
+  labs(y = "Metric value",
+                x = "Prediction Method",colour="",fill="") + 
+                scale_colour_Publication() +
+                theme_Publication() + 
+                ylim(0,1.0)
+
+print(p)
+
+
+ggsave(file="comparisonBarplot.svg", plot=p, width=8, height=5)
+
+#Tversky data taken above threshold 0.3
+#Tanimoto data taken above threshold 0.4
+
+
+
+t1_t2_ref_BA=
+t1_t2_ref_F1=
+t1_t2_ref_MCC=
 
 
 tt1=createPlot(tanimoto_top_radius_1,"Tanimoto Top MFP1")
