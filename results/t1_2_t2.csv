@@ -1,3 +1,4 @@
+SimilarityMetric	Label1	evaluationMode	Label2	FingerprintRadius	Label3	similarityThreshold	Label4	BA	sdBA	Label5	F1	sdF1	Label6	MCC	sdMCC	Label7	nFound	sdnFound	Label8	nNotFound	sdnNotFound
 TanimotoSimilarity	evaluationMode:	top	FPRadius	1	similarityThreshold:	0.90	ba:	0.96696	0.02795	f1:	0.96278	0.03152	mcc	0.93356	0.05443	found:	17	1.08	notFound	364	1.08
 TanimotoSimilarity	evaluationMode:	probability	FPRadius	1	similarityThreshold:	0.90	ba:	0.99167	0.02500	f1:	0.99091	0.02727	mcc	0.98539	0.04383	found:	15	2.39	notFound	366	2.39
 TanimotoSimilarity	evaluationMode:	top	FPRadius	2	similarityThreshold:	0.90	ba:	1.00000	0.00000	f1:	1.00000	0.00000	mcc	1.00000	0.00000	found:	10	1.97	notFound	371	1.97
