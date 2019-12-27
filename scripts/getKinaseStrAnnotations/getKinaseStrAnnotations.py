@@ -274,12 +274,30 @@ def getDFGType(strct,f,e,k):
     atom_K = getResidueAtom(strct, k, "CA")
     atom_string_id_e_plus_4 = getResidueBasedOnRefResidueAndShift(e,4) 
     atom_E_plus_4 = getResidueAtom(strct, atom_string_id_e_plus_4 , "CA")
-    if atom_F is None or atom_K is None or atom_E_plus_4 is None :
+    if atom_K is None or atom_E_plus_4 is None :
         return 'DFG:na'
-
-    atomVect_F = getAtomPosition(atom_F)
-    atomVect_E = getAtomPosition(atom_E_plus_4)
-    atomVect_K = getAtomPosition(atom_K)
+    elif  atom_F is None :
+        atom_cb = getResidueAtom(strct, f, "CB")
+        atom_cg = getResidueAtom(strct, f, "CG")
+        if atom_cb is None or atom_cg is None :
+             return 'DFG:na'
+        else :
+            atomVect_cb = getAtomPosition(atom_cb)
+            atomVect_cg = getAtomPosition(atom_cg)
+            atomVect_F = atomVect_cg + (( atomVect_cg - atomVect_cb ) ** 2.78 / 1.5 )  
+            if args.verbose:
+                print('CZ atom extrapolation : ')
+                print(atomVect_cb)
+                print(atomVect_cg)
+                # here we add to the CG position the CB-CG vector, normailzed ( /1.5) and extended to the classical CG-CZ length 2.78
+                print('extrapolated CZ : ')
+                print(atomVect_F)
+            atomVect_E = getAtomPosition(atom_E_plus_4)
+            atomVect_K = getAtomPosition(atom_K)
+    else :
+        atomVect_F = getAtomPosition(atom_F)
+        atomVect_E = getAtomPosition(atom_E_plus_4)
+        atomVect_K = getAtomPosition(atom_K)
     
     D1 = getAtomDistance(atomVect_F, atomVect_E)
     D2 = getAtomDistance(atomVect_F, atomVect_K)
