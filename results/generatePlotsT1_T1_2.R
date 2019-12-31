@@ -242,6 +242,25 @@ t1_t2_ref.m[4]=c(0.02,0.02,0.01,0.01074,0.01221,0.03,0.03,0.02,0.00505,0.00442,0
 p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
   geom_bar( position = "dodge", stat="identity") + 
   geom_errorbar(aes(ymin=value-sd, ymax=value+sd), width=.2,position=position_dodge(.9)) +
+  geom_segment(aes(x = 0.55, xend = 0.85, y = 0.49872, yend = 0.49872),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 0.85, xend = 1.15, y = 0.78046, yend = 0.78046),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 1.15, xend = 1.45, y = 0.0, yend = 0.0),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 1.55, xend = 1.85, y = 0.49872, yend = 0.49872),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 1.85, xend = 2.15, y = 0.78046, yend = 0.78046),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 2.15, xend = 2.45, y = 0.0, yend = 0.0),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 2.55, xend = 2.85, y = 0.49872, yend = 0.49872),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 2.85, xend = 3.15, y = 0.78046, yend = 0.78046),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 3.15, xend = 3.45, y = 0.0, yend = 0.0),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 3.55, xend = 3.85, y = 0.49872, yend = 0.49872),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 3.85, xend = 4.15, y = 0.78046, yend = 0.78046),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 4.15, xend = 4.45, y = 0.0, yend = 0.0),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 4.55, xend = 4.85, y = 0.49872, yend = 0.49872),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 4.85, xend = 5.15, y = 0.78046, yend = 0.78046),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 5.15, xend = 5.45, y = 0.0, yend = 0.0),col="black",linetype = "dashed") +
   labs(y = "Metric value",
                 x = "Prediction Method",colour="",fill="",title="Type 1 vs type 1 & 1/2") + 
                 scale_colour_Publication() +
@@ -250,8 +269,9 @@ p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
 
 print(p)
 
+#ba:     0.49872 0.01342 f1:     0.78046 0.00549 mcc     -0.00242        0.02642 found:  1142    notFound        0
 
-ggsave(file="comparisonBarplot_t1_t1_2.svg", dpi=300, plot=p, width=8, height=5)
+ggsave(file="comparisonBarplot_t1_t1_2.svg", dpi=300, plot=p, width=8, height=7)
 
 #Tversky data taken above threshold 0.3
 #Tanimoto data taken above threshold 0.4

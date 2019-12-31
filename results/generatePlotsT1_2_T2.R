@@ -241,16 +241,37 @@ t1_t2_ref.m[4]=c(0.03,0.02,0.03,0.01205,0.00628,0.04,0.02,0.04,0.00795,0.00509,0
 p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
   geom_bar( position = "dodge", stat="identity") + 
   geom_errorbar(aes(ymin=value-sd, ymax=value+sd), width=.2,position=position_dodge(.9)) +
+  geom_segment(aes(x = 0.55, xend = 0.85, y = 0.50088, yend = 0.50088),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 0.85, xend = 1.15, y = 0.65920, yend = 0.65920),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 1.15, xend = 1.45, y = 0.00157, yend = 0.00157),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 1.55, xend = 1.85, y = 0.50088, yend = 0.50088),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 1.85, xend = 2.15, y = 0.65920, yend = 0.65920),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 2.15, xend = 2.45, y = 0.00157, yend = 0.00157),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 2.55, xend = 2.85, y = 0.50088, yend = 0.50088),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 2.85, xend = 3.15, y = 0.65920, yend = 0.65920),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 3.15, xend = 3.45, y = 0.00157, yend = 0.00157),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 3.55, xend = 3.85, y = 0.50088, yend = 0.50088),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 3.85, xend = 4.15, y = 0.65920, yend = 0.65920),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 4.15, xend = 4.45, y = 0.00157, yend = 0.00157),col="black",linetype = "dashed") +
+
+  geom_segment(aes(x = 4.55, xend = 4.85, y = 0.50088, yend = 0.50088),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 4.85, xend = 5.15, y = 0.65920, yend = 0.65920),col="black",linetype = "dashed") +
+  geom_segment(aes(x = 5.15, xend = 5.45, y = 0.00157, yend = 0.00157),col="black",linetype = "dashed") +
   labs(y = "Metric value",
-                x = "Prediction Method",colour="",fill="",title="Type 1 & 1/2 vs type 2") + 
+                x = "Prediction Method",colour="",fill="",title="Type I & 1/2 vs type II") + 
                 scale_colour_Publication() +
                 theme_Publication() + 
                 ylim(0,1.0)
 
+#ba:     0.50088 0.02617 f1:     0.65920 0.02216 mcc     0.00157 0.05266 found:  382     notFound        0
+
 print(p)
 
 
-ggsave(file="comparisonBarplot_t1_2_t2.svg", dpi=300, plot=p, width=8, height=5)
+ggsave(file="comparisonBarplot_t1_2_t2.svg", dpi=300, plot=p, width=8, height=7)
 
 #Tversky data taken above threshold 0.3
 #Tanimoto data taken above threshold 0.4
