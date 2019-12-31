@@ -327,7 +327,14 @@ def process(PDB_File, f, e, k):
     else:
         parser = PDB.PDBParser(QUIET=True)    
 
-    structure = parser.get_structure('myPDB', PDBFilePath)
+    try:
+        structure = parser.get_structure('myPDB', PDBFilePath)
+    except Exception as e :
+        if args.verbose:
+            print("Parsing error")
+            print(e)
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"PDB parsing failed"}
+        return resDict
 
     # some checks over residue names are not required, as sequence is not constant
     #checkResidueName(structure, f, "PHE")
@@ -338,9 +345,15 @@ def process(PDB_File, f, e, k):
         resDict = {"dfgType": "error", "helixType":"error", "errorType":"Expected K is not a Lys"}
         return resDict
 
-
-    helixType = getAlphaCHelixType(structure, f, e)
-    dfgType =  getDFGType(structure, f, e, k)
+    try :
+        helixType = getAlphaCHelixType(structure, f, e)
+        dfgType =  getDFGType(structure, f, e, k)
+    except Exception as e :
+        if args.verbose:
+            print("Unexpected error")
+            print(e)
+        resDict = {"dfgType": "error", "helixType":"error", "errorType":"Unexpected Error"}
+        return resDict
 
     # ready for output (verbose, basic + distance, basic)
     if args.verbose:
