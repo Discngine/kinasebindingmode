@@ -17,12 +17,12 @@ theme_Publication <- function(base_size=14, base_family="Roboto") {
       library(ggthemes)
       (theme_foundation(base_size=base_size, base_family=base_family)
        + theme(plot.title = element_text(face = "bold",
-                                         size = rel(1.2), hjust = 0.5),
-               text = element_text(),
+                                         size = rel(5.2), hjust = 0.5),
+               text = element_text(size = rel(5.2)),
                panel.background = element_rect(colour = NA),
                plot.background = element_rect(colour = NA),
                panel.border = element_rect(colour = NA),
-               axis.title = element_text(face = "bold",size = rel(1)),
+               axis.title = element_text(face = "bold",size = rel(1.0)),
                axis.title.y = element_text(angle=90,vjust =2),
                axis.title.x = element_text(vjust = -0.2),
                axis.text = element_text(), 
@@ -33,15 +33,17 @@ theme_Publication <- function(base_size=14, base_family="Roboto") {
                legend.key = element_rect(colour = NA),
                legend.position = "bottom",
                legend.direction = "horizontal",
-               legend.key.size= unit(0.2, "cm"),
+               legend.key.size= unit(0.5, "cm"),
                legend.margin = unit(0, "cm"),
                legend.title = element_text(face="italic"),
+               legend.text = element_text(size = rel(5.2)),
                plot.margin=unit(c(10,5,5,5),"mm"),
                strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
                strip.text = element_text(face="bold")
           ))
       
 }
+
 
 scale_fill_Publication <- function(...){
       library(scales)
@@ -216,7 +218,7 @@ catPerformance(getPerformance(tversky_proba_radius_3,0.99),"Tversky_proba_3_0.99
 
 
 t1_t2_ref <- data.frame(
-  name=factor(c("RF","SVM","DNN","Tversky 99%","Tanimoto 50%"),levels = c("RF","SVM","DNN","Tversky 99%","Tanimoto 50%")),
+  name=factor(c("RF","SVM","DNN","Tversky 99%","Tanim. 50%"),levels = c("RF","SVM","DNN","Tversky 99%","Tanim. 50%")),
   BA=c(0.75,0.85,0.88,0.91011,0.96934),
   F1=c(0.66,0.8,0.8,0.97213,0.99194),
   MCC=c(0.68,0.79,0.77,0.76161,0.94208)
@@ -236,7 +238,7 @@ p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
   geom_bar( position = "dodge", stat="identity") + 
   geom_errorbar(aes(ymin=value-sd, ymax=value+sd), width=.2,position=position_dodge(.9)) +
   labs(y = "Metric value",
-                x = "Prediction Method",colour="",fill="") + 
+                x = "Prediction Method",colour="",fill="",title="Type 1 vs type II") + 
                 scale_colour_Publication() +
                 theme_Publication() + 
                 ylim(0,1.0)
@@ -244,7 +246,7 @@ p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
 print(p)
 
 
-ggsave(file="comparisonBarplot.svg", plot=p, width=8, height=5)
+ggsave(file="comparisonBarplot.svg", dpi=300,plot=p, width=8, height=5)
 
 #Tversky data taken above threshold 0.3
 #Tanimoto data taken above threshold 0.4

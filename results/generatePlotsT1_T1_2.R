@@ -17,12 +17,12 @@ theme_Publication <- function(base_size=14, base_family="Roboto") {
       library(ggthemes)
       (theme_foundation(base_size=base_size, base_family=base_family)
        + theme(plot.title = element_text(face = "bold",
-                                         size = rel(1.2), hjust = 0.5),
-               text = element_text(),
+                                         size = rel(5.2), hjust = 0.5),
+               text = element_text(size = rel(5.2)),
                panel.background = element_rect(colour = NA),
                plot.background = element_rect(colour = NA),
                panel.border = element_rect(colour = NA),
-               axis.title = element_text(face = "bold",size = rel(1)),
+               axis.title = element_text(face = "bold",size = rel(1.0)),
                axis.title.y = element_text(angle=90,vjust =2),
                axis.title.x = element_text(vjust = -0.2),
                axis.text = element_text(), 
@@ -33,15 +33,17 @@ theme_Publication <- function(base_size=14, base_family="Roboto") {
                legend.key = element_rect(colour = NA),
                legend.position = "bottom",
                legend.direction = "horizontal",
-               legend.key.size= unit(0.2, "cm"),
+               legend.key.size= unit(0.5, "cm"),
                legend.margin = unit(0, "cm"),
                legend.title = element_text(face="italic"),
+               legend.text = element_text(size = rel(5.2)),
                plot.margin=unit(c(10,5,5,5),"mm"),
                strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
                strip.text = element_text(face="bold")
           ))
       
 }
+
 
 scale_fill_Publication <- function(...){
       library(scales)
@@ -217,25 +219,25 @@ catPerformance(getPerformance(tversky_proba_radius_3,0.99),"Tversky_proba_3_0.99
 
 t1_t2_ref <- data.frame(
   name=factor(c("RF","SVM","DNN","Dice 99%","Dice 50%"),levels = c("RF","SVM","DNN","Dice 99%","Dice 50%")),
-  BA=c(0.83,0.88,0.88,0.88034,0.96921),
-  F1=c(0.79,0.85,0.84,0.91854,0.97594),
-  MCC=c(0.74,0.80,0.77,0.76267,0.93475)
+  BA=c(0.72,0.81,0.81,0.80029,0.90036),
+  F1=c(0.6,0.74,0.67,0.90995,0.95437),
+  MCC=c(0.57,0.69, 0.57,0.6084,0.81017)
 )
 
-#Dice top MFP2 for 99%
+#Dice top MFP3 for 99%
 #Dice top MFP2 for 50%
 
 
-#  sdBA=c(0.03,0.02,0.03,0.01205,0.00628),
-#  sdF1=c(0.04,0.02,0.04,0.00795,0.00509),
-#  sdMCC=c(0.04,0.02,0.06,0.02185,0.012)
+#  sdBA=c(0.02,0.02,0.01,0.01074,0.01221),
+#  sdF1=c(0.03,0.03,0.02,0.00505,0.00442),
+#  sdMCC=c(0.03,0.03,0.03,0.01915,0.0179)
 
 
 
 t1_t2_ref.m <- melt(t1_t2_ref, id.vars='name')
 t1_t2_ref.m=cbind(t1_t2_ref.m,rep(0,length(t1_t2_ref.m[,1])))
 colnames(t1_t2_ref.m)[4]="sd"
-t1_t2_ref.m[4]=c(0.03,0.02,0.03,0.01205,0.00628,0.04,0.02,0.04,0.00795,0.00509,0.04,0.02,0.06,0.02185,0.012)
+t1_t2_ref.m[4]=c(0.02,0.02,0.01,0.01074,0.01221,0.03,0.03,0.02,0.00505,0.00442,0.03,0.03,0.03,0.01915,0.0179)
 
 p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
   geom_bar( position = "dodge", stat="identity") + 
@@ -249,16 +251,16 @@ p=ggplot(t1_t2_ref.m,aes(name,value,fill = variable)) +
 print(p)
 
 
-ggsave(file="comparisonBarplot_t1_t1_2.svg", plot=p, width=8, height=5)
+ggsave(file="comparisonBarplot_t1_t1_2.svg", dpi=300, plot=p, width=8, height=5)
 
 #Tversky data taken above threshold 0.3
 #Tanimoto data taken above threshold 0.4
 
 
 
-t1_t2_ref_BA=
-t1_t2_ref_F1=
-t1_t2_ref_MCC=
+#t1_t2_ref_BA=
+#t1_t2_ref_F1=
+#t1_t2_ref_MCC=
 
 
 tt1=createPlot(tanimoto_top_radius_1,"Tanimoto Top MFP1")
