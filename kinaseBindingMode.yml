@@ -9,3 +9,4 @@ dependencies:
   - pandas
   - biopython
   - numpy
+  - scikit-learn
