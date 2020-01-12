@@ -23,6 +23,7 @@ def predictExternalSet(input_fp):
             for ref_ix,ref_fp in enumerate(fp_train):
                 if(ref_fp!=''):
                     sim=DataStructs.TverskySimilarity(abv_fp,ref_fp,0.9,0.1)
+                    #sim=DataStructs.TanimotoSimilarity(abv_fp,ref_fp)
                     if(sim>maxSim):
                         curRefIx=ref_ix
                         maxSim=sim
@@ -99,7 +100,7 @@ print("Type I1/2:", len(abv_type1_2))
 print("Type II:", len(abv_type2))
 #print("Type II (ligand or not):", len(np.where((data["DFG_Type"]=="out") & (data["Helix_Type"]=="out"))[0]))
 #print((data["smiles"]).isnull())
-print(abv_type2["smiles"].to_string())
+#print(abv_type2["smiles"].to_string())
 
 
 
@@ -135,8 +136,8 @@ for cycle in range(10):
         
 
     smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
-    smiles_train=list(type1_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
-    smiles_test=list(type1_test.smiles)+list(type2_test.smiles)
+    #smiles_train=list(type1_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
+    #smiles_test=list(type1_test.smiles)+list(type2_test.smiles)
 
     n_train_type1=len(type1_train)
     n_train_type2=len(type2_train)
@@ -154,6 +155,15 @@ for cycle in range(10):
 
     responseType1=np.array(predictExternalSet(abv_type1_fp))
 
+
+    print("predicted type 2, but in fact type 1 : ")
+    
+    rows=np.where(responseType1!="type1")[0]
+    #print(abv_type1.iloc[28,:])
+    print(abv_type1.iloc[rows,abv_type1.columns.get_loc('smiles')])
+
+
+
     notFoundType1=np.sum(responseType1=='0')
     #print(notFoundType1," Not found type 1")
     responseType1=responseType1[responseType1!='0']
@@ -164,6 +174,14 @@ for cycle in range(10):
     #print(np.sum(np.array(responseType1)=="type2")," FN")
 
     responseType2=np.array(predictExternalSet(abv_type2_fp))
+
+
+
+    print("predicted type 1, but in fact type 2 : ")
+    rows=np.where(responseType2!="type2")[0]
+    #print(abv_type1.iloc[28,:])
+    print(abv_type2.iloc[rows,abv_type2.columns.get_loc('smiles')])
+
 
     notFoundType2=np.sum(responseType2=='0')
     #print(notFoundType2," Not found type 2")
@@ -176,7 +194,7 @@ for cycle in range(10):
 
     y_true=np.hstack((np.repeat(1,len(respType1)),np.repeat(0,len(respType2))))
     y_predict=np.hstack((respType1,respType2))
-
+    
     #print(y_true)
     #print(y_predict)
     ba=balanced_accuracy_score(y_true,y_predict)
