@@ -2,6 +2,8 @@ import pandas as pd
 import numpy as np 
 from rdkit.Chem import AllChem
 from rdkit import Chem
+from rdkit import rdBase
+rdBase.DisableLog('rdApp.error')
 
 debug=0
 
@@ -141,13 +143,13 @@ def getBindingModeFromSmiles(smiles):
 
 responseType1=predictExternalSet(abv_type1_fp)
 respType1=np.array(responseType1)=="type1"
-print(np.array(responseType1)=="type1")
+#print(np.array(responseType1)=="type1")
 print(np.sum(np.array(responseType1)=="type1")," TP")
 print(np.sum(np.array(responseType1)=="type2")," FN")
 
 responseType2=predictExternalSet(abv_type2_fp)
 respType2=np.array(responseType2)=="type2"
-print(np.array(responseType2)=="type2")
+#print(np.array(responseType2)=="type2")
 print(np.sum(np.array(responseType2)=="type2")," TN")
 print(np.sum(np.array(responseType2)=="type1")," FP")
 
