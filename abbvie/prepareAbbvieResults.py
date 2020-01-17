@@ -146,8 +146,7 @@ for cycle in range(10):
     n_train_type2=len(type2_train)
     n_train_type1_2=len(type1_2_train)
 
-    morganFpRadius=3
-    fingerprintMethod=AllChem.GetMorganFingerprint
+    morganFpRadius=3    fingerprintMethod=AllChem.GetMorganFingerprint
 
 
     (fp_train,mol_train)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
