@@ -106,7 +106,7 @@ print("Type II:", len(abv_type2))
 #print(abv_type2["smiles"].to_string())
 
 
-
+o=open("abbvie_stats.csv","w")
 for cycle in range(10):
 
     (type1_train,type1_test)=getTrainTestSet("../prepared_data/type1.csv",0.5)
@@ -214,4 +214,5 @@ for cycle in range(10):
     f1=f1_score(y_true,y_predict)
     mcc=matthews_corrcoef(y_true,y_predict)
 
-    print(ba,f1,mcc)
+    o.write("{}\t{}\t{}\n".format(ba,f1,mcc))
+o.close()
