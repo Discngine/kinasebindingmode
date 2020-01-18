@@ -86,4 +86,4 @@ p=ggplot(data.m,aes(Dataset,value,fill = variable)) +
 
 #print(p)
 
-ggsave(file="50_abbvie.svg", plot=p, width=8, height=4)
+ggsave(file="50_abbvie.svg", plot=p, width=8, height=8)
