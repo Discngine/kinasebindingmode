@@ -25,13 +25,13 @@ def predictExternalSet(input_fp):
         if(abv_fp!=''):
             for ref_ix,ref_fp in enumerate(fp_train):
                 if(ref_fp!=''):
-                    sim=DataStructs.TverskySimilarity(abv_fp,ref_fp,0.9,0.1)
+                    sim=DataStructs.DiceSimilarity(abv_fp,ref_fp)
                     #sim=DataStructs.TanimotoSimilarity(abv_fp,ref_fp)
                     if(sim>maxSim):
                         curRefIx=ref_ix
                         maxSim=sim
             predictedBindingMode=getBindingModeFromSmiles(smiles_train[curRefIx])
-            if(maxSim>0.3):
+            if(maxSim>0.35):
                 response.append(predictedBindingMode)
             else :
                 response.append(0)
@@ -106,8 +106,8 @@ print("Type II:", len(abv_type2))
 #print(abv_type2["smiles"].to_string())
 
 
-o=open("abbvie_stats_I_II_100.csv","w")
-o.write("Dataset  BA  F1  MCC")
+o=open("abbvie_stats_I_1_2_II_50.csv","w")
+o.write("Dataset\tBA\tF1\tMCC\n")
 for cycle in range(10):
 
     (type1_train,type1_test)=getTrainTestSet("../prepared_data/type1.csv",0.5)
@@ -139,15 +139,15 @@ for cycle in range(10):
         print("      - %d molecules in test set."%(len(type1_2_test)))
         
 
-    #smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
-    smiles_train=list(type1_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
+    smiles_train=list(type1_2_train.smiles)+list(type2_train.smiles)
+    #smiles_train=list(type1_2_train.smiles)+list(type1_2_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
     #smiles_test=list(type1_test.smiles)+list(type2_test.smiles)
 
     n_train_type1=len(type1_train)
     n_train_type2=len(type2_train)
     n_train_type1_2=len(type1_2_train)
 
-    morganFpRadius=3    
+    morganFpRadius=2
     fingerprintMethod=AllChem.GetMorganFingerprint
 
 
@@ -162,7 +162,7 @@ for cycle in range(10):
 
     print("predicted type 2, but in fact type 1 : ")
     
-    rows=np.where(responseType1!="type1")[0]
+    rows=np.where(responseType1!="type1_2")[0]
     #print(abv_type1.iloc[28,:])
     print(abv_type1.iloc[rows,abv_type1.columns.get_loc('smiles')])
 
@@ -182,7 +182,7 @@ for cycle in range(10):
     #print(notFoundType1," Not found type 1")
     responseType1=responseType1[responseType1!='0']
     #print(np.isnan(np.array(responseType1)))
-    respType1=responseType1=="type1"
+    respType1=responseType1=="type1_2"
     #print(np.array(responseType1)=="type1")
     #print(np.sum(np.array(responseType1)=="type1")," TP")
     #print(np.sum(np.array(responseType1)=="type2")," FN")
@@ -215,5 +215,5 @@ for cycle in range(10):
     f1=f1_score(y_true,y_predict)
     mcc=matthews_corrcoef(y_true,y_predict)
 
-    o.write("100%\t{}\t{}\t{}\n".format(ba,f1,mcc))
+    o.write("I1/2 vs II\t{}\t{}\t{}\n".format(ba,f1,mcc))
 o.close()
