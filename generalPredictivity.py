@@ -13,6 +13,7 @@ debug=0
 from rdkit import RDLogger
 RDLogger.DisableLog('rdApp.*')    
 import time
+import sklearn
 import random
 
 from rdkit import DataStructs
@@ -27,8 +28,9 @@ def getMaxSimilarity(test_fp,train_fp,train_outcome):
         if(fp!=''):
             for ref_ix,ref_fp in enumerate(train_fp):
                 if(ref_fp!=''):
-                    #sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
-                    sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
+                    sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
+                    #sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
+                    #sim=DataStructs.DiceSimilarity(fp,ref_fp)
                     if(sim>maxSim):
                         curRefIx=ref_ix
                         maxSim=sim
@@ -93,6 +95,8 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
     return(fp,mols)
 
 for radius in range(1,4):
+    o=open("results/globalPrediction_radius_{}_tversky.csv".format(radius),"w")
+    o.write("Cycle\tCorrect\tSimilarity\n")
     for cycle in range(10):
 
         (type1_train,type1_test)=getTrainTestSet("prepared_data/type1.csv",0.5)
@@ -137,5 +141,11 @@ for radius in range(1,4):
         (fp_test,mol_test)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
         (predictions,similarity)=getMaxSimilarity(fp_test,fp_train,train_outcome)
 
-        print(predictions,similarity)
-        
+        pred=np.array(predictions)
+        y_true=np.array(test_outcome)
+        mask=pred==y_true
+        #print(mask)
+        print(sklearn.metrics.roc_auc_score(mask,similarity))
+        for idx,el in enumerate(mask):
+            o.write("{}\t{}\t{}\n".format(cycle,el,similarity[idx]))
+    o.close()
