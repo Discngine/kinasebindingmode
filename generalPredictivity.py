@@ -28,8 +28,8 @@ def getMaxSimilarity(test_fp,train_fp,train_outcome):
         if(fp!=''):
             for ref_ix,ref_fp in enumerate(train_fp):
                 if(ref_fp!=''):
-                    sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
-                    #sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
+                    #sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
+                    sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
                     #sim=DataStructs.DiceSimilarity(fp,ref_fp)
                     if(sim>maxSim):
                         curRefIx=ref_ix
@@ -79,6 +79,7 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
     return: list of fingerprints and corresponding rdkit molecules"""
     fp=[]
     mols=[]
+    sm=[]
     for smi in smiles:
         try:
             mol=Chem.MolFromSmiles(smi)
@@ -87,19 +88,24 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
             elif fingerprintMethod== rdReducedGraphs.GetErGFingerprint: 
                 fp.append(fingerprintMethod(mol))
             mols.append(mol)
+            sm.append(smi)
             #trainFps.append(MACCSkeys.GenMACCSKeys(Chem.MolFromSmiles(smi)))
         except Exception as err:
             fp.append("")
+            mols.append("")
+            sm.append(smi)
             #print(err)
             pass
-    return(fp,mols)
+    return(fp,mols,sm)
 
+amb=open("results_ambiguous_ligands.smiles","w")
 for radius in range(1,4):
-    o=open("results/globalPrediction_radius_{}_tversky.csv".format(radius),"w")
-    o.write("Cycle\tCorrect\tSimilarity\n")
+    o=open("results/globalPrediction_radius_{}_tanimoto.csv".format(radius),"w")
+    o.write("Cycle\tCorrect\tSimilarity\tsmiles\n")
     for cycle in range(10):
 
         (type1_train,type1_test)=getTrainTestSet("prepared_data/type1.csv",0.5)
+        print(cycle," - ",len(type1_test))
         type1_train["type"]="type1"
         type1_test["type"]="type1"
         if debug:    
@@ -111,6 +117,7 @@ for radius in range(1,4):
         (type2_train,type2_test)=getTrainTestSet("prepared_data/type2.csv",0.5)
         type2_train["type"]="type2"
         type2_test["type"]="type2"
+        print(cycle," - ",len(type2_test))
 
         if debug:  
             print("TYPE 2:")
@@ -121,6 +128,7 @@ for radius in range(1,4):
         (type1_2_train,type1_2_test)=getTrainTestSet("prepared_data/type1_2.csv",0.5)
         type1_2_train["type"]="type1_2"
         type1_2_test["type"]="type1_2"
+        print(cycle," - ",len(type1_2_test))
 
         if debug:  
             print("TYPE 1 1/2:")
@@ -129,23 +137,72 @@ for radius in range(1,4):
         
         #smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
         smiles_train=list(type1_train.smiles)+list(type2_train.smiles)+list(type1_2_train.smiles)
+        train=pd.concat([type1_train, type2_train,type1_2_train])
         train_outcome=list(type1_train.type)+list(type2_train.type)+list(type1_2_train.type)
         smiles_test=list(type1_test.smiles)+list(type2_test.smiles)+list(type1_2_test.smiles)
+        test=pd.concat([type1_test, type2_test,type1_2_test])
+        
         test_outcome=list(type1_test.type)+list(type2_test.type)+list(type1_2_test.type)
- 
+        
         morganFpRadius=radius
         fingerprintMethod=AllChem.GetMorganFingerprint
 
 
-        (fp_train,mol_train)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
-        (fp_test,mol_test)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
+        (fp_train,mol_train,tr_sm)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
+        (fp_test,mol_test,te_sm)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
         (predictions,similarity)=getMaxSimilarity(fp_test,fp_train,train_outcome)
 
+        tmp=np.where(test.pdb=='4fc0')[0]
+        # if(len(tmp)):
+        #     print("HEEEERE")
+        #     print(tmp)
+        #     for xx in tmp:
+        #         print(test.iloc[xx])
+        #         print(smiles_test[xx])
+        #         print(Chem.MolToSmiles(mol_test[xx]))
+        #         print(te_sm[xx])
+
+        print(len(fp_test),len(test["smiles"]),len(fp_test),len(mol_test))
+        print(len(fp_train),len(train["smiles"]),len(fp_train),len(mol_train))
+        print(len(similarity),len(predictions))
         pred=np.array(predictions)
         y_true=np.array(test_outcome)
         mask=pred==y_true
         #print(mask)
         print(sklearn.metrics.roc_auc_score(mask,similarity))
+        print(len(mask))
         for idx,el in enumerate(mask):
-            o.write("{}\t{}\t{}\n".format(cycle,el,similarity[idx]))
+            o.write("{}\t{}\t{}\t{}\n".format(cycle,el,similarity[idx],smiles_test[idx]))
+
+        w=np.where((np.array(similarity)>=0.99) & (np.array(mask)==False))
+        
+        if(len(w)==1):
+            if(len(w[0])):
+                ids=w[0]
+                for mol_id in ids:
+                    
+
+                    mol_fp=fp_test[mol_id]
+                    #amb.write("{}\n".format(Chem.MolToSmiles(mol_test[mol_id])))
+                    for ref_ix,ref_fp in enumerate(fp_train):
+                        if(ref_fp!=''):
+                            #sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
+                            sim=DataStructs.TanimotoSimilarity(mol_fp,ref_fp)
+
+                            #sim=DataStructs.DiceSimilarity(fp,ref_fp)
+                            if(sim>0.99):
+                                
+                                #if train.iloc[ref_ix,5]=="4fc0":
+                                #if test.iloc[mol_id,5]=="4fc0":
+                                print(similarity[mol_id])
+                                
+                                print(Chem.MolToSmiles(mol_test[mol_id]))
+                                print(test.iloc[mol_id,5])
+                                print(test.iloc[mol_id,3])
+                                #print("SIMILAR PAIR : ")
+                                #print("==============")
+                                #print(train.iloc[ref_ix])
+                                #print(test.iloc[mol_id])
+                                #print(train.iloc[ref_ix,4])
+                                amb.write("{}\t{}\t{}\n".format(Chem.MolToSmiles(mol_test[mol_id]),train.iloc[ref_ix,5],test.iloc[mol_id,5])) 
     o.close()
