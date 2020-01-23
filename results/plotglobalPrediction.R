@@ -49,73 +49,174 @@ scale_colour_Publication <- function(...){
 
 
 
-
-r=read.table("globalPrediction_radius_1_tanimoto.csv",h=T)
+prepareData<-function(r,returnRandom){
 #r[r[r[,"Correct"]=="True"],"True"]=T
-before2=r$Correct
-levels(r$Correct) <- c(FALSE,TRUE)
-before=r$Correct
-r$Correct <- as.logical(r$Correct)
-after=r$Correct
-sl=list()
-ll=list()
-accs=c()
-cutoffs=seq(1.0,0.0,-0.01)
-final_accs=data.frame()
-for(i in seq(10)){
+
+    levels(r$Correct) <- c(FALSE,TRUE)
+
+    r$Correct <- as.logical(r$Correct)
+    levels(r$randomCorrect) <- c(FALSE,TRUE)
+    r$randomCorrect <- as.logical(r$randomCorrect)
+
+
+    sl=list()
+    ll=list()
     accs=c()
-    for(cutoff in cutoffs){
-        print(sum(r$Cycle==(i-1)))
-        sl <- append(sl,list(r$Similarity[r$Cycle==(i-1)]))
-        ll<-append(ll,list(r$Correct[r$Cycle==(i-1)]))
-    
-        stmp=r$Similarity[r$Cycle==(i-1)]
-        ctmp=r$Correct[r$Cycle==(i-1)]
+    raccs=c() #random accs
+    cutoffs=seq(1.0,0.0,-0.01)
+    rfinal_accs=data.frame()#random final accs
+    final_accs=data.frame()
+    for(i in seq(10)){
+        accs=c()
+        raccs=c()
+        for(cutoff in cutoffs){
+            print(sum(r$Cycle==(i-1)))
+            sl <- append(sl,list(r$Similarity[r$Cycle==(i-1)]))
+            ll<-append(ll,list(r$Correct[r$Cycle==(i-1)]))
         
-        #if(cutoff==1){
-            #print(ctmp[stmp>=cutoff])
-        
-        acc=sum(ctmp[stmp>=cutoff]==T)/length(ctmp[stmp>=cutoff])
-        accs=c(accs,acc)
-       
-        #}
+            stmp=r$Similarity[r$Cycle==(i-1)]
+            rstmp=r$randomSimilarity[r$Cycle==(i-1)]
+            ctmp=r$Correct[r$Cycle==(i-1)]
+            rctmp=r$randomCorrect[r$Cycle==(i-1)]
+            
+            #if(cutoff==1){
+                #print(ctmp[stmp>=cutoff])
+            
+            acc=sum(ctmp[stmp>=cutoff]==T)/length(ctmp[stmp>=cutoff])
+            racc=sum(rctmp[stmp>=cutoff]==T)/length(rctmp[stmp>=cutoff])
+            
+            accs=c(accs,acc)
+            raccs=c(raccs,racc)
+
+            #}
+        }
+        if(i==1){
+        #         plot(cutoffs,accs,ylim=c(0.7,1.0),ty="l")
+        #         par(new=T)
+                final_accs=as.data.frame(accs)
+                final_raccs=as.data.frame(raccs)
+
+        }
+        else{
+            final_accs=cbind(final_accs,accs)
+            final_raccs=cbind(final_raccs,raccs)
+        #    plot(cutoffs,accs,ylim=c(0.7,1.0),ty="l")
+        #     par(new=T)
+        }
+            
+        #print(accs)
     }
-     if(i==1){
-    #         plot(cutoffs,accs,ylim=c(0.7,1.0),ty="l")
-    #         par(new=T)
-             final_accs=as.data.frame(accs)
-     }
-     else{
-         final_accs=cbind(final_accs,accs)
-    #    plot(cutoffs,accs,ylim=c(0.7,1.0),ty="l")
-    #     par(new=T)
-     }
-        
-    #print(accs)
+
+    #accs_matrix=matrix(accs,nrow=length(cutoffs),byrow=T)
+    #print(accs_matrix)
+
+    acc_mean=apply(final_accs,1,mean)
+    acc_sd=apply(final_accs,1,sd)
+    racc_mean=apply(final_raccs,1,mean)
+    racc_sd=apply(final_raccs,1,sd)
+
+
+    data=as.data.frame(cutoffs)
+    data=cbind(data,acc_mean)
+    data=cbind(data,acc_sd)
+    colnames(data)=c("cutoff","mean","sd")
+
+    rdata=as.data.frame(cutoffs)
+    rdata=cbind(rdata,racc_mean)
+    rdata=cbind(rdata,racc_sd)
+    colnames(rdata)=c("cutoff","mean","sd")
+
+    if(returnRandom) {
+        return(rdata)
+    }
+    return(data)
 }
 
-#accs_matrix=matrix(accs,nrow=length(cutoffs),byrow=T)
-#print(accs_matrix)
 
-acc_mean=apply(final_accs,1,mean)
-acc_sd=apply(final_accs,1,sd)
+mfp1=prepareData(read.table("globalPrediction_radius_1_dice.csv",h=T),0)
+mfp2=prepareData(read.table("globalPrediction_radius_2_dice.csv",h=T),0)
+mfp3=prepareData(read.table("globalPrediction_radius_3_dice.csv",h=T),0)
+rfp1=prepareData(read.table("globalPrediction_radius_1_dice.csv",h=T),1)
+rfp2=prepareData(read.table("globalPrediction_radius_2_dice.csv",h=T),1)
+rfp3=prepareData(read.table("globalPrediction_radius_3_dice.csv",h=T),1)
 
-data=as.data.frame(cutoffs)
-data=cbind(data,acc_mean)
-data=cbind(data,acc_sd)
-colnames(data)=c("cutoff","mean","sd")
-
-#plot(cutoffs,acc_mean,ylim=c(0.7,1.0),ty="l",lwd=3,col="red")
-#ggplot(df2, aes(x=dose, y=len, group=supp, color=supp)) + 
-#geom_pointrange(aes(ymin=len-sd, ymax=len+sd))
-# Use geom_line()+geom_pointrange()
-p=ggplot(data, aes(x=cutoff, y=mean)) + 
-  geom_line(color="red",aes(ymin=0.7,ymax=1.0))+
-  geom_pointrange(aes(ymin=mean-sd, ymax=mean+sd),color="red") +
-  scale_colour_Publication() +
-                theme_Publication() 
+p=ggplot(mfp1, aes(x=cutoff, y=mean)) + 
+  geom_line(aes(ymin=0.7,ymax=1.0,colour='MFP1'),size=2)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd,colour='MFP1')) +
+  geom_line(data=mfp2,aes(ymin=0.7,ymax=1.0,colour='MFP2'),size=2)+
+  geom_errorbar(data=mfp2,aes(ymin=mean-sd, ymax=mean+sd,colour='MFP2')) +
+  geom_line(data=mfp3,aes(ymin=0.7,ymax=1.0,colour='MFP3'),size=2)+
+  geom_errorbar(data=mfp3,aes(ymin=mean-sd, ymax=mean+sd,colour='MFP3')) +
+  geom_line(data=rfp3,aes(ymin=0.7,ymax=1.0,colour='Random'),size=1)+
+  geom_errorbar(data=rfp3,aes(ymin=mean-sd, ymax=mean+sd,colour='Random')) +
+  geom_hline(  yintercept=0.95, linetype="dashed", "black", size=1) +
+  labs(y = "Accuracy",
+                x = "Similarity Threshold",colour="",title="Dice Similarity") + 
+                scale_colour_Publication() +  
+                theme_Publication() + 
+                ylim(0.4,1.0) +
+                scale_y_continuous(breaks=seq(0.4,1.0,0.1)) +
+                scale_x_continuous(breaks=seq(0.0,1.0,0.1)) 
 print(p)
-#pred=prediction(sl,ll)
-#perf <- performance(pred,"tpr","fpr")
-#plot(perf,colorize=T)
-#plot(perf,avg= "vertical", spread.estimate="boxplot", show.spread.at= seq(0.1, 0.9, by=0.1))
+ggsave(file="generalPredictionDice.svg", plot=p, width=8, height=8)
+
+
+
+
+mfp1=prepareData(read.table("globalPrediction_radius_1_tanimoto.csv",h=T),0)
+mfp2=prepareData(read.table("globalPrediction_radius_2_tanimoto.csv",h=T),0)
+mfp3=prepareData(read.table("globalPrediction_radius_3_tanimoto.csv",h=T),0)
+rfp1=prepareData(read.table("globalPrediction_radius_1_tanimoto.csv",h=T),1)
+rfp2=prepareData(read.table("globalPrediction_radius_2_tanimoto.csv",h=T),1)
+rfp3=prepareData(read.table("globalPrediction_radius_3_tanimoto.csv",h=T),1)
+
+p=ggplot(mfp1, aes(x=cutoff, y=mean)) + 
+  geom_line(aes(ymin=0.7,ymax=1.0,colour='MFP1'),size=2)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd,colour='MFP1')) +
+  geom_line(data=mfp2,aes(ymin=0.7,ymax=1.0,colour='MFP2'),size=2)+
+  geom_errorbar(data=mfp2,aes(ymin=mean-sd, ymax=mean+sd,colour='MFP2')) +
+  geom_line(data=mfp3,aes(ymin=0.7,ymax=1.0,colour='MFP3'),size=2)+
+  geom_errorbar(data=mfp3,aes(ymin=mean-sd, ymax=mean+sd,colour='MFP3')) +
+  geom_line(data=rfp3,aes(ymin=0.7,ymax=1.0,colour='Random'),size=1)+
+  geom_errorbar(data=rfp3,aes(ymin=mean-sd, ymax=mean+sd,colour='Random')) +
+  geom_hline(  yintercept=0.95, linetype="dashed", "black", size=1) +
+  labs(y = "Accuracy",
+                x = "Similarity Threshold",colour="",title="Tanimoto Similarity") + 
+                scale_colour_Publication() +  
+                theme_Publication() + 
+                ylim(0.4,1.0) +
+                scale_y_continuous(breaks=seq(0.4,1.0,0.1)) +
+                scale_x_continuous(breaks=seq(0.0,1.0,0.1)) 
+print(p)
+ggsave(file="generalPredictionTanimoto.svg", plot=p, width=8, height=8)
+
+
+
+
+
+mfp1=prepareData(read.table("globalPrediction_radius_1_tversky.csv",h=T),0)
+mfp2=prepareData(read.table("globalPrediction_radius_2_tversky.csv",h=T),0)
+mfp3=prepareData(read.table("globalPrediction_radius_3_tversky.csv",h=T),0)
+rfp1=prepareData(read.table("globalPrediction_radius_1_tversky.csv",h=T),1)
+rfp2=prepareData(read.table("globalPrediction_radius_2_tversky.csv",h=T),1)
+rfp3=prepareData(read.table("globalPrediction_radius_3_tversky.csv",h=T),1)
+
+p=ggplot(mfp1, aes(x=cutoff, y=mean)) + 
+  geom_line(aes(ymin=0.7,ymax=1.0,colour='MFP1'),size=2)+
+  geom_errorbar(aes(ymin=mean-sd, ymax=mean+sd,colour='MFP1')) +
+  geom_line(data=mfp2,aes(ymin=0.7,ymax=1.0,colour='MFP2'),size=2)+
+  geom_errorbar(data=mfp2,aes(ymin=mean-sd, ymax=mean+sd,colour='MFP2')) +
+  geom_line(data=mfp3,aes(ymin=0.7,ymax=1.0,colour='MFP3'),size=2)+
+  geom_errorbar(data=mfp3,aes(ymin=mean-sd, ymax=mean+sd,colour='MFP3')) +
+  geom_line(data=rfp3,aes(ymin=0.7,ymax=1.0,colour='Random'),size=2)+
+  geom_errorbar(data=rfp3,aes(ymin=mean-sd, ymax=mean+sd,colour='Random')) +
+  geom_hline(  yintercept=0.95, linetype="dashed", "black", size=1) +
+  labs(y = "Accuracy",
+                x = "Similarity Threshold",colour="",title="Tversky Similarity") + 
+                scale_colour_Publication() +  
+                theme_Publication() + 
+                scale_y_continuous(breaks=seq(0.4,1.0,0.1)) +
+                scale_x_continuous(breaks=seq(0.0,1.0,0.1)) +
+                ylim(0.4,1.0)
+print(p)
+ggsave(file="generalPredictionTversky.svg", plot=p, width=8, height=8)
