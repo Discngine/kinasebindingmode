@@ -28,8 +28,8 @@ def getMaxSimilarity(test_fp,train_fp,train_outcome):
         if(fp!=''):
             for ref_ix,ref_fp in enumerate(train_fp):
                 if(ref_fp!=''):
-                    #sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
-                    sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
+                    sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
+                    #sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
                     #sim=DataStructs.DiceSimilarity(fp,ref_fp)
                     if(sim>maxSim):
                         curRefIx=ref_ix
@@ -41,6 +41,32 @@ def getMaxSimilarity(test_fp,train_fp,train_outcome):
             response.append(0)
             similarity.append(0)
     return (response,similarity)
+
+
+def getRandomPrediction(test_fp,train_fp,train_outcome):
+    response=[]
+    similarity=[]
+    for ix,fp in enumerate(test_fp):
+        maxSim=0.0
+        curRefIx=-1
+        if(fp!=''):
+            ref_fp=''
+            while(ref_fp=='') :
+                ref_ix=random.choice(range(len(train_fp)))
+                ref_fp=train_fp[ref_ix]
+            
+            #sim=DataStructs.TanimotoSimilarity(fp,ref_fp)
+            #sim=DataStructs.DiceSimilarity(fp,ref_fp)
+            sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
+            
+            predictedBindingMode=train_outcome[ref_ix]
+            similarity.append(sim)
+            response.append(predictedBindingMode)
+        else: 
+            response.append(0)
+            similarity.append(0)
+    return (response,similarity)
+
 
 
 def getRandomSet(input_fp,choices):
@@ -100,8 +126,8 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
 
 amb=open("results_ambiguous_ligands.smiles","w")
 for radius in range(1,4):
-    o=open("results/globalPrediction_radius_{}_tanimoto.csv".format(radius),"w")
-    o.write("Cycle\tCorrect\tSimilarity\tsmiles\n")
+    o=open("results/globalPrediction_radius_{}_tversky.csv".format(radius),"w")
+    o.write("Cycle\tCorrect\tPrediction\tActualClass\tSimilarity\tsmiles\trandomCorrect\n")
     for cycle in range(10):
 
         (type1_train,type1_test)=getTrainTestSet("prepared_data/type1.csv",0.5)
@@ -151,6 +177,8 @@ for radius in range(1,4):
         (fp_train,mol_train,tr_sm)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
         (fp_test,mol_test,te_sm)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
         (predictions,similarity)=getMaxSimilarity(fp_test,fp_train,train_outcome)
+        (ranpredictions,ransimilarity)=getRandomPrediction(fp_test,fp_train,train_outcome)
+
 
         tmp=np.where(test.pdb=='4fc0')[0]
         # if(len(tmp)):
@@ -167,12 +195,14 @@ for radius in range(1,4):
         print(len(similarity),len(predictions))
         pred=np.array(predictions)
         y_true=np.array(test_outcome)
+        print(pred)
         mask=pred==y_true
+        randomMask=np.array(ranpredictions)==y_true
         #print(mask)
         print(sklearn.metrics.roc_auc_score(mask,similarity))
         print(len(mask))
         for idx,el in enumerate(mask):
-            o.write("{}\t{}\t{}\t{}\n".format(cycle,el,similarity[idx],smiles_test[idx]))
+            o.write("{}\t{}\t{}\t{}\t{}\t\"{}\"\t{}\n".format(cycle,el,pred[idx],y_true[idx],similarity[idx],smiles_test[idx],randomMask[idx]))
 
         w=np.where((np.array(similarity)>=0.99) & (np.array(mask)==False))
         
@@ -186,10 +216,10 @@ for radius in range(1,4):
                     #amb.write("{}\n".format(Chem.MolToSmiles(mol_test[mol_id])))
                     for ref_ix,ref_fp in enumerate(fp_train):
                         if(ref_fp!=''):
-                            #sim=DataStructs.TverskySimilarity(fp,ref_fp,0.9,0.1)
-                            sim=DataStructs.TanimotoSimilarity(mol_fp,ref_fp)
+                            sim=DataStructs.TverskySimilarity(mol_fp,ref_fp,0.9,0.1)
+                            #sim=DataStructs.TanimotoSimilarity(mol_fp,ref_fp)
 
-                            #sim=DataStructs.DiceSimilarity(fp,ref_fp)
+                            #sim=DataStructs.DiceSimilarity(mol_fp,ref_fp)
                             if(sim>0.99):
                                 
                                 #if train.iloc[ref_ix,5]=="4fc0":
