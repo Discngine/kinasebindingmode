@@ -86,6 +86,9 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
 
 
 data=pd.read_csv("/Users/peter/Desktop/AbbvieKinConformations.csv",sep=";")
+data=data.drop_duplicates(subset="smiles",keep="first")
+data=data.dropna(axis=0,subset=["smiles"])
+
 print(len(np.unique(data["pdb"])),"\tunique pdb structures")
 print(np.sum(data["errorType"]!="none"),"\twith some sort of error")
 print("DFG conformations:")

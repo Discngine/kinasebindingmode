@@ -1,16 +1,16 @@
 import pandas as pd
 import numpy as np
 
-data=pd.read_csv("kinaseBindingModsKlifs.csv",sep="\t")
+data=pd.read_csv("kinaseBindingModesKlifs.csv",sep="\t")
 
 #keep only human data (for whatever non-obvious reason) - simply comment to avoid doing that.
 #here I just do that to reproduce results from the Miljkovic paper
 data=data.loc[(data["species"]=="Human"),:]
 
 
-type1=data.loc[(data["DFG"]=="in") & data["allosteric_ligand"]=="0") & (data["aC_helix"]=="in") & pd.notna(data["smiles"]),:]
-type1_2=data.loc[(data["DFG"]=="in") & data["allosteric_ligand"]=="0") & (data["aC_helix"]=="out") & pd.notna(data["smiles"]),:]
-type2=data.loc[(data["DFG"]=="out") & data["allosteric_ligand"]=="0") & (data["aC_helix"]=="out") & (data["back"]) & pd.notna(data["smiles"]),:]
+type1=data.loc[(data["DFG"]=="in") & (data["allosteric_ligand"]=="0") & (data["aC_helix"]=="in") & pd.notna(data["smiles"]),:]
+type1_2=data.loc[(data["DFG"]=="in") & (data["allosteric_ligand"]=="0") & (data["aC_helix"]=="out") & pd.notna(data["smiles"]),:]
+type2=data.loc[(data["DFG"]=="out") & (data["allosteric_ligand"]=="0") & (data["aC_helix"]=="out") & (data["back"]) & pd.notna(data["smiles"]),:]
 allosteric=data.loc[(data["allosteric_ligand"]!="0"),:] #issue with 4oli -> revalidate / classify binding sites here before using this
 
 #number of structures with NON allosteric inhibitors
@@ -18,11 +18,11 @@ print(len(data.loc[(data["allosteric_ligand"]=="0")  & pd.notna(data["smiles"]),
 
 
 #getting unique ligands for different types of binders
-uniqueType1Smiles=type1.smiles.unique() #1941 unique smiles 30th October 2019
+uniqueType1Smiles=type1.smiles.unique() #1828 unique smiles 30th October 2019
 print(len(uniqueType1Smiles),"unique type 1 molecules")
-uniqueType1_2Smiles=type1_2.smiles.unique() #592 unique smiles 30th October 2019
+uniqueType1_2Smiles=type1_2.smiles.unique() #571 unique smiles 30th October 2019
 print(len(uniqueType1_2Smiles), "unique type 1 1/2 molecules")
-uniqueType2Smiles=type2.smiles.unique() #270 unique smiles 30th October 2019
+uniqueType2Smiles=type2.smiles.unique() #244 unique smiles 30th October 2019
 print(len(uniqueType2Smiles),"unique type 2 molecules")
 
 tmp=[ligand for ligand in type1.ligand if sum( type2.ligand==ligand) or sum(type1_2.ligand==ligand) ]
@@ -39,11 +39,11 @@ for ligand in ligandsToDiscard:
 
 
 #getting unique ligands for different types of binders
-uniqueType1Smiles=type1.smiles.unique() #1941 unique smiles 30th October 2019
+uniqueType1Smiles=type1.smiles.unique() #1752 unique smiles 30th October 2019
 print(len(uniqueType1Smiles),"unique type 1 molecules")
-uniqueType1_2Smiles=type1_2.smiles.unique() #592 unique smiles 30th October 2019
+uniqueType1_2Smiles=type1_2.smiles.unique() #491 unique smiles 30th October 2019
 print(len(uniqueType1_2Smiles), "unique type 1 1/2 molecules")
-uniqueType2Smiles=type2.smiles.unique() #270 unique smiles 30th October 2019
+uniqueType2Smiles=type2.smiles.unique() #231 unique smiles 30th October 2019
 print(len(uniqueType2Smiles),"unique type 2 molecules")
 
 unique_type1=type1.drop_duplicates(subset="smiles")

@@ -86,6 +86,9 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
 
 
 data=pd.read_csv("/Users/peter/Desktop/AbbvieKinConformations.csv",sep=";")
+data=data.drop_duplicates(subset="smiles",keep="first")
+data=data.dropna(axis=0,subset=["smiles"])
+
 print(len(np.unique(data["pdb"])),"\tunique pdb structures")
 print(np.sum(data["errorType"]!="none"),"\twith some sort of error")
 print("DFG conformations:")
@@ -106,8 +109,8 @@ print("Type II:", len(abv_type2))
 #print(abv_type2["smiles"].to_string())
 
 
-o=open("abbvie_stats_I_II_100.csv","w")
-o.write("Dataset  BA  F1  MCC")
+o=open("abbvie_stats_I_II_50.csv","w")
+o.write("Dataset\tBA\tF1\tMCC\n")
 for cycle in range(10):
 
     (type1_train,type1_test)=getTrainTestSet("../prepared_data/type1.csv",0.5)
@@ -139,8 +142,8 @@ for cycle in range(10):
         print("      - %d molecules in test set."%(len(type1_2_test)))
         
 
-    #smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
-    smiles_train=list(type1_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
+    smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
+    #smiles_train=list(type1_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
     #smiles_test=list(type1_test.smiles)+list(type2_test.smiles)
 
     n_train_type1=len(type1_train)

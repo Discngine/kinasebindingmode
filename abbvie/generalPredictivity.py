@@ -15,6 +15,7 @@ RDLogger.DisableLog('rdApp.*')
 import time
 import sklearn
 import random
+import sys
 
 from rdkit import DataStructs
 #print(abv_type1_fp)
@@ -133,12 +134,39 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
     return(fp,mols,sm)
 
 amb=open("results_ambiguous_ligands.smiles","w")
+
+abv_data=pd.read_csv("/Users/peter/Desktop/AbbvieKinConformations.csv",sep=";")
+abv_data=abv_data.drop_duplicates(subset="smiles",keep="first")
+abv_data=abv_data.dropna(axis=0,subset=["smiles"])
+abv_smiles=abv_data["smiles"]
+#abv_inchi=getInchiFromSmiles(abv_smiles)
+#(abv_fp,abv_mol,abv_sm)=generateFingerprints(abv_smiles,fingerprintMethod,morganFpRadius=morganFpRadius)
+
+
+
+abv_type1=abv_data.iloc[np.where((~abv_data["smiles"].isnull()) & (abv_data["smiles"]!=" ") & (abv_data["DFG_Type"]=="in") & (abv_data["Helix_Type"]=="in") )[0],:]
+abv_type1["type"]="type1"
+abv_type1_2=abv_data.iloc[np.where((~abv_data["smiles"].isnull()) & (abv_data["DFG_Type"]=="in") & (abv_data["Helix_Type"]=="out"))[0],:]
+abv_type1_2["type"]="type1_2"
+abv_type2=abv_data.iloc[np.where((~abv_data["smiles"].isnull()) & (abv_data["smiles"]!="") & (abv_data["DFG_Type"]=="out") & (abv_data["Helix_Type"]=="out") & (abv_data["back"]==True))[0],:]
+abv_type2["type"]="type2"
+
+print("Type I:", len(abv_type1))
+print("Type I1/2:", len(abv_type1_2))
+#print("Type I1/2 out-like:", len(np.where((~data["smiles"].isnull()) & (data["smiles"]!="") & (data["DFG_Type"]=="in") & (data["Helix_Type"]=="out-like"))[0]))
+print("Type II:", len(abv_type2))
+
+abv_test=pd.concat([abv_type1,abv_type2,abv_type1_2])
+abv_outcome=list(abv_type1.type)+list(abv_type2.type)+list(abv_type1_2.type)
+        
+
+
 for radius in range(1,4):
     o=open("results/globalPrediction_radius_{}_{}.csv".format(radius,simMetric),"w")
     o.write("Cycle\tCorrect\tPrediction\tActualClass\tSimilarity\tsmiles\trandomCorrect\trandomSimilarity\n")
     for cycle in range(10):
 
-        (type1_train,type1_test)=getTrainTestSet("prepared_data/type1.csv",0.5)
+        (type1_train,type1_test)=getTrainTestSet("../prepared_data/type1.csv",0.5)
         print(cycle," - ",len(type1_test))
         type1_train["type"]="type1"
         type1_test["type"]="type1"
@@ -148,7 +176,7 @@ for radius in range(1,4):
             print("      - %d molecules in test set."%(len(type1_test)))
             
 
-        (type2_train,type2_test)=getTrainTestSet("prepared_data/type2.csv",0.5)
+        (type2_train,type2_test)=getTrainTestSet("../prepared_data/type2.csv",0.5)
         type2_train["type"]="type2"
         type2_test["type"]="type2"
         print(cycle," - ",len(type2_test))
@@ -159,7 +187,7 @@ for radius in range(1,4):
             print("      - %d molecules in test set."%(len(type2_test)))
             
 
-        (type1_2_train,type1_2_test)=getTrainTestSet("prepared_data/type1_2.csv",0.5)
+        (type1_2_train,type1_2_test)=getTrainTestSet("../prepared_data/type1_2.csv",0.5)
         type1_2_train["type"]="type1_2"
         type1_2_test["type"]="type1_2"
         print(cycle," - ",len(type1_2_test))
@@ -174,75 +202,32 @@ for radius in range(1,4):
         train=pd.concat([type1_train, type2_train,type1_2_train])
         train_outcome=list(type1_train.type)+list(type2_train.type)+list(type1_2_train.type)
         smiles_test=list(type1_test.smiles)+list(type2_test.smiles)+list(type1_2_test.smiles)
-        test=pd.concat([type1_test, type2_test,type1_2_test])
-        
-        test_outcome=list(type1_test.type)+list(type2_test.type)+list(type1_2_test.type)
-        
+        #test=pd.concat([type1_test, type2_test,type1_2_test])
+        test=abv_test
+        #test_outcome=list(type1_test.type)+list(type2_test.type)+list(type1_2_test.type)
+        test_outcome=abv_outcome
         morganFpRadius=radius
         fingerprintMethod=AllChem.GetMorganFingerprint
 
 
         (fp_train,mol_train,tr_sm)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
-        (fp_test,mol_test,te_sm)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
-        (predictions,similarity)=getMaxSimilarity(fp_test,fp_train,train_outcome)
-        (ranpredictions,ransimilarity)=getRandomPrediction(fp_test,fp_train,train_outcome)
+
+        (abv_fp,abv_mol,abv_sm)=generateFingerprints(abv_test.smiles,fingerprintMethod,morganFpRadius=morganFpRadius)
+
+        #(fp_test,mol_test,te_sm)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
+        (predictions,similarity)=getMaxSimilarity(abv_fp,fp_train,train_outcome)
+        (ranpredictions,ransimilarity)=getRandomPrediction(abv_fp,fp_train,train_outcome)
 
 
-        tmp=np.where(test.pdb=='4fc0')[0]
-        # if(len(tmp)):
-        #     print("HEEEERE")
-        #     print(tmp)
-        #     for xx in tmp:
-        #         print(test.iloc[xx])
-        #         print(smiles_test[xx])
-        #         print(Chem.MolToSmiles(mol_test[xx]))
-        #         print(te_sm[xx])
-
-        print(len(fp_test),len(test["smiles"]),len(fp_test),len(mol_test))
-        print(len(fp_train),len(train["smiles"]),len(fp_train),len(mol_train))
-        print(len(similarity),len(predictions))
         pred=np.array(predictions)
         y_true=np.array(test_outcome)
-        print(pred)
+        #print(pred)
         mask=pred==y_true
         randomMask=np.array(ranpredictions)==y_true
         #print(mask)
-        print(sklearn.metrics.roc_auc_score(mask,similarity))
-        print(len(mask))
+        #print(sklearn.metrics.roc_auc_score(mask,similarity))
+        #print(len(mask))
         for idx,el in enumerate(mask):
             o.write("{}\t{}\t{}\t{}\t{}\t\"{}\"\t{}\t{}\n".format(cycle,el,pred[idx],y_true[idx],similarity[idx],smiles_test[idx],randomMask[idx],ransimilarity[idx]))
 
-        w=np.where((np.array(similarity)>=0.95) & (np.array(mask)==False))
-        
-        if(len(w)==1):
-            if(len(w[0])):
-                ids=w[0]
-                for mol_id in ids:
-                    
-
-                    mol_fp=fp_test[mol_id]
-                    #amb.write("{}\n".format(Chem.MolToSmiles(mol_test[mol_id])))
-                    for ref_ix,ref_fp in enumerate(fp_train):
-                        if(ref_fp!=''):
-                            if simMetric=="tanimoto":
-                                sim=DataStructs.TanimotoSimilarity(mol_fp,ref_fp)
-                            if simMetric=="tversky":
-                                sim=DataStructs.TverskySimilarity(mol_fp,ref_fp,0.9,0.1)
-                            if simMetric=="dice":
-                                sim=DataStructs.DiceSimilarity(mol_fp,ref_fp)
-                            if(sim>0.99):
-                                
-                                #if train.iloc[ref_ix,5]=="4fc0":
-                                #if test.iloc[mol_id,5]=="4fc0":
-                                print(similarity[mol_id])
-                                
-                                print(Chem.MolToSmiles(mol_test[mol_id]))
-                                print(test.iloc[mol_id,5])
-                                print(test.iloc[mol_id,3])
-                                #print("SIMILAR PAIR : ")
-                                #print("==============")
-                                #print(train.iloc[ref_ix])
-                                #print(test.iloc[mol_id])
-                                #print(train.iloc[ref_ix,4])
-                                amb.write("{}\t{}\t{}\n".format(Chem.MolToSmiles(mol_test[mol_id]),train.iloc[ref_ix,5],test.iloc[mol_id,5])) 
     o.close()
