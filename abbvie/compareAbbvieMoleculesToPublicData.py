@@ -22,8 +22,15 @@ def getInchiFromSmiles(input):
 
 
 data=pd.read_csv("/Users/peter/Desktop/AbbvieKinConformations.csv",sep=";")
-abv_smiles=np.unique(data.loc[~data["smiles"].isnull(),"smiles"])
+
+
+abv_data=data.drop_duplicates(subset="smiles",keep="first")
+abv_data=abv_data.dropna(axis=0,subset=["smiles"])
+abv_smiles=abv_data["smiles"]
+np.savetxt(r"/Users/peter/Desktop/abv.smiles", abv_smiles.values, fmt='%s')
+
 abv_inchi=getInchiFromSmiles(abv_smiles)
+
 
 
 type1=pd.read_csv("../prepared_data/type1.csv")

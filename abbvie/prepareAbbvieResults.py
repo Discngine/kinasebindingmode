@@ -143,6 +143,9 @@ for cycle in range(10):
         
 
     smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
+    smiles_all_train=list(type1_train.smiles)+list(type2_train.smiles)+list(type1_2_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type1_2_test.smiles)
+    np.savetxt(r"all_pdb.smiles", smiles_all_train, fmt='%s')
+
     #smiles_train=list(type1_train.smiles)+list(type1_test.smiles)+list(type2_test.smiles)+list(type2_train.smiles)
     #smiles_test=list(type1_test.smiles)+list(type2_test.smiles)
 
