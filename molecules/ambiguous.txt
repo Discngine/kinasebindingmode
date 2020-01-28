@@ -1,10 +1,85 @@
-['03P', '03X', '0BX', '0SQ', '0T2', '1C9', '1FV', '1N1', '1QK',
-       '1SU', '1SW', '2HB', '2VU', '324', '35R', '3K3', '3QS', '3YT',
-       '4SP', '4T3', '4T5', '4T6', '55J', '584', '59N', '5BS', '6BZ',
-       '6QB', '7DZ', '7XO', '7XR', '7XU', '7YG', '7YS', 'ACP', 'ADP',
-       'AGS', 'ANP', 'AQ4', 'ATP', 'AXI', 'B49', 'B98', 'BX7', 'C7Y',
-       'CK2', 'CK4', 'CK7', 'CK8', 'CMG', 'DB8', 'DKI', 'DQX', 'DT5',
-       'DTQ', 'EU4', 'EZV', 'F18', 'FB8', 'FC8', 'GVD', 'H8H', 'HKI',
-       'IRE', 'J60', 'KS1', 'KSA', 'L0F', 'LQQ', 'LZ9', 'MTW', 'PP1',
-       'PVB', 'QUE', 'R09', 'RRC', 'SK8', 'SKE', 'STI', 'STU', 'SU9',
-       'VGH', 'X11', 'YDJ']
+residueCode
+03P
+03X
+0BX
+0SQ
+0T2
+1C9
+1FV
+1N1
+1QK
+1SU
+1SW
+2HB
+2VU
+324
+35R
+3K3
+3QS
+3YT
+4SP
+4T3
+4T5
+4T6
+55J
+584
+59N
+5BS
+6BZ
+6QB
+7DZ
+7XO
+7XR
+7XU
+7YG
+7YS
+ACP
+ADP
+AGS
+ANP
+AQ4
+ATP
+AXI
+B49
+B98
+BX7
+C7Y
+CK2
+CK4
+CK7
+CK8
+CMG
+DB8
+DKI
+DQX
+DT5
+DTQ
+EU4
+EZV
+F18
+FB8
+FC8
+GVD
+H8H
+HKI
+IRE
+J60
+KS1
+KSA
+L0F
+LQQ
+LZ9
+MTW
+PP1
+PVB
+QUE
+R09
+RRC
+SK8
+SKE
+STI
+STU
+SU9
+VGH
+X11
+YDJ
