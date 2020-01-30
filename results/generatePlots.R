@@ -17,8 +17,8 @@ theme_Publication <- function(base_size=14, base_family="Roboto") {
       library(ggthemes)
       (theme_foundation(base_size=base_size, base_family=base_family)
        + theme(plot.title = element_text(face = "bold",
-                                         size = rel(5.2), hjust = 0.5),
-               text = element_text(size = rel(5.2)),
+                                         size = rel(4.2), hjust = 0.5),
+               text = element_text(size = rel(4.2)),
                panel.background = element_rect(colour = NA),
                plot.background = element_rect(colour = NA),
                panel.border = element_rect(colour = NA),
@@ -36,7 +36,7 @@ theme_Publication <- function(base_size=14, base_family="Roboto") {
                legend.key.size= unit(0.5, "cm"),
                legend.margin = unit(0, "cm"),
                legend.title = element_text(face="italic"),
-               legend.text = element_text(size = rel(5.2)),
+               legend.text = element_text(size = rel(4.2)),
                plot.margin=unit(c(10,5,5,5),"mm"),
                strip.background=element_rect(colour="#f0f0f0",fill="#f0f0f0"),
                strip.text = element_text(face="bold")
@@ -60,16 +60,15 @@ scale_colour_Publication <- function(...){
 
 createPlot<-function(data,title){
   p=ggplot(data, aes(similarityThreshold)) + 
-  geom_line(aes(y=(MCC*nFound/nData)/(MCC+3*nFound/nData)))+
   geom_line(aes(y=MCC,colour="MCC")) +
   geom_errorbar(aes(ymin=MCC-sdMCC, ymax=MCC+sdMCC,colour="MCC"), width=.01) +
   geom_line(aes(y=F1,colour="F1")) +
   geom_errorbar(aes(ymin=F1-sdF1, ymax=F1+sdF1,colour="F1"), width=.01) +
   geom_line(aes(y=BA,colour="BA")) +
-  geom_line(aes(y=nFound/nData,colour="Ratio Found")) + 
+  geom_line(aes(y=nFound/nData,colour="% found")) + 
 
   geom_errorbar(aes(ymin=BA-sdBA, ymax=BA+sdBA,colour="BA"), width=.01) +
-  geom_errorbar(aes(ymin=nFound/nData-sdnFound/nData, ymax=nFound/nData+sdnFound/nData,colour="Ratio Found"), width=.01) +
+  geom_errorbar(aes(ymin=nFound/nData-sdnFound/nData, ymax=nFound/nData+sdnFound/nData,colour="% found"), width=.01) +
   labs(y = "",
                 x = "Similarity Threshold",colour="",title=title) + 
                 scale_colour_Publication() +
@@ -316,10 +315,10 @@ proba=grid.arrange(tp1,tp2,tp3,dp1,dp2,dp3,tvp1,tvp2,tvp3,nrow=3)
 
 erg=grid.arrange(ergt1,ergp1,nrow=1)
 
-ggsave(file="tanimoto_top_mfp1.svg", plot=topt, width=10, height=10)
-ggsave(file="tanimoto_proba_mfp1.svg", plot=proba, width=10, height=10)
+ggsave(file="tanimoto_top_mfp1_I_II.eps", plot=topt, width=15, height=15)
+ggsave(file="tanimoto_proba_mfp1_I_II.eps", plot=proba, width=15, height=15)
 
-ggsave(file="ergfp.svg", plot=erg, width=8, height=4)
+ggsave(file="ergfp_I_II.eps", plot=erg, width=12, height=8)
 
 
 # p=ggplot(tanimoto_top_radius_1, aes(similarityThreshold)) + 
