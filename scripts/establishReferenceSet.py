@@ -26,6 +26,21 @@ def getLigandStructure(structure_id,session):
             return("NA")
 
 
+
+def getReleaseDateFromPDB(pdbCode,session):
+    """Retrieve mol2 structure of the ligand for one particular structure id and 
+    transform this to a smiles string"""
+    query="https://www.rcsb.org/pdb/rest/getEntityInfo?structureId="+str(pdbCode)
+    response=session.get(query)
+    if response.status_code==200:
+        try:
+            d=xmltodict.parse(response.content)
+            return(d["entityInfo"]["PDB"]["@release_date"])
+        except Exception as err:
+            print("Error fetching release date from PDB for pdb code: "+str(pdbCode))
+            print(err)
+            return("NA")
+
 def getLigandStructureFromPDB(het,session):
     """Retrieve mol2 structure of the ligand for one particular structure id and 
     transform this to a smiles string"""
@@ -57,7 +72,7 @@ ligandDict={}
 
 #prepare outputfile handle so we can reuse what we extract here later for training etc
 of=open("kinaseBindingModesKlifs.csv","w")
-of.write("Kinase ID\tKinase Name\tsmiles\tstructure_ID\tpdb\talt\tchain\tmissing_residues\tligand\tallosteric_ligand\tDFG\taC_helix\tback\tspecies\n")
+of.write("Kinase ID\tKinase Name\tsmiles\tstructure_ID\tpdb\talt\tchain\tmissing_residues\tligand\tallosteric_ligand\tDFG\taC_helix\tback\tspecies\treleaseDate\n")
 if response.status_code==200:
     for kinase in response.json():
         kinaseID=kinase["kinase_ID"]
@@ -80,7 +95,7 @@ if response.status_code==200:
             for structure in structureList:
                 structureID=structure["structure_ID"]
                 #smiles=getLigandStructure(structureID,sklifs)
-                if len(str(structure["ligand"]))==3 : 
+                if len(str(structure["ligand"]))==3 and structure["ligand"]: 
                     if structure["ligand"] not in ligandDict:
                         smiles=getLigandStructureFromPDB(structure["ligand"],spdb)
                         ligandDict[structure["ligand"]]=smiles
@@ -88,11 +103,17 @@ if response.status_code==200:
                         smiles=ligandDict[structure["ligand"]]
                 else :
                     smiles="NA"
-
+                if smiles is None:
+                    smiles="NA"
+                releaseDate=getReleaseDateFromPDB(structure["pdb"],spdb)
+                if releaseDate is None:
+                    releaseDate="NA"
+                print(kinase["name"])
+                print(smiles)
                 of.write(str(kinaseID)+"\t"+kinase["name"]+"\t"+smiles)
                 for descriptor in descriptors:
                     of.write("\t"+str(structure[descriptor]))
-                of.write("\t"+species+"\n")
+                of.write("\t"+species+"\t"+releaseDate+"\n")
 
 
 of.close()
