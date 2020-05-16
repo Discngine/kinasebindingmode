@@ -54,6 +54,14 @@ In order to compare previous obtained predictions to random, we've provided a sc
 
 will calculate the balanced accuracy, F1 and Mathews correlation coefficient for a type1 type2 random classifier with the actual data (biased). 
 
+### V: General Predictivity
+The following script will provide output for a prediction using various Morgan radii and a similarity metric of choice (input parameter) and compare this prediction to the actual class of the compound. The output is the basis to produce all the prediction evaluation plots of the paper (threshold vs MCC, accuracy etc). 
+
+```
+python scripts/evaluation/generalPredictivity.py similarityMetric outputPrefix 
+Allowed metrics are tanimoto, tversky, dice
+```
+
 
 
 ## Folder structure
