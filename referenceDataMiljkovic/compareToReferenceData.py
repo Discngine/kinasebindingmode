@@ -1,7 +1,7 @@
 import pandas as pd 
 import numpy as np
 refdata=pd.read_table("data.dat")
-ourdata=pd.read_table("../kinaseBindingModesKlifs.csv")
+ourdata=pd.read_table("../scripts/kinaseBindingModesKlifs.csv")
 
 if 0 : 
 
