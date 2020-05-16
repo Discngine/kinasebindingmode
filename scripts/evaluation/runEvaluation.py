@@ -24,6 +24,7 @@ if len(sys.argv)<3:
 firsttype: str=sys.argv[1]
 secondtype: str=sys.argv[2]
 ncpus :int=12
+randomSeed: int =3333
 if(len(sys.argv)>=4):
     ncpus=int(sys.argv[3])
 if(len(sys.argv)>4):
@@ -131,14 +132,14 @@ def evaluate(fingerprintMethod,similarityMethod,similarityThreshold=0.5,debug=0,
     type1_2_test["type"]="type1_2"
     
 
-    trainDict={"type1":type1_train,"type2":type2_train,"type1_2":type1_2_train}
-    testDict={"type1":type1_test,"type2":type2_test,"type1_2":type1_2_test}
     
     if debug:  
         print("TYPE 1 1/2:")
         print("      - %d molecules in training set."%(len(type1_2_train)))
         print("      - %d molecules in test set."%(len(type1_2_test)))
         
+    trainDict={"type1":type1_train,"type2":type2_train,"type1_2":type1_2_train}
+    testDict={"type1":type1_test,"type2":type2_test,"type1_2":type1_2_test}
     
     trainFirstTypeSmiles=trainDict["{}".format(firsttype)].smiles
     trainSecondTypeSmiles=trainDict["{}".format(secondtype)].smiles
