@@ -62,7 +62,12 @@ python scripts/evaluation/generalPredictivity.py similarityMetric outputPrefix
 Allowed metrics are tanimoto, tversky, dice
 ```
 
+Last the timeline analysis (how well we could have predicted with past data and since when) can be run with the generalPredictivityTimeline.py script
 
+```
+python scripts/evaluation/generalPredictivityTimeline.py similarityMetric outputPrefix 
+Allowed metrics are tanimoto, tversky, dice
+```
 
 ## Folder structure
 ### referenceDataMiljkovic
