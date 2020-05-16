@@ -47,6 +47,14 @@ Example to get the performance of a type1 vs type2 classifier:
 
 `python scripts/evaluation/runEvaluation.py type1 type2 12 3333`
 
+### IV: Get Random Evaluation
+In order to compare previous obtained predictions to random, we've provided a script that runs a random selection for all possible classifiers: 
+
+`python scripts/evaluation/runRandomEvaluation.py type1 type2` 
+
+will calculate the balanced accuracy, F1 and Mathews correlation coefficient for a type1 type2 random classifier with the actual data (biased). 
+
+
 
 ## Folder structure
 ### referenceDataMiljkovic

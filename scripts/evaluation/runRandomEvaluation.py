@@ -187,17 +187,9 @@ def getEvaluationStats(similarityMethod,similarityThreshold,n=2,morganFpRadius=2
         notFound.append(m["notFound"])
         found.append(m["found"])
     print(ba,f1,mcc)
-    #print((similarityMethod.__name__,evaluationMode,morganFpRadius,similarityThreshold,np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.std(found),np.mean(notFound),np.std(notFound)))
     print("ba:\t%.5f\t%.5f\tf1:\t%.5f\t%.5f\tmcc\t%.5f\t%.5f\tfound:\t%d\tnotFound\t%d"%(np.mean(ba),np.std(ba),np.mean(f1),np.std(f1),np.mean(mcc),np.std(mcc),np.mean(found),np.mean(notFound)))
 
 if __name__ == "__main__":
-    #similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.DiceSimilarity,DataStructs.TverskySimilarity,calc_ergfp]#,GetFraggleSimilarity]
-    #similarityMethods=[GetFraggleSimilarity]
-    #fingerprintMethods=[rdReducedGraphs.GetErGFingerprint,AllChem.GetMorganFingerprint]
-    #threads=[]
-    #evaluationModes=["top","probability"]
-    #similarityMethods=[DataStructs.TanimotoSimilarity,DataStructs.FingerprintSimilarity,DataStructs.DiceSimilarity,DataStructs.AsymmetricSimilarity,DataStructs.BraunBlanquetSimilarity,DataStructs.CosineSimilarity,DataStructs.KulczynskiSimilarity,DataStructs.McConnaugheySimilarity, DataStructs.RogotGoldbergSimilarity, DataStructs.RusselSimilarity,DataStructs.SokalSimilarity,DataStructs.TverskySimilarity]
-    
 
     if len(sys.argv)<3:
         sys.exit("USAGE: python runRandomEvaluation.py type1 type2 [randomSeed]\nAllowed types: type1,type2,type1_2")
