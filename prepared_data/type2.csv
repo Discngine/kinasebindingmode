@@ -1,232 +1,239 @@
-,Kinase ID,Kinase Name,smiles,structure_ID,pdb,alt,chain,missing_residues,ligand,allosteric_ligand,DFG,aC_helix,back,species
-61,392,ABL1,Cc1ccc(cc1Nc2nccc(n2)c3cccnc3)C(=O)Nc4cc(cc(c4)n5cc(nc5)C)C(F)(F)F,1046,3cs9,A,C,2,NIL,0,out,out,True,Human
-65,392,ABL1,CC(C)(C)c1cc(n(n1)c2ccc3c(c2)cccn3)NC(=O)Nc4ccc(cc4F)Oc5ccnc(c5)C(=O)NC,1047,3qri,B,A,0,919,0,out,out,True,Human
-70,392,ABL1,CCCc1ccc(cc1C(F)(F)F)NC(=O)c2ccccc2NCC3=CNC(=O)C=C3,1109,2hz0,B,B,7,GIN,0,out,out,True,Human
-80,392,ABL1,Cc1ccc(cc1Nc2nccc(n2)c3cncnc3)NC(=O)c4ccc(c(c4)C(F)(F)F)C[N@@]5CC[C@@H](C5)N(C)C,1065,2e2b,,B,0,406,0,out,out,True,Human
-95,392,ABL1,Cc1ccc(cc1N2C=C3C=NC(=NC3=[N+](C2=O)C)N)NC(=O)c4cccc(c4)C(F)(F)F,1069,2hiw,,A,0,7MP,0,out,out,True,Human
-96,392,ABL1,CC(C)(C)c1cc(n(n1)c2ccc3c(c2)C[C@H](NC3)C(=O)O)NC(=O)Nc4cccc(c4Cl)Cl,1056,3qrk,,A,0,9DP,0,out,out,True,Human
-291,1,AKT1,CCC(=O)Nc1ccc2c(c1)N(C(=O)N2C)C3CCN(CC3)Cc4ccc(cc4)c5c(cc6c(n5)C=CNC6=O)c7ccccc7,10914,6hhj,,A,0,G4H,0,out,out,True,Human
-294,1,AKT1,CCC(=O)Nc1ccc2c(c1)N(C(=O)N2)C3CCN(CC3)Cc4ccc(cc4)C5=C(N=C(C(=O)N5)C)c6ccccc6,11747,6s9w,B,A,0,L1Z,0,out,out,True,Human
-338,396,ALK,COc1cc2c(ccnc2cc1OC)Oc3ccc4c(c3)nc(o4)Nc5ccc(cc5)Cl,5367,4fny,,A,6,I3K,0,out,out,True,Human
-383,396,ALK,Cc1cc(ccc1NC(=O)Nc2cc(on2)C(C)C)c3cc([nH]n3)NC(=O)c4ccc(cc4)CN5CCN(CC5)C,6638,5iuh,,A,5,34Y,0,out,out,True,Human
-386,396,ALK,Cc1cc(ccc1NC(=O)Nc2cc(on2)C(C)(C)C)c3cc([nH]n3)NC(=O)c4ccc(cc4)CN5CCN(CC5)C,6639,5iug,B,A,4,729,0,out,out,True,Human
-486,259,AURKA,COc1cc2c(cc1OC[C@H](CN3CCCCC3)O)ncnc2Nc4cnc(nc4)NC(=O)c5ccccc5,1989,2c6e,,A,0,HPM,0,out,out,True,Human
-640,259,AURKA,CC(C)n1c2c(c(n1)c3ccc(cc3)NC(=O)/C=C/C(=O)c4ccc(c(c4)C(F)(F)F)F)c(ncn2)N,10411,6hjk,,A,0,G7W,0,out,out,True,Human
-690,509,BRAF,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(c4c3cccc4)OCCN5CCOCC5,3050,4jvg,,C,0,B96,0,out,out,True,Human
-692,509,BRAF,c1cc(c(c(c1)C2(CC2)C#N)Cl)C(=O)Nc3cc(ccc3F)Oc4ccc5c(n4)sc(n5)NC(=O)C6CC6,3052,4dbn,,A,1,0JA,0,out,out,True,Human
-708,509,BRAF,CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl,3127,1uwh,,A,0,BAX,0,out,out,True,Human
-716,509,BRAF,Cc1ccc(cc1Nc2ccc3c(c2)C(=O)N(C=N3)C)NC(=O)c4cccc(c4)C(C)(C)C#N,3101,4g9r,,B,0,B1E,0,out,out,True,Human
-719,509,BRAF,CC(C)(C#N)c1cccc(c1)C(=O)Nc2ccc(c(c2F)C(=O)Nc3cc4c([nH]nc4nc3)OC)F,3084,4g9c,,A,0,0WP,0,out,out,True,Human
-727,509,BRAF,CN(C)Cc1ccc(cc1)c2cnn3c2nccc3c4cccc(c4)NC(=O)c5cccc(c5)C(F)(F)F,3116,3ii5,,A,0,831,0,out,out,True,Human
-732,509,BRAF,CC(C)(c1cc(cc(c1)NC(=O)[C@H]2CCc3ccc(cc3C2)Oc4ccnc5c4CCC(=O)N5)C(F)(F)F)N,3072,3q96,,A,1,0NF,0,out,out,True,Human
-741,509,BRAF,Cc1ccc2c(c1Nc3c(cccn3)c4c5c(nc[nH]5)ncn4)ccnc2Nc6ccc(cc6)Cl,3077,3idp,,A,0,L1E,0,out,out,True,Human
-813,509,BRAF,Cc1c(cc(cn1)NC(=O)c2cccc(c2)C(F)(F)F)c3cc(c(nc3)OC4CCOCC4)N5CCOCC5,8186,5vam,A,B,0,92J,0,out,out,True,Human
-815,509,BRAF,Cc1ccc(cc1c2cc(ncn2)N3CCOCC3)C(=O)Nc4cccc(c4)C(C)(C)C,8188,5val,,B,1,92D,0,out,out,True,Human
-819,509,BRAF,Cc1ccc(cc1c2ccc3nc(cn3c2)NC(=O)C)NC(=O)c4cccc(c4)C(F)(F)F,8678,6b8u,,B,3,8EN,0,out,out,True,Human
-823,509,BRAF,CCn1c2c(c(n1)C#Cc3c(ccc4c3ccnc4Nc5ccc(cc5)Cl)C)c(ncn2)N,11328,6nsq,,A,0,KZP,0,out,out,True,Human
-828,509,BRAF,Cc1ccc(cc1c2cc(nc(c2)OCCO)N3CCOCC3)NC(=O)c4ccnc(c4)C(F)(F)F,11594,6n0p,A,B,0,K81,0,out,out,True,Human
-835,509,BRAF,Cc1ccc(cc1c2ccc3c(c2)NC(=O)N3C)NC(=O)c4cccc(c4)C(F)(F)F,11768,6n0q,B,A,2,K7S,0,out,out,True,Human
-2102,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCCNC(=O)OC(C)(C)C,3840,4f7l,,A,2,0SO,0,out,out,True,Human
-2104,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCO,3842,4f7j,A,A,1,0SU,0,out,out,True,Human
-2106,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCCN3CCOCC3,3844,4f6u,B,A,1,0SR,0,out,out,True,Human
-2107,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCN3CCN(CC3)C(=O)Nc4cc(nn4c5ccc(cc5)C)C(C)(C)C,3845,4f6w,,A,0,0SS,0,out,out,True,Human
-2109,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCCCCO,3847,4f7n,,A,1,0SV,0,out,out,True,Human
-2113,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCN3CCOCC3,3852,4f70,,A,3,0ST,0,out,out,True,Human
-2126,205,CDK8,CNc1nccc(n1)N2CC[C@@H](C2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)CN4CCOCC4,6552,5hvy,B,A,4,66X,0,out,out,True,Human
-2562,449,CSF1R,c1cc(ncc1Cc2c[nH]c3c2cc(cn3)Cl)NCc4ccc(nc4)C(F)(F)F,2308,4r7h,,A,0,P31,0,out,out,True,Human
-2569,449,CSF1R,COc1cc2c(c[nH]c2nc1)Cc3ccc(nc3)NCc4ccc(cc4)C(F)(F)F,2304,4hw7,,A,0,64M,0,out,out,True,Human
-2570,449,CSF1R,Cn1cc(cn1)c2cnc(c(n2)OCc3cc(c(cn3)OCc4ccc(cc4)OC)OC)N,2313,3lco,B,A,0,LC0,0,out,out,True,Human
-2577,449,CSF1R,COc1cc(ccc1OCc2ccc(cc2)C3CC3)C4CN(C4)C(=O)c5cc(ccn5)COC[C@H](CO)O,11519,6ig8,A,A,0,A7O,0,out,out,True,Human
-2579,449,CSF1R,Cc1cc2c(c[nH]c2nc1)Cc3ccc(nc3F)NCc4cc(cnc4OC)F,11634,6n33,,A,0,622,0,out,out,True,Human
-3395,404,DDR1,Cc1ccc(cc1NC(=O)c2cnc3n2cccc3)[C@H](C)Nc4nc5cc(ccc5o4)F,3250,5bvo,,A,2,4VE,0,out,out,True,Human
-3396,404,DDR1,CCN1CCN(CC1)Cc2ccc(cc2C(F)(F)F)C(=O)Nc3ccc(c(c3)Oc4ccc5c(c4)CC(=O)N5)C,3257,4ckr,A,A,0,DI1,0,out,out,True,Human
-3397,404,DDR1,c1ccc(c(c1)NC(=O)NCc2cccnc2)Cl,3251,5bvk,,A,0,4VC,0,out,out,True,Human
-3400,404,DDR1,Cc1ccc(cc1C#Cc2cnc3n2nccc3)C(=O)Nc4ccc(c(c4)C(F)(F)F)CN5CCN(CC5)C,3258,3zos,A,B,0,0LI,0,out,out,True,Human
-3407,404,DDR1,Cc1ccc(cc1NC(=O)c2cnc3n2cccc3)CNC(=O)Nc4cccc(c4)F,3261,5bvn,,A,0,4VD,0,out,out,True,Human
-3408,404,DDR1,C[C@@H]1CN(Cc2c1ccc(c2)C(=O)Nc3cc(cc(c3)C(F)(F)F)CN4CCN(CC4)C)c5cncnc5,6676,5fdp,,A,0,5WR,0,out,out,True,Human
-3409,404,DDR1,C[C@H]1CN(Cc2c1ccc(c2)NC(=O)c3cc(cc(c3)C(F)(F)F)CN4CCN(CC4)C)c5cncnc5,7130,5fdx,,B,0,5X1,0,out,out,True,Human
-3411,404,DDR1,CC(C)c1ccc(cc1C#Cc2cnc3n2ccnc3)C(=O)Nc4cc(cc(c4)C(F)(F)F)CN5CCN(CC5)C,10485,6gwr,A,A,0,FEW,0,out,out,True,Human
-3415,404,DDR1,c1cc2c(c(c1)Br)C3(CCN(CC3)C(=O)c4ccc5c(n4)cn[nH]5)C(=O)N2CC(=O)NCC(F)(F)F,10744,6fex,B,A,0,D6Z,0,out,out,True,Human
-3417,404,DDR1,CNC(=O)CN1CN(C2(C1=O)CCN(CC2)C(=O)c3ccc4c(c3)c[nH]n4)c5ccccc5,10745,6fim,B,A,0,D6W,0,out,out,True,Human
-3422,404,DDR1,c1ccc(cc1)N2CN(C(=O)C23CCN(CC3)C(=O)c4ccc5c(c4)cn[nH]5)Cc6nc(no6)C7CC7,10747,6fin,B,A,0,DJQ,0,out,out,True,Human
-3425,404,DDR1,Cc1cccc2c1C3(CCN(CC3)C(=O)c4ccc5c(c4)cn[nH]5)C(=O)N2CC(=O)NCC(F)(F)F,10748,6fio,A,A,0,DJH,0,out,out,True,Human
-3426,404,DDR1,COc1ccc2c(n1)C3(CCN(CC3)C(=O)c4ccc5c(c4)cn[nH]5)C(=O)N2CC(=O)N6CCC[C@H]6C(F)(F)F,10742,6fiq,,A,0,DJW,0,out,out,True,Human
-3430,404,DDR1,Cc1cn(cn1)c2cc(cc(c2)NC(=O)c3ccc4c(c3)C[C@@H](C4)Nc5cncnc5)C(F)(F)F,10884,6hp9,,B,0,GKB,0,out,out,True,Human
-3432,405,DDR2,c1cc(c(c2c1N(C(=O)C23CCN(CC3)C(=O)c4cc5cn[nH]c5nc4)CC(=O)NCC(F)(F)F)F)F,10735,6fer,,I,0,D6Q,0,out,out,True,Human
-3944,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2)sc(n3)NC)N)C(=O)C4=C(N(N(C4=O)c5ccccc5)C)c6ccccc6,6844,4x7l,A,A,0,3Z4,0,out,out,True,Human
-3945,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2)cnc(n3)NC)N)C(=O)Nc4ccc(c(c4)C(F)(F)F)OC,6841,4x7j,B,A,0,3Z1,0,out,out,True,Human
-3948,309,EIF2AK3,CN1C(=C(C(=O)N1c2ccccc2)C(=O)Nc3ccc(cn3)Oc4ccnc5c4cc(c(c5)OC)OC)c6ccncc6,7240,4x7h,B,A,2,3Z2,0,out,out,True,Human
-3949,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2)ccc(n3)C)N)C(=O)C4=C(N(N(C4=O)c5ccccc5)C)c6ccccc6,7241,4x7n,B,A,0,3Z5,0,out,out,True,Human
-3950,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2F)cnc(n3)NC)N)C(=O)C4=C(N(N(C4=O)c5ccccc5)C)c6ccccc6,7242,4x7k,B,A,0,3Z3,0,out,out,True,Human
-3956,306,EIF2AK4,Cn1c2ccc(cc2nc1Nc3ccc(cc3)C(F)(F)F)Oc4cc(ncn4)NC(=O)C5CC5,11692,6n3l,B,B,21,KAV,0,out,out,True,Human
-4030,410,EPHA2,Cc1ccc(cc1Nc2c3cn(nc3nc(n2)c4cccnc4)C)C(=O)Nc5cccc(c5)C(F)(F)F,10414,6fng,A,A,1,DWT,0,out,out,True,Human
-4033,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cccnc4)C)C(=O)Nc5cccc(c5)C(F)(F)F,10417,6fnf,A,A,0,DXH,0,out,out,True,Human
-4039,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cccnc4)C)C(=O)Nc5cccc(c5)Cl,11560,6het,B,A,2,G0Q,0,out,out,True,Human
-4041,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)c3ccncc3)c4ccncc4)C(=O)Nc5cccc(c5)C(F)(F)F,11552,6heu,B,A,0,G0N,0,out,out,True,Human
-4042,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cncnc4)C)C(=O)Nc5cccc(c5)C(F)(F)F,11549,6hew,A,A,0,G0E,0,out,out,True,Human
-4043,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cnccn4)C)C(=O)Nc5cccc(c5)C(F)(F)F,11559,6hex,A,A,1,G02,0,out,out,True,Human
-4044,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)c3cccnc3)c4cccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11557,6hey,A,A,0,FZW,0,out,out,True,Human
-4045,410,EPHA2,Cc1ccc(cc1Nc2c3ccccc3nc(n2)c4cccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11550,6hes,A,A,0,G0H,0,out,out,True,Human
-4048,410,EPHA2,Cc1ccc(cc1Nc2c3cccnc3nc(n2)c4cccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11561,6hev,A,A,0,G0K,0,out,out,True,Human
-4070,412,EPHA3,Cc1ccc(cc1NC(=O)c2ccno2)NC(=O)c3cc(cc(c3)n4cc(nc4)C)C(F)(F)F,2852,3dzq,A,A,1,IFC,0,out,out,True,Human
-4136,415,EPHA7,Cc1ccc(cc1Nc2cc(cnc2)C(=O)N)C(=O)Nc3cccc(c3)C(F)(F)F,1,3dko,A,A,3,IHZ,0,out,out,True,Human
-4261,273,ERN1,Cc1ccc(cc1)CNC(=O)N2CCC[C@@]3(C2)CCN(C3)Cc4ccc(c(c4)Cl)Cl,6233,4yz9,A,A,0,4K7,0,out,out,True,Human
-4624,483,FLT1,c1ccc(c(c1)C(=O)Nc2ccc(cc2)Cl)NCc3ccncc3,3837,3hng,A,A,0,8ST,0,out,out,True,Human
-4626,450,FLT3,CC(C)(C)c1cc(no1)NC(=O)Nc2ccc(cc2)c3cn4c5ccc(cc5sc4n3)OCCN6CCOCC6,623,4xuf,,B,0,P30,0,out,out,True,Human
-4997,432,IGF1R,C[C@H]1C(=O)N(C(=O)N1Cc2ccnc3c2cccc3)c4ccc(cc4)S(=O)(=O)C(F)(F)F,1036,3o23,,A,0,MQY,0,out,out,True,Human
-5049,433,INSR,c1ccc(cc1)Oc2ccccc2NC(=O)Nc3cccc(c3)c4c[nH]c5c4cc(cn5)c6ccc(cc6)CN,579,3eta,B,A,0,351,0,out,out,True,Human
-5255,489,IRAK4,c1cc(cc(c1)C(=O)Nc2ccc(c(c2)C(F)(F)F)CN3CCNCC3)c4ccc5c(n4)sc(n5)NC(=O)C6CC6,10907,6ega,B,A,5,J8A,0,out,out,True,Human
-5525,436,JAK2,CC(=O)Nc1cc(ncn1)Oc2ccc3c(c2)CCN3C(=O)Nc4ccc(c(c4)C(F)(F)F)CN5CCN(CC5)C,3632,3ugc,A,A,0,046,0,out,out,True,Human
-5788,485,KDR,CNC(=O)c1cc(ccn1)Oc2ccc3c(c2)[nH]c(n3)Nc4ccc(c(c4)C(F)(F)F)Cl,5317,2qu5,,A,0,276,0,out,out,True,Human
-5791,485,KDR,CC1=C(C(=O)N(C=C1)c2cccc(c2)C(F)(F)F)c3ccc4c(c3)cnc(n4)N,5309,3cpc,,B,6,C52,0,out,out,True,Human
-5792,485,KDR,c1cc(cc(c1)Nc2c3ccc(c(c3on2)C(=O)Nc4cncnc4)Cl)C(F)(F)F,5308,3dtw,,B,4,A96,0,out,out,True,Human
-5795,485,KDR,CNC(=O)c1cc(ccn1)Oc2ccc3c(c2)nc(o3)Nc4ccc(c(c4)OC[C@@H]5CCC[N@]5C)Cl,5316,2qu6,,A,7,857,0,out,out,True,Human
-5797,485,KDR,c1ccc(cc1)Oc2ccc(cc2)NC(=O)c3cccnc3NCc4ccncc4,5315,2p2i,,B,6,608,0,out,out,True,Human
-5800,485,KDR,COc1cc2c(ccnc2cc1OC)Oc3ccc4c(c3)cccc4C(=O)Nc5ccc(cc5)Cl,5319,3b8q,,B,3,900,0,out,out,True,Human
-5802,485,KDR,Cc1cc(n(n1)C)C(=O)Nc2cccc(c2)Oc3ccc4nc(cn4n3)NC(=O)C5CC5,5321,3vo3,B,A,0,0KF,0,out,out,True,Human
-5804,485,KDR,COC(=O)Nc1[nH]c2ccc(cc2n1)Oc3ccc(cc3)NC(=O)Nc4cc(ccc4F)C(F)(F)F,5324,2oh4,B,A,0,GIG,0,out,out,True,Human
-5809,485,KDR,Cn1ccc2c1c(ncn2)Oc3ccc(c(c3)F)NC(=O)Nc4cccc(c4)C(F)(F)F,5331,3vhe,,A,0,42Q,0,out,out,True,Human
-5811,485,KDR,CC1(CNc2c1ccc(c2)NC(=O)c3cccnc3NCc4ccncc4)C,5330,3efl,,B,3,706,0,out,out,True,Human
-5817,485,KDR,Cc1ccc(cc1Nc2c(cccn2)c3ccncn3)C(=O)Nc4cc(cc(c4)C(F)(F)F)CCCN(C)C,5337,3be2,,A,2,RAJ,0,out,out,True,Human
-5821,485,KDR,Cc1c(nc(o1)c2ccccc2)COc3cccc(c3)CO,5342,3vhk,,A,0,BPK,0,out,out,True,Human
-5827,485,KDR,COc1cc2c(ccnc2cc1OC)Oc3ccc4c(c3)OCCN4C(=O)Nc5ccc(cc5)Cl,5348,2rl5,,A,4,2RL,0,out,out,True,Human
-5828,485,KDR,CC1=C/C(=N\C(=O)Nc2ccc(cc2Cl)Oc3ccnc4c3cc(c(c4)OC)OC)/NO1,5349,4ase,,A,0,AV9,0,out,out,True,Human
-5830,485,KDR,CNc1nccc(n1)c2cccnc2Oc3ccc(c4c3cccc4)Nc5[nH]c6cc(ccc6n5)C(F)(F)F,5351,3ewh,,A,0,K11,0,out,out,True,Human
-5831,485,KDR,c1ccc(c(c1)C(=O)Nc2cccc(c2)C(F)(F)F)NCc3ccncc3,6289,5ew3,,A,1,5T2,0,out,out,True,Human
-5833,485,KDR,CC1=C(C(=O)N(C=C1)c2ccc3c(c2)NCC3(C)C)c4ccc5c(c4)cnc(n5)N,6786,3cp9,,A,7,C19,0,out,out,True,Human
-5834,485,KDR,Cc1ccc(cc1C(=O)Nc2ccc(nc2)N)C(=O)NCCC3CCCC3,6787,3cpb,,A,9,C92,0,out,out,True,Human
-5836,485,KDR,Cc1c(c2ccc(cc2o1)Oc3ccnc4c3ccc(c4)OCCN5CCOCC5)C(=O)NC,6789,2xir,,A,0,00J,0,out,out,True,Human
-5842,485,KDR,CC(C)n1cc(cn1)NC(=O)Cc2ccc(cc2OC)Oc3c4cc(c(cc4ncn3)OC)OC,10580,6gqo,A,A,0,F82,0,out,out,True,Human
-5843,485,KDR,CC(C)c1cn(nn1)CC(=O)Nc2ccc(cc2)Oc3c4cc(c(cc4ncn3)OC)OC,10581,6gqq,A,A,0,F8B,0,out,out,True,Human
-5844,485,KDR,CCn1cc(cn1)CC(=O)Nc2ccc(cc2)Oc3c4cc(c(cc4ncn3)OC)OC,10582,6gqp,A,A,0,F88,0,out,out,True,Human
-5858,451,KIT,c1cc2c(c[nH]c2nc1)Cc3ccc(nc3)NCc4ccc(cc4)C(F)(F)F,403,4hvs,,A,0,647,0,out,out,True,Human
-5865,451,KIT,CC(C)c1cn(nn1)CC(=O)Nc2ccc(cc2)Nc3c4c(cc(cc4F)OCCOC)ncn3,10359,6gqm,,A,0,F8H,0,out,out,True,Human
-5872,451,KIT,CCN1c2cc(ncc2C=C(C1=O)c3cc(c(cc3Cl)F)NC(=O)Nc4ccccc4)NC,11469,6mob,A,A,0,JWY,0,out,out,True,Human
-5874,451,KIT,Cc1cccc(c1C)Nc2[nH]c(nn2)c3ccc(cc3)Oc4ccncc4,11628,6hh1,B,A,0,G4E,0,out,out,True,Human
-5880,466,LCK,Cc1ccc(cc1c2ccc3c(c2)cnc(n3)N)C(=O)Nc4cccc(c4)C(F)(F)F,2294,2ofv,,B,0,242,0,out,out,True,Human
-5890,466,LCK,CCN(CC)CC(=O)Nc1ccc(cc1NC(=O)c2ccc(c(c2)c3ccc4c(c3)cnc(n4)NC)C)C(F)(F)F,2282,2og8,,B,0,1N8,0,out,out,True,Human
-5912,466,LCK,Cc1ccc(cc1C(=O)Nc2cnc(nc2)Nc3ccc(cc3)N4CCN(CC4)C)NC(=O)c5cccc(c5C)C(F)(F)F,2288,3byu,,A,1,AM6,0,out,out,True,Human
-5916,466,LCK,Cc1ccc(cc1C(=O)Nc2cnc(nc2)Nc3ccc(cc3)N4CCN(CC4)C)C(=O)Nc5cccc(c5)C(F)(F)F,2293,3bys,,A,1,AM5,0,out,out,True,Human
-5933,491,LIMK2,CN(Cc1ccc(cc1)[C@@H](CO)O)C(=O)c2ccc(cc2)S(=O)(=O)Nc3ccccc3,2475,4tpt,,B,0,35H,0,out,out,True,Human
-5935,491,LIMK2,CCCN(Cc1ccccc1)C(=O)c2ccc(cc2)S(=O)(=O)Nc3cccc(c3)Cl,7621,5nxd,B,A,0,9D8,0,out,out,True,Human
-6192,504,MAP3K7,CCN1CCN(CC1)Cc2ccc(cc2C(F)(F)F)NC(=O)c3ccc(c(c3)Oc4ccnc5c4cc[nH]5)C,1888,4o91,,A,2,NG2,0,out,out,True,Human
-6194,504,MAP3K7,CC(C)(C)C1=C/C(=N\C(=O)Nc2ccc(cc2)Oc3cccnc3)/N(N1)c4cccc(c4)F,1890,2yiy,,A,2,YIY,0,out,out,True,Human
-6200,504,MAP3K7,CC(C)Oc1cc(ccc1NC(=O)c2csc(n2)c3cccc(c3)NC(=O)Nc4ccccc4)C(=O)N5CCN(CC5)C,7264,5gjf,,A,0,6V4,0,out,out,True,Human
-6202,504,MAP3K7,CN1CCN(CC1)c2cccc3c2ccc(c3)NC(=O)Nc4ccc(cc4)Oc5ccnc6c5cc[nH]6,7263,5gjd,,A,0,6V3,0,out,out,True,Human
-6591,251,MAPK13,CC(C)(C)c1cc(n(n1)C)NC(=O)Nc2ccc(cc2)Oc3ccncc3,2949,4eyj,,A,1,N61,0,out,out,True,Human
-6674,249,MAPK14,Cc1cccc(c1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)Nc4ccnc5c4cc(cc5)N,5012,3hv3,A,A,3,R49,0,out,out,True,Human
-6675,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nccs3,5001,3lfb,B,A,5,Z87,0,out,out,True,Human
-6679,249,MAPK14,CCn1c(c(c(c1C(=O)OCC)C)C(=O)N2CCN(CC2)Cc3ccccc3)C,4990,3iw6,A,A,2,PP0,0,out,out,True,Human
-6680,249,MAPK14,CC(C)(C)C1=CC(=NC(=O)Nc2cccc(c2Cl)Cl)N(N1)c3cccc(c3)CC(=O)N,5002,3nnx,,A,1,EDD,0,out,out,True,Human
-6689,249,MAPK14,Cc1ccc(cc1c2ccc3c(c2)onc3C4CCNCC4)C(=O)Nc5cccc(c5)N6CCOCC6,5004,3e93,B,A,1,19B,0,out,out,True,Human
-6697,249,MAPK14,c1cc(cnc1)OCc2cc(ccc2Cl)NC(=O)C3=CC(CC(C3)N4CCOCC4)F,4986,1w83,,A,0,L11,0,out,out,True,Human
-6716,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4c5cc(ccc5ncn4)N,5032,3gcu,A,A,0,R48,0,out,out,True,Human
-6719,249,MAPK14,Cc1ccc(cc1NC(=O)c2ccc(nc2)NCC[C@@H]3CCC[N@]3C)NC(=O)c4ccnc(c4)N5CCOCC5,5057,3kq7,B,A,0,KQ7,0,out,out,True,Human
-6724,249,MAPK14,Cc1ccc(cc1c2ccc(cc2)C(=O)NCC3CC3)NC(=O)c4ccnc(c4)N5CCOCC5,5028,3d83,,A,0,GK6,0,out,out,True,Human
-6726,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccc(cc2)CO)NC(=O)Nc3cccc4c3cccc4,5037,3nnv,A,A,0,437,0,out,out,True,Human
-6738,249,MAPK14,Cc1cccc(c1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)Nc4c5cc(ccc5ncn4)N,5053,3gcq,B,A,5,1BU,0,out,out,True,Human
-6739,249,MAPK14,c1c(cc(c(c1F)COc2c(c(sn2)NC(=O)NCCCCN3CCCC3)C(=O)N)F)Br,5055,3l8s,,A,6,BFF,0,out,out,True,Human
-6742,249,MAPK14,c1cc(cc(c1)N2/C(=N/C(=O)Nc3cccc(c3Cl)Cl)/C=C(N2)c4cccs4)CC(=O)N,5059,3nnu,B,A,0,EDB,0,out,out,True,Human
-6746,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4ccnc5c4cc(cc5)N,5064,3hv4,,B,0,L51,0,out,out,True,Human
-6752,249,MAPK14,c1cc2c(cc1Nc3ccc(cc3F)F)CCc4ccc(cc4C2=O)OC[C@@H](CO)O,5095,3que,,A,0,3FF,0,out,out,True,Human
-6756,249,MAPK14,Cc1ccc(cc1Nc2c3cc(c(cc3ncn2)OC)OCCN4CCCC4)NC(=O)c5ccnc(c5)N6CCOCC6,5114,2bak,,A,2,AQZ,0,out,out,True,Human
-6758,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nc(cs3)CCOCc4cccnc4,5096,3pg3,B,A,2,DG7,0,out,out,True,Human
-6774,249,MAPK14,c1cc(cc2c1ccn2CCc3ccncc3)NC(=O)c4cc(cc(c4)F)N5CCOCC5,5082,1wbt,,A,0,WBT,0,out,out,True,Human
-6775,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)OCCN4CCOCC4,5101,3hv6,,A,7,R39,0,out,out,True,Human
-6778,249,MAPK14,Cc1ccc(cc1N2C=Nc3ccc(cc3C2=O)N4CCN(CC4)C)NC(=O)c5ccnc(c5)N6CCOCC6,5132,4aa0,B,A,7,AA0,0,out,out,True,Human
-6780,249,MAPK14,c1ccc(cc1)CC2CCN(CC2)C(=O)c3ccc(cc3)CSc4[nH]c5cnccc5n4,5084,3iw7,,A,2,IPK,0,out,out,True,Human
-6781,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccc(cc2)CC(=O)O)NC(=O)Nc3nccs3,5120,3lff,B,A,2,Z83,0,out,out,True,Human
-6782,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nc(cs3)CCOCc4ccccc4,5102,3lfd,,A,8,Z85,0,out,out,True,Human
-6784,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4ccnc5c4cc(cc5)[N+](=O)[O-],5085,3hv5,A,B,0,R24,0,out,out,True,Human
-6792,249,MAPK14,Cc1cccc(c1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4c5cc(ccc5ncn4)N,5088,3gcv,A,A,2,SS6,0,out,out,True,Human
-6808,249,MAPK14,CC(C)(C)C1=CC(=NC(=O)Nc2ccc(cc2)Cl)N(N1)c3ccccc3,5165,1w82,,A,0,L10,0,out,out,True,Human
-6828,249,MAPK14,c1cc2c(cc[nH]2)cc1NC(=O)c3cc(cc(c3)F)N4CCOCC4,5148,1wbv,,A,0,LI3,0,out,out,True,Human
-6829,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccc(cc2)CC(=O)O)NC(=O)Nc3nc(cs3)CCOCc4ccccc4,5160,3lfc,,A,6,Z86,0,out,out,True,Human
-6835,249,MAPK14,c1ccc(cc1)COC[C@H](c2csc(n2)NC(=O)Nc3ccc(c(c3)Cl)F)N,5181,3iw8,,A,3,HIZ,0,out,out,True,Human
-6841,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nc(cs3)CCOCc4ccncc4,5173,3lfe,,A,4,Z84,0,out,out,True,Human
-6844,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccccc2)NC(=O)Nc3cccc(c3Cl)Cl,5176,2baj,,A,5,1PP,0,out,out,True,Human
-6868,249,MAPK14,CC(C)(C)c1cc(c(c(c1)NS(=O)(=O)C)OC)NC(=O)Nc2ccc(c3c2cccc3)c4ccc(nc4)CN5CCOCC5,5226,3gi3,,A,9,B10,0,out,out,True,Human
-6878,249,MAPK14,CC(C)(C)c1cc([nH]n1)NC(=O)Nc2ccc(c(c2)COc3cccnc3)Cl,5257,1wbn,,A,0,L09,0,out,out,True,Human
-6888,249,MAPK14,c1cc2c(cc1NC(=O)c3cc(cc(c3)F)N4CCOCC4)c(c[nH]2)CCc5ccncc5,5258,1wbs,,A,0,LI2,0,out,out,True,Human
-6899,249,MAPK14,Cc1ccc(cc1n2cc(nn2)C(=O)NCc3ccccc3)C(=O)Nc4cc(cc(c4OC)NS(=O)(=O)C)C(C)(C)C,5220,3ctq,,A,1,337,0,out,out,True,Human
-6900,249,MAPK14,CC(C)(C)c1cc(n(n1)C)NC(=O)Nc2ccc(cc2)Cl,5250,3o8u,,A,4,BMU,0,out,out,True,Human
-6902,249,MAPK14,CC(C)(C)c1cc(n(n1)c2cccc(c2)N)NC(=O)Nc3cccc4c3cccc4,5223,3hv7,,A,6,1AU,0,out,out,True,Human
-6914,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4ccc5c(c4)CCCCC5=O,6879,3uvr,B,A,0,06F,0,out,out,True,Human
-6935,249,MAPK14,CN1c2c([nH]nc2c3ccc(cc3)F)-c4ccccc4S1(=O)=O,11245,5omg,B,A,2,9Y8,0,out,out,True,Human
-6941,249,MAPK14,Cc1ccccc1n2cc(cn2)C(=O)Nc3cc(ccc3C)C(=O)N[C@@H](CCC4CCCCC4)C(=O)N,11618,6sfj,C,A,0,LBB,0,out,out,True,Human
-6942,249,MAPK14,Cc1ccccc1n2cc(cn2)C(=O)NCc3ncc(s3)C(=O)N[C@@H](CCC4CCCCC4)C(=O)N,11619,6sfi,B,A,0,LB5,0,out,out,True,Human
-6943,249,MAPK14,Cc1ccc(cc1NC(=O)c2cnn(c2C(F)(F)F)c3ccccc3)C(=O)N[C@@H](CCC4CCCCC4)C(=O)N,11620,6sfk,B,A,1,LB8,0,out,out,True,Human
-6944,249,MAPK14,c1ccc(cc1)n2c(c(cn2)C(=O)NCc3ccc(cc3)C(=O)NCCCC4CCCCC4)N,11621,6sfo,B,A,4,LBE,0,out,out,True,Human
-7311,128,MELK,COc1cccc(c1)Nc2ncc(c(n2)OCC3CCNCC3)c4ccc(cc4)C(=O)NCC(=O)Nc5ccccc5,7497,5k00,A,A,2,6PV,0,out,out,True,Human
-7389,446,MET,CC1=CC=C(C(=O)N1c2ccc(cc2)F)C(=O)Nc3ccc(c(c3)F)Oc4cc5cnn(c5cc4c6c[nH]nc6)C,3023,4eev,B,A,2,L1X,0,out,out,True,Human
-7396,446,MET,CCOC1=C(C(=O)N(C=C1)c2ccc(cc2)F)C(=O)Nc3ccc(c(c3)F)Oc4ccnc(c4Cl)N,2977,3f82,,A,2,353,0,out,out,True,Human
-7403,446,MET,c1cc(c(nc1)Nc2ccc(c(c2)F)Oc3ccnc(c3)N)C(=O)Nc4ccc(cc4F)F,2978,3l8v,,A,2,L8V,0,out,out,True,Human
-7409,446,MET,COc1cc2c(ccnc2cc1OCCCN3CCOCC3)Oc4ccc(cc4F)NC(=O)C5(CC5)C(=O)Nc6ccc(cc6)F,2964,3lq8,B,A,0,88Z,0,out,out,True,Human
-7414,446,MET,c1cc(ccc1CC(=O)NC(=O)Nc2ccc(c(c2)F)Oc3c4c(ccn4ncn3)CN5CCC(CC5)N)F,3020,3c1x,,A,3,CKK,0,out,out,True,Human
-7434,446,MET,CN1C(=NC=C(C1=O)c2ccc(c(c2)F)Oc3ccnc4c3cc(c(c4)OC)OC)Cc5ccccc5,3015,3efj,,A,3,MT3,0,out,out,True,Human
-7469,446,MET,c1cc(ccc1CC(=O)NC(=O)Nc2ccc(c(c2)F)Oc3ccnc4c3cc[nH]4)F,6766,3ctj,B,A,3,320,0,out,out,True,Human
-7471,446,MET,c1cc(ccc1CC(=O)NC(=O)Nc2ccc(c(c2)F)Oc3ccnc(c3)N)F,6768,3cth,,A,2,319,0,out,out,True,Human
-7472,446,MET,c1cc(ccc1N2C=CC=C(C2=O)C(=O)Nc3ccc(c(c3)F)Oc4ccnc5c4cc[nH]5)F,6769,3ce3,,A,2,1FN,0,out,out,True,Human
-7473,446,MET,Cn1cc(cn1)c2cc(ccn2)Oc3cc(c(cc3F)NC(=O)C4(CC4)C(=O)Nc5ccc(cc5)F)F,7034,5dg5,B,A,0,5B4,0,out,out,True,Human
-7490,446,MET,c1cc(ccc1NC(=O)C2(CC2)C(=O)Nc3ccc(c(c3)F)Oc4ccnc5c4cnc(c5)OCCN6CCOCC6)F,8009,5hti,B,A,0,66L,0,out,out,True,Human
-7594,286,NEK2,CC[C@H]1C[N@@](CC[C@H]1C(=O)O)c2c(ncc(n2)c3cc(c(c(c3)OC)OC)OC)N,318,2xk7,B,A,14,30E,0,out,out,True,Human
-7632,480,NTRK1,c1ccc(cc1)c2nc(no2)Cn3c4ccnc(c4cc3C(=O)O)c5cccc6c5cccc6,3601,4pms,B,A,0,31X,0,out,out,True,Human
-7637,480,NTRK1,c1cc(cc(c1)c2nccs2)CN(C3CC3)C(=O)Nc4ccc(cc4)OC(F)(F)F,3608,4pmp,B,A,0,31W,0,out,out,True,Human
-7645,480,NTRK1,Cc1cn(cn1)c2ccc(cc2OC)c3cn(nn3)CC(=O)Nc4cc(nn4c5ccccc5)C6CC6,3618,4pmm,A,A,0,31V,0,out,out,True,Human
-7649,480,NTRK1,Cc1ncc(c(n1)c2ccccc2)NC(=O)Nc3cccc4c3cccc4,7331,5kmm,,A,0,6UJ,0,out,out,True,Human
-7651,480,NTRK1,Cc1c(c(no1)c2ccccc2)NC(=O)NCc3ccccc3C(F)(F)F,7333,5kml,,A,0,6UH,0,out,out,True,Human
-7652,480,NTRK1,c1ccc2c(c1)cc(n2CC(=O)NCc3ccccn3)c4cccs4,7334,5kmj,A,A,0,6UF,0,out,out,True,Human
-7653,480,NTRK1,Cc1ncc(c(n1)c2ccccc2)NC(=O)NC3c4ccccc4-c5c3cccc5,7330,5kmi,,A,0,6UE,0,out,out,True,Human
-7654,480,NTRK1,Cc1ncc(c(n1)c2ccccc2)NC(=O)NCc3ccccc3C(F)(F)F,7332,5kmn,,A,0,6UK,0,out,out,True,Human
-7655,480,NTRK1,Cc1ccc(c(n1)c2ccc(cc2)F)NC(=O)c3ccc(cc3F)C(F)(F)F,7336,5kmk,,A,0,6UG,0,out,out,True,Human
-7657,480,NTRK1,CCOc1c(c(n(n1)c2ccccc2)NC(=O)N[C@@H]3CN(C[C@H]3c4ccc(c(c4)F)F)CCOC)C,7460,5h3q,B,A,0,7HF,0,out,out,True,Human
-7659,480,NTRK1,CC(C)n1cc(c2c1ncnc2)C(=O)c3cc(cnc3)NC(=O)Cc4ccc(cc4)C#N,7500,5jfw,A,A,2,6K2,0,out,out,True,Human
-7660,480,NTRK1,CC(C)(CO)n1cc(c2c1nc(nc2)N)C(=O)c3cc(cnc3)NC(=O)Cc4ccc(cn4)Cl,7501,5jfx,,A,2,6K4,0,out,out,True,Human
-7661,480,NTRK1,CC(C)n1cc(c2c1ncnc2N)C(=O)c3ccnc(c3)NC(=O)Nc4ccc(cc4F)F,7502,5jfs,B,A,2,6K0,0,out,out,True,Human
-7662,480,NTRK1,CC(C)n1cc(c2c1ncnc2N)C(=O)c3cc(cnc3)NC(=O)Cc4ccc(cc4)Cl,7503,5jfv,B,A,2,6K1,0,out,out,True,Human
-7668,480,NTRK1,Cc1cc(cc(n1)C#Cc2ccc3c(c2)oc4c3C(=O)c5ccc(cc5C4(C)C)NS(=O)(=O)C)C(=O)NC(C)(C)C,8737,5wr7,,A,0,RCH,0,out,out,True,Human
-7672,480,NTRK1,Cc1cc(n(n1)c2ccccc2)NC(=O)c3ccc(cc3Cl)Cl,9871,6d1y,B,A,0,FQJ,0,out,out,True,Human
-7677,480,NTRK1,Cn1cc(nc1)c2ccc(c(c2)C(=O)N)OC3CCN(CC3)C(=O)Cc4ccc(cc4)OC(F)(F)F,10064,6dkw,B,B,5,GXA,0,out,out,True,Human
-7679,480,NTRK1,Cn1cc(nc1)c2cc(c(nc2)O[C@H]3CCN(C[C@H]3F)C(=O)Cc4ccc(cc4)OC(F)(F)F)C(=O)N,10057,6dkb,,A,2,FKY,0,out,out,True,Human
-7685,480,NTRK1,CC(C)(C)c1ccc(cc1)C(=O)Nc2cc(nn2c3ccccc3)c4ccccc4,11172,6npt,,A,0,KWY,0,out,out,True,Human
-7686,480,NTRK1,Cc1cccn2c1nc(c2NC(=O)CN3c4ccccc4SCC3=O)c5ccccc5,11173,6nsp,A,A,0,L0P,0,out,out,True,Human
-7693,480,NTRK1,CC(C)(C)c1cc(n(n1)c2ccccc2)NC(=O)CSc3nnnn3c4ccc(cc4)O,11598,6pl2,,A,0,OOM,0,out,out,True,Human
-7694,480,NTRK1,CC1=CN2C(=NC(=CC2=O)CSc3nnc(s3)NC(=O)Nc4cccc(c4)C(F)(F)F)C=C1,11722,6pl1,A,A,0,OOJ,0,out,out,True,Human
-7695,480,NTRK1,CC(C)(C)c1cc(n(n1)c2ccccc2)NC(=O)COC(=O)c3ccc(cc3)n4cnnn4,11599,6pl3,A,A,0,OOD,0,out,out,True,Human
-7704,481,NTRK2,c1cc(ccc1c2csc3c2c(ncn3)N)NC(=O)Nc4cc(ccc4F)C(F)(F)F,3598,4at4,,A,0,T6E,0,out,out,True,Human
-7707,482,NTRK3,c1cc(cc(c1)NC(=O)Nc2cccc(c2)Nc3ccc\4c(c3)NC(=O)/C4=C\c5ccc[nH]5)C(F)(F)F,97,3v5q,,B,5,0F4,0,out,out,True,Human
-7709,482,NTRK3,c1ccc(cc1)CNc2ccc3ncc(n3n2)c4ccc(cc4)C#N,98,4ymj,B,A,2,4EJ,0,out,out,True,Human
-7713,482,NTRK3,Cc1c(cccc1C(=O)Nc2cc(cc(c2)N3CCN(CC3)C)C(F)(F)F)C#Cc4cnc5n4ccnc5,11696,6kzc,,A,0,DZC,0,out,out,True,Human
-7714,482,NTRK3,Cc1c(cccc1C(=O)Nc2cc(cc(c2)N3CCN(CC3)C)C(C)C)C#Cc4cnc5n4cc(nc5)c6ccc(cc6)N,11697,6kzd,,A,0,DZ6,0,out,out,True,Human
-7742,367,PAK1,CCN1c2ccc(cc2C(=Nc3c1ccc(c3)F)N[C@H]4CCN(C4)C(=O)NC(C)(C)C)Cl,162,4zjj,B,D,0,4OR,0,out,out,True,Human
-7866,452,PDGFRA,Cc1ccc(cc1Nc2nccc(n2)c3cccnc3)NC(=O)c4ccc(cc4)CN(CCN(C)C)C(=O)c5cccnc5,9478,5grn,B,A,0,748,0,out,out,True,Human
-7918,27,PDPK1,c1ccc(cc1)[C@H](COc2ccc3c(c2)NC(=O)N3)NC(=O)C4=CC=CN(C4=O)Cc5ccc(c(c5)F)F,3200,3nax,,A,0,MP7,0,out,out,True,Human
-8961,425,PTK2,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)n4cnc5c4ncnc5N,233,4k9y,B,A,0,K9Y,0,out,out,True,Human
-8986,425,PTK2,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)c4cccnc4,248,4kao,,A,2,KAO,0,out,out,True,Human
-9002,424,PTK2B,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc4c3[nH]c(c4)C(=O)NC(C)C,89,4h1m,,A,0,0YJ,0,out,out,True,Human
-9004,424,PTK2B,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cc(n[nH]3)c4ccc(cc4C)OC,91,4h1j,,A,0,0YH,0,out,out,True,Human
-9005,424,PTK2B,Cc1ccc(cc1)N2C(=NC(=O)Nc3cc(n[nH]3)COc4cccnc4)C=C(N2)C(C)(C)C,86,3fzt,,A,0,4JZ,0,out,out,True,Human
-9100,511,RIPK1,CC(C)(C)c1cc(no1)NC(=O)Nc2ccc(cc2)c3cccc4c3ccnc4N,561,4neu,B,A,0,Q1A,0,out,out,True,Human
-9101,511,RIPK1,CN1C(=O)[C@H](NC1=O)Cc2c[nH]c3c2cccc3Cl,564,4ith,A,B,6,RCM,0,out,out,True,Human
-9102,511,RIPK1,COc1ccc2c(c1)C3=NN([C@@H]([C@@H]3CC2)c4ccc(c(c4)F)OC(F)(F)F)C(=O)CO,562,4iti,A,B,7,1HW,0,out,out,True,Human
-9104,511,RIPK1,C[C@@H](c1c(cccc1Cl)F)NC(=O)c2ccc(n2C)C#N,565,4itj,A,B,0,1HX,0,out,out,True,Human
-9116,511,RIPK1,CN1c2ccccc2OC[C@@H](C1=O)NC(=O)c3cc(on3)Cc4ccccc4,6417,5hx6,,A,3,65U,0,out,out,True,Human
-9119,511,RIPK1,CN1c2ccccc2OC[C@@H](C1=O)NC(=O)c3[nH]nc(n3)Cc4ccccc4,8215,5tx5,B,B,2,7MJ,0,out,out,True,Human
-9122,511,RIPK1,c1ccc(cc1)Cc2[nH]c3ccc(cc3n2)[N+](=O)[O-],9750,6c3e,A,A,0,EJY,0,out,out,True,Human
-9124,511,RIPK1,CN1c2ccc(cc2OC[C@@H](C1=O)N3CCc4c(nn(c4Cl)Cc5ccccc5)C3=O)C#N,9752,6c4d,,B,6,EJP,0,out,out,True,Human
-9130,511,RIPK1,c1c(cc(cc1F)F)[C@@H]2CCNN2C(=O)C3CCN(CC3)c4cc(ncn4)C#N,10784,6hho,,B,8,G4W,0,out,out,True,Human
-9132,511,RIPK1,Cc1nnc(o1)N2CCC(CC2)C(=O)N3[C@@H](CCN3)c4cc(cc(c4)F)F,11044,6r5f,,B,10,JSW,0,out,out,True,Human
-9136,511,RIPK1,CC(C)(C)C(=O)N1CCC[C@H]1c2cccc(c2)F,11046,6ocq,A,A,6,M5J,0,out,out,True,Human
-9144,511,RIPK1,CN1c2cnc(cc2CC[C@@H](C1=O)NC(=O)c3nc4n(n3)[C@@H](CC4)c5ccccc5)OC,11056,6nyh,,B,9,L8D,0,out,out,True,Human
-9146,511,RIPK1,c1ccc(cc1)Cc2nc([nH]n2)C(=O)N[C@H]3CCc4cc(cc(c4NC3=O)F)F,11382,6rln,,B,9,K8K,0,out,out,True,Human
-9152,512,RIPK2,CC(C)(C)c1cc(no1)NC(=O)Nc2ccc(cc2)Oc3ccncc3,6174,5ar7,A,A,0,SR8,0,out,out,True,Human
-9198,512,RIPK2,CNC(=O)c1cc(ccn1)Oc2ccc(c(c2)F)NC(=O)Nc3ccc(c(c3)F)SCC(=O)O,9574,6es0,,A,0,BW8,0,out,out,True,Human
-9511,373,STK10,CN1CCN(CC1)C(=O)c2cccc(c2)NC(=O)Nc3ccc(cc3)N(C)c4ccnc(n4)Nc5ccc(cc5)CS(=O)(=O)C,944,4aot,B,A,0,GW8,0,out,out,True,Human
-9514,373,STK10,Cc1ccc(cc1Nc2c(cccn2)c3ncnc(n3)Nc4ccc(cc4)OC)NC(=O)c5cccc(c5)C(F)(F)F,959,4equ,B,B,0,G6I,0,out,out,True,Human
-9541,373,STK10,c1cc(oc1)C(=O)Nc2[nH]c3ccc(cc3n2)Oc4ccc(cc4)NC(=O)Nc5cc(ccc5F)C(F)(F)F,8623,6eim,A,B,0,B6E,0,out,out,True,Human
-9694,470,SYK,Cc1ccc(cc1C2=Cc3cnc(nc3N(C2=O)C)Nc4ccccc4)NC(=O)c5cccc(c5)C(F)(F)F,1176,3tud,,A,2,FPX,0,out,out,True,Human
-9697,470,SYK,COc1cc2c(ccnc2cc1OC)Oc3ccc(nc3)NC(=O)N[C@@H]4C[C@H]4c5ccccc5,1179,3tub,,A,1,FPU,0,out,out,True,Human
-9827,477,TEK,Cc1ccc(cc1Oc2c(cccn2)c3ccnc(n3)NC)C(=O)Nc4cc(ccc4N5CCOCC5)C(F)(F)F,5550,2p4i,,B,9,MR9,0,out,out,True,Human
-9829,477,TEK,c1cc(ccc1NC(=O)Nc2cc(ccc2F)C(F)(F)F)N3C=CC(=O)c4c3ncnc4N,5552,4x3j,,A,19,3WR,0,out,out,True,Human
-9833,477,TEK,Cc1ccc(cc1Nc2c(cccn2)c3ccncn3)NC(=O)c4cccc(c4)C(F)(F)F,5555,2osc,,A,10,MUH,0,out,out,True,Human
-9950,394,TNK2,Cc1ccc(cc1N2Cc3cnc(nc3N(C2=O)C)Nc4ccc(nc4)N5CCN(CC5)C(=O)C)NC(=O)c6cccc(c6)C(F)(F)F,10493,5zxb,A,B,7,9KO,0,out,out,True,Human
+,Kinase ID,Kinase Name,smiles,structure_ID,pdb,alt,chain,missing_residues,ligand,allosteric_ligand,DFG,aC_helix,back,species,releaseDate
+61,392,ABL1,Cc1ccc(cc1Nc2nccc(n2)c3cccnc3)C(=O)Nc4cc(cc(c4)n5cc(nc5)C)C(F)(F)F,1046,3cs9,A,C,2,NIL,0,out,out,True,Human,Tue Apr 22 00:00:00 PDT 2008
+65,392,ABL1,CC(C)(C)c1cc(n(n1)c2ccc3c(c2)cccn3)NC(=O)Nc4ccc(cc4F)Oc5ccnc(c5)C(=O)NC,1047,3qri,B,A,0,919,0,out,out,True,Human,Wed Jun 01 00:00:00 PDT 2011
+70,392,ABL1,CCCc1ccc(cc1C(F)(F)F)NC(=O)c2ccccc2NCC3=CNC(=O)C=C3,1109,2hz0,B,B,7,GIN,0,out,out,True,Human,Tue Jan 16 00:00:00 PST 2007
+80,392,ABL1,Cc1ccc(cc1Nc2nccc(n2)c3cncnc3)NC(=O)c4ccc(c(c4)C(F)(F)F)C[N@@]5CC[C@@H](C5)N(C)C,1065,2e2b,,B,0,406,0,out,out,True,Human,Tue May 22 00:00:00 PDT 2007
+95,392,ABL1,Cc1ccc(cc1N2C=C3C=NC(=NC3=[N+](C2=O)C)N)NC(=O)c4cccc(c4)C(F)(F)F,1069,2hiw,,A,0,7MP,0,out,out,True,Human,Tue Aug 22 00:00:00 PDT 2006
+96,392,ABL1,CC(C)(C)c1cc(n(n1)c2ccc3c(c2)C[C@H](NC3)C(=O)O)NC(=O)Nc4cccc(c4Cl)Cl,1056,3qrk,,A,0,9DP,0,out,out,True,Human,Wed Jun 01 00:00:00 PDT 2011
+297,1,AKT1,CCC(=O)Nc1ccc2c(c1)N(C(=O)N2C)C3CCN(CC3)Cc4ccc(cc4)c5c(cc6c(n5)C=CNC6=O)c7ccccc7,10914,6hhj,,A,0,G4H,0,out,out,True,Human,Wed Feb 20 00:00:00 PST 2019
+300,1,AKT1,CCC(=O)Nc1ccc2c(c1)N(C(=O)N2)C3CCN(CC3)Cc4ccc(cc4)C5=C(N=C(C(=O)N5)C)c6ccccc6,11747,6s9w,B,A,0,L1Z,0,out,out,True,Human,Wed Oct 16 00:00:00 PDT 2019
+344,396,ALK,COc1cc2c(ccnc2cc1OC)Oc3ccc4c(c3)nc(o4)Nc5ccc(cc5)Cl,5367,4fny,,A,6,I3K,0,out,out,True,Human,Wed Aug 29 00:00:00 PDT 2012
+389,396,ALK,Cc1cc(ccc1NC(=O)Nc2cc(on2)C(C)C)c3cc([nH]n3)NC(=O)c4ccc(cc4)CN5CCN(CC5)C,6638,5iuh,,A,5,34Y,0,out,out,True,Human,Wed May 18 00:00:00 PDT 2016
+392,396,ALK,Cc1cc(ccc1NC(=O)Nc2cc(on2)C(C)(C)C)c3cc([nH]n3)NC(=O)c4ccc(cc4)CN5CCN(CC5)C,6639,5iug,B,A,4,729,0,out,out,True,Human,Wed May 18 00:00:00 PDT 2016
+495,259,AURKA,COc1cc2c(cc1OC[C@H](CN3CCCCC3)O)ncnc2Nc4cnc(nc4)NC(=O)c5ccccc5,1989,2c6e,,A,0,HPM,0,out,out,True,Human,Wed Jan 11 00:00:00 PST 2006
+649,259,AURKA,CC(C)n1c2c(c(n1)c3ccc(cc3)NC(=O)/C=C/C(=O)c4ccc(c(c4)C(F)(F)F)F)c(ncn2)N,10411,6hjk,,A,0,G7W,0,out,out,True,Human,Wed Oct 03 00:00:00 PDT 2018
+699,509,BRAF,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(c4c3cccc4)OCCN5CCOCC5,3050,4jvg,,C,0,B96,0,out,out,True,Human,Wed May 29 00:00:00 PDT 2013
+701,509,BRAF,c1cc(c(c(c1)C2(CC2)C#N)Cl)C(=O)Nc3cc(ccc3F)Oc4ccc5c(n4)sc(n5)NC(=O)C6CC6,3052,4dbn,,A,1,0JA,0,out,out,True,Human,Wed Apr 11 00:00:00 PDT 2012
+717,509,BRAF,CNC(=O)c1cc(ccn1)Oc2ccc(cc2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)Cl,3127,1uwh,,A,0,BAX,0,out,out,True,Human,Fri Mar 19 00:00:00 PST 2004
+725,509,BRAF,Cc1ccc(cc1Nc2ccc3c(c2)C(=O)N(C=N3)C)NC(=O)c4cccc(c4)C(C)(C)C#N,3101,4g9r,,B,0,B1E,0,out,out,True,Human,Wed Nov 14 00:00:00 PST 2012
+728,509,BRAF,CC(C)(C#N)c1cccc(c1)C(=O)Nc2ccc(c(c2F)C(=O)Nc3cc4c([nH]nc4nc3)OC)F,3084,4g9c,,A,0,0WP,0,out,out,True,Human,Wed Nov 14 00:00:00 PST 2012
+736,509,BRAF,CN(C)Cc1ccc(cc1)c2cnn3c2nccc3c4cccc(c4)NC(=O)c5cccc(c5)C(F)(F)F,3116,3ii5,,A,0,831,0,out,out,True,Human,Tue Nov 10 00:00:00 PST 2009
+741,509,BRAF,CC(C)(c1cc(cc(c1)NC(=O)[C@H]2CCc3ccc(cc3C2)Oc4ccnc5c4CCC(=O)N5)C(F)(F)F)N,3072,3q96,,A,1,0NF,0,out,out,True,Human,Wed Mar 23 00:00:00 PDT 2011
+750,509,BRAF,Cc1ccc2c(c1Nc3c(cccn3)c4c5c(nc[nH]5)ncn4)ccnc2Nc6ccc(cc6)Cl,3077,3idp,,A,0,L1E,0,out,out,True,Human,Tue Oct 06 00:00:00 PDT 2009
+822,509,BRAF,Cc1c(cc(cn1)NC(=O)c2cccc(c2)C(F)(F)F)c3cc(c(nc3)OC4CCOCC4)N5CCOCC5,8186,5vam,A,B,0,92J,0,out,out,True,Human,Wed Jun 28 00:00:00 PDT 2017
+824,509,BRAF,Cc1ccc(cc1c2cc(ncn2)N3CCOCC3)C(=O)Nc4cccc(c4)C(C)(C)C,8188,5val,,B,1,92D,0,out,out,True,Human,Wed Jun 28 00:00:00 PDT 2017
+828,509,BRAF,Cc1ccc(cc1c2ccc3nc(cn3c2)NC(=O)C)NC(=O)c4cccc(c4)C(F)(F)F,8678,6b8u,,B,3,8EN,0,out,out,True,Human,Wed Nov 22 00:00:00 PST 2017
+832,509,BRAF,CCn1c2c(c(n1)C#Cc3c(ccc4c3ccnc4Nc5ccc(cc5)Cl)C)c(ncn2)N,11328,6nsq,,A,0,KZP,0,out,out,True,Human,Wed Jun 19 00:00:00 PDT 2019
+837,509,BRAF,Cc1ccc(cc1c2cc(nc(c2)OCCO)N3CCOCC3)NC(=O)c4ccnc(c4)C(F)(F)F,11594,6n0p,A,B,0,K81,0,out,out,True,Human,Wed Sep 04 00:00:00 PDT 2019
+844,509,BRAF,Cc1ccc(cc1c2ccc3c(c2)NC(=O)N3C)NC(=O)c4cccc(c4)C(F)(F)F,11768,6n0q,B,A,2,K7S,0,out,out,True,Human,Wed Oct 23 00:00:00 PDT 2019
+2119,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCCNC(=O)OC(C)(C)C,3840,4f7l,,A,2,0SO,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+2121,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCO,3842,4f7j,A,A,1,0SU,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+2123,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCCN3CCOCC3,3844,4f6u,B,A,1,0SR,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+2124,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCN3CCN(CC3)C(=O)Nc4cc(nn4c5ccc(cc5)C)C(C)(C)C,3845,4f6w,,A,0,0SS,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+2126,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCCCCO,3847,4f7n,,A,1,0SV,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+2130,205,CDK8,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)NCCN3CCOCC3,3852,4f70,,A,3,0ST,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+2143,205,CDK8,CNc1nccc(n1)N2CC[C@@H](C2)NC(=O)Nc3ccc(c(c3)C(F)(F)F)CN4CCOCC4,6552,5hvy,B,A,4,66X,0,out,out,True,Human,Wed Apr 20 00:00:00 PDT 2016
+2582,449,CSF1R,c1cc(ncc1Cc2c[nH]c3c2cc(cn3)Cl)NCc4ccc(nc4)C(F)(F)F,2308,4r7h,,A,0,P31,0,out,out,True,Human,Wed Aug 12 00:00:00 PDT 2015
+2589,449,CSF1R,COc1cc2c(c[nH]c2nc1)Cc3ccc(nc3)NCc4ccc(cc4)C(F)(F)F,2304,4hw7,,A,0,64M,0,out,out,True,Human,Wed Mar 27 00:00:00 PDT 2013
+2590,449,CSF1R,Cn1cc(cn1)c2cnc(c(n2)OCc3cc(c(cn3)OCc4ccc(cc4)OC)OC)N,2313,3lco,B,A,0,LC0,0,out,out,True,Human,Wed Sep 15 00:00:00 PDT 2010
+2597,449,CSF1R,COc1cc(ccc1OCc2ccc(cc2)C3CC3)C4CN(C4)C(=O)c5cc(ccn5)COC[C@H](CO)O,11519,6ig8,A,A,0,A7O,0,out,out,True,Human,Wed Aug 07 00:00:00 PDT 2019
+2599,449,CSF1R,Cc1cc2c(c[nH]c2nc1)Cc3ccc(nc3F)NCc4cc(cnc4OC)F,11634,6n33,,A,0,622,0,out,out,True,Human,Wed Sep 18 00:00:00 PDT 2019
+3419,404,DDR1,Cc1ccc(cc1NC(=O)c2cnc3n2cccc3)[C@H](C)Nc4nc5cc(ccc5o4)F,3250,5bvo,,A,2,4VE,0,out,out,True,Human,Wed Aug 05 00:00:00 PDT 2015
+3420,404,DDR1,CCN1CCN(CC1)Cc2ccc(cc2C(F)(F)F)C(=O)Nc3ccc(c(c3)Oc4ccc5c(c4)CC(=O)N5)C,3257,4ckr,A,A,0,DI1,0,out,out,True,Human,Wed Jan 15 00:00:00 PST 2014
+3421,404,DDR1,c1ccc(c(c1)NC(=O)NCc2cccnc2)Cl,3251,5bvk,,A,0,4VC,0,out,out,True,Human,Wed Aug 05 00:00:00 PDT 2015
+3424,404,DDR1,Cc1ccc(cc1C#Cc2cnc3n2nccc3)C(=O)Nc4ccc(c(c4)C(F)(F)F)CN5CCN(CC5)C,3258,3zos,A,B,0,0LI,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2013
+3431,404,DDR1,Cc1ccc(cc1NC(=O)c2cnc3n2cccc3)CNC(=O)Nc4cccc(c4)F,3261,5bvn,,A,0,4VD,0,out,out,True,Human,Wed Aug 12 00:00:00 PDT 2015
+3432,404,DDR1,C[C@@H]1CN(Cc2c1ccc(c2)C(=O)Nc3cc(cc(c3)C(F)(F)F)CN4CCN(CC4)C)c5cncnc5,6676,5fdp,,A,0,5WR,0,out,out,True,Human,Wed Jun 08 00:00:00 PDT 2016
+3433,404,DDR1,C[C@H]1CN(Cc2c1ccc(c2)NC(=O)c3cc(cc(c3)C(F)(F)F)CN4CCN(CC4)C)c5cncnc5,7130,5fdx,,B,0,5X1,0,out,out,True,Human,Wed Oct 26 00:00:00 PDT 2016
+3435,404,DDR1,CC(C)c1ccc(cc1C#Cc2cnc3n2ccnc3)C(=O)Nc4cc(cc(c4)C(F)(F)F)CN5CCN(CC5)C,10485,6gwr,A,A,0,FEW,0,out,out,True,Human,Wed Aug 08 00:00:00 PDT 2018
+3439,404,DDR1,c1cc2c(c(c1)Br)C3(CCN(CC3)C(=O)c4ccc5c(n4)cn[nH]5)C(=O)N2CC(=O)NCC(F)(F)F,10744,6fex,B,A,0,D6Z,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2018
+3441,404,DDR1,CNC(=O)CN1CN(C2(C1=O)CCN(CC2)C(=O)c3ccc4c(c3)c[nH]n4)c5ccccc5,10745,6fim,B,A,0,D6W,0,out,out,True,Human,
+3446,404,DDR1,c1ccc(cc1)N2CN(C(=O)C23CCN(CC3)C(=O)c4ccc5c(c4)cn[nH]5)Cc6nc(no6)C7CC7,10747,6fin,B,A,0,DJQ,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2018
+3449,404,DDR1,Cc1cccc2c1C3(CCN(CC3)C(=O)c4ccc5c(c4)cn[nH]5)C(=O)N2CC(=O)NCC(F)(F)F,10748,6fio,A,A,0,DJH,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2018
+3450,404,DDR1,COc1ccc2c(n1)C3(CCN(CC3)C(=O)c4ccc5c(c4)cn[nH]5)C(=O)N2CC(=O)N6CCC[C@H]6C(F)(F)F,10742,6fiq,,A,0,DJW,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2018
+3454,404,DDR1,Cc1cn(cn1)c2cc(cc(c2)NC(=O)c3ccc4c(c3)C[C@@H](C4)Nc5cncnc5)C(F)(F)F,10884,6hp9,,B,0,GKB,0,out,out,True,Human,Wed Jan 30 00:00:00 PST 2019
+3456,405,DDR2,c1cc(c(c2c1N(C(=O)C23CCN(CC3)C(=O)c4cc5cn[nH]c5nc4)CC(=O)NCC(F)(F)F)F)F,10735,6fer,,I,0,D6Q,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2018
+4002,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2)sc(n3)NC)N)C(=O)C4=C(N(N(C4=O)c5ccccc5)C)c6ccccc6,6844,4x7l,A,A,0,3Z4,0,out,out,True,Human,Wed Jan 28 00:00:00 PST 2015
+4003,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2)cnc(n3)NC)N)C(=O)Nc4ccc(c(c4)C(F)(F)F)OC,6841,4x7j,B,A,0,3Z1,0,out,out,True,Human,Wed Jan 28 00:00:00 PST 2015
+4006,309,EIF2AK3,CN1C(=C(C(=O)N1c2ccccc2)C(=O)Nc3ccc(cn3)Oc4ccnc5c4cc(c(c5)OC)OC)c6ccncc6,7240,4x7h,B,A,2,3Z2,0,out,out,True,Human,Wed Feb 04 00:00:00 PST 2015
+4007,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2)ccc(n3)C)N)C(=O)C4=C(N(N(C4=O)c5ccccc5)C)c6ccccc6,7241,4x7n,B,A,0,3Z5,0,out,out,True,Human,Wed Jan 28 00:00:00 PST 2015
+4008,309,EIF2AK3,Cc1ccc(c(c1c2ccc3c(c2F)cnc(n3)NC)N)C(=O)C4=C(N(N(C4=O)c5ccccc5)C)c6ccccc6,7242,4x7k,B,A,0,3Z3,0,out,out,True,Human,Wed Jan 28 00:00:00 PST 2015
+4014,306,EIF2AK4,Cn1c2ccc(cc2nc1Nc3ccc(cc3)C(F)(F)F)Oc4cc(ncn4)NC(=O)C5CC5,11692,6n3l,B,B,21,KAV,0,out,out,True,Human,Wed Oct 09 00:00:00 PDT 2019
+4088,410,EPHA2,Cc1ccc(cc1Nc2c3cn(nc3nc(n2)c4cccnc4)C)C(=O)Nc5cccc(c5)C(F)(F)F,10414,6fng,A,A,1,DWT,0,out,out,True,Human,Wed Aug 08 00:00:00 PDT 2018
+4091,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cccnc4)C)C(=O)Nc5cccc(c5)C(F)(F)F,10417,6fnf,A,A,0,DXH,0,out,out,True,Human,Wed Aug 08 00:00:00 PDT 2018
+4097,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cccnc4)C)C(=O)Nc5cccc(c5)Cl,11560,6het,B,A,2,G0Q,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4099,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)c3ccncc3)c4ccncc4)C(=O)Nc5cccc(c5)C(F)(F)F,11552,6heu,B,A,0,G0N,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4100,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cncnc4)C)C(=O)Nc5cccc(c5)C(F)(F)F,11549,6hew,A,A,0,G0E,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4101,410,EPHA2,Cc1ccc(cc1Nc2c3cnn(c3nc(n2)c4cnccn4)C)C(=O)Nc5cccc(c5)C(F)(F)F,11559,6hex,A,A,1,G02,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4102,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)c3cccnc3)c4cccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11557,6hey,A,A,0,FZW,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4103,410,EPHA2,Cc1ccc(cc1Nc2c3ccccc3nc(n2)c4cccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11550,6hes,A,A,0,G0H,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4106,410,EPHA2,Cc1ccc(cc1Nc2c3cccnc3nc(n2)c4cccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11561,6hev,A,A,0,G0K,0,out,out,True,Human,Wed Aug 28 00:00:00 PDT 2019
+4111,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)N3CCC(CC3)O)n4ccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11937,6q7d,A,A,1,HOT,0,out,out,True,Human,Wed Jan 15 00:00:00 PST 2020
+4112,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)N3CCC[C@@H](C3)O)n4ccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11930,6q7c,B,A,2,HOK,0,out,out,True,Human,Wed Jan 15 00:00:00 PST 2020
+4113,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)N3CCOCC3)n4ccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11938,6q7g,B,A,1,HO8,0,out,out,True,Human,Wed Jan 15 00:00:00 PST 2020
+4115,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)N3CC[C@H](C3)O)n4ccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11932,6q7e,B,A,1,HMW,0,out,out,True,Human,Wed Jan 15 00:00:00 PST 2020
+4118,410,EPHA2,Cc1ccc(cc1Nc2nc(nc(n2)N3CC[C@@H](C3)O)n4ccnc4)C(=O)Nc5cccc(c5)C(F)(F)F,11927,6q7b,A,A,0,HO5,0,out,out,True,Human,Wed Jan 15 00:00:00 PST 2020
+4141,412,EPHA3,Cc1ccc(cc1NC(=O)c2ccno2)NC(=O)c3cc(cc(c3)n4cc(nc4)C)C(F)(F)F,2852,3dzq,A,A,1,IFC,0,out,out,True,Human,Tue Aug 26 00:00:00 PDT 2008
+4207,415,EPHA7,Cc1ccc(cc1Nc2cc(cnc2)C(=O)N)C(=O)Nc3cccc(c3)C(F)(F)F,1,3dko,A,A,3,IHZ,0,out,out,True,Human,Tue Aug 19 00:00:00 PDT 2008
+4332,273,ERN1,Cc1ccc(cc1)CNC(=O)N2CCC[C@@]3(C2)CCN(C3)Cc4ccc(c(c4)Cl)Cl,6233,4yz9,A,A,0,4K7,0,out,out,True,Human,Wed Nov 11 00:00:00 PST 2015
+4703,483,FLT1,c1ccc(c(c1)C(=O)Nc2ccc(cc2)Cl)NCc3ccncc3,3837,3hng,A,A,0,8ST,0,out,out,True,Human,Tue Jun 30 00:00:00 PDT 2009
+4705,450,FLT3,CC(C)(C)c1cc(no1)NC(=O)Nc2ccc(cc2)c3cn4c5ccc(cc5sc4n3)OCCN6CCOCC6,623,4xuf,,B,0,P30,0,out,out,True,Human,Wed Apr 15 00:00:00 PDT 2015
+5079,432,IGF1R,C[C@H]1C(=O)N(C(=O)N1Cc2ccnc3c2cccc3)c4ccc(cc4)S(=O)(=O)C(F)(F)F,1036,3o23,,A,0,MQY,0,out,out,True,Human,Wed May 04 00:00:00 PDT 2011
+5131,433,INSR,c1ccc(cc1)Oc2ccccc2NC(=O)Nc3cccc(c3)c4c[nH]c5c4cc(cn5)c6ccc(cc6)CN,579,3eta,B,A,0,351,0,out,out,True,Human,Tue May 26 00:00:00 PDT 2009
+5337,489,IRAK4,c1cc(cc(c1)C(=O)Nc2ccc(c(c2)C(F)(F)F)CN3CCNCC3)c4ccc5c(n4)sc(n5)NC(=O)C6CC6,10907,6ega,B,A,5,J8A,0,out,out,True,Human,Wed Feb 20 00:00:00 PST 2019
+5615,436,JAK2,CC(=O)Nc1cc(ncn1)Oc2ccc3c(c2)CCN3C(=O)Nc4ccc(c(c4)C(F)(F)F)CN5CCN(CC5)C,3632,3ugc,A,A,0,046,0,out,out,True,Human,Wed May 16 00:00:00 PDT 2012
+5878,485,KDR,CNC(=O)c1cc(ccn1)Oc2ccc3c(c2)[nH]c(n3)Nc4ccc(c(c4)C(F)(F)F)Cl,5317,2qu5,,A,0,276,0,out,out,True,Human,Tue Sep 25 00:00:00 PDT 2007
+5881,485,KDR,CC1=C(C(=O)N(C=C1)c2cccc(c2)C(F)(F)F)c3ccc4c(c3)cnc(n4)N,5309,3cpc,,B,6,C52,0,out,out,True,Human,Tue Jun 17 00:00:00 PDT 2008
+5882,485,KDR,c1cc(cc(c1)Nc2c3ccc(c(c3on2)C(=O)Nc4cncnc4)Cl)C(F)(F)F,5308,3dtw,,B,4,A96,0,out,out,True,Human,Tue Sep 09 00:00:00 PDT 2008
+5885,485,KDR,CNC(=O)c1cc(ccn1)Oc2ccc3c(c2)nc(o3)Nc4ccc(c(c4)OC[C@@H]5CCC[N@]5C)Cl,5316,2qu6,,A,7,857,0,out,out,True,Human,Tue Sep 25 00:00:00 PDT 2007
+5887,485,KDR,c1ccc(cc1)Oc2ccc(cc2)NC(=O)c3cccnc3NCc4ccncc4,5315,2p2i,,B,6,608,0,out,out,True,Human,Tue Mar 20 00:00:00 PDT 2007
+5890,485,KDR,COc1cc2c(ccnc2cc1OC)Oc3ccc4c(c3)cccc4C(=O)Nc5ccc(cc5)Cl,5319,3b8q,,B,3,900,0,out,out,True,Human,Tue Apr 01 00:00:00 PDT 2008
+5892,485,KDR,Cc1cc(n(n1)C)C(=O)Nc2cccc(c2)Oc3ccc4nc(cn4n3)NC(=O)C5CC5,5321,3vo3,B,A,0,0KF,0,out,out,True,Human,Wed Mar 06 00:00:00 PST 2013
+5894,485,KDR,COC(=O)Nc1[nH]c2ccc(cc2n1)Oc3ccc(cc3)NC(=O)Nc4cc(ccc4F)C(F)(F)F,5324,2oh4,B,A,0,GIG,0,out,out,True,Human,Tue Sep 18 00:00:00 PDT 2007
+5899,485,KDR,Cn1ccc2c1c(ncn2)Oc3ccc(c(c3)F)NC(=O)Nc4cccc(c4)C(F)(F)F,5331,3vhe,,A,0,42Q,0,out,out,True,Human,Wed Nov 02 00:00:00 PDT 2011
+5901,485,KDR,CC1(CNc2c1ccc(c2)NC(=O)c3cccnc3NCc4ccncc4)C,5330,3efl,,B,3,706,0,out,out,True,Human,Tue Sep 15 00:00:00 PDT 2009
+5907,485,KDR,Cc1ccc(cc1Nc2c(cccn2)c3ccncn3)C(=O)Nc4cc(cc(c4)C(F)(F)F)CCCN(C)C,5337,3be2,,A,2,RAJ,0,out,out,True,Human,Tue Apr 08 00:00:00 PDT 2008
+5911,485,KDR,Cc1c(nc(o1)c2ccccc2)COc3cccc(c3)CO,5342,3vhk,,A,0,BPK,0,out,out,True,Human,Wed Sep 05 00:00:00 PDT 2012
+5917,485,KDR,COc1cc2c(ccnc2cc1OC)Oc3ccc4c(c3)OCCN4C(=O)Nc5ccc(cc5)Cl,5348,2rl5,,A,4,2RL,0,out,out,True,Human,Tue Apr 08 00:00:00 PDT 2008
+5918,485,KDR,CC1=C/C(=N\C(=O)Nc2ccc(cc2Cl)Oc3ccnc4c3cc(c(c4)OC)OC)/NO1,5349,4ase,,A,0,AV9,0,out,out,True,Human,Wed Sep 26 00:00:00 PDT 2012
+5920,485,KDR,CNc1nccc(n1)c2cccnc2Oc3ccc(c4c3cccc4)Nc5[nH]c6cc(ccc6n5)C(F)(F)F,5351,3ewh,,A,0,K11,0,out,out,True,Human,Tue Aug 25 00:00:00 PDT 2009
+5921,485,KDR,c1ccc(c(c1)C(=O)Nc2cccc(c2)C(F)(F)F)NCc3ccncc3,6289,5ew3,,A,1,5T2,0,out,out,True,Human,Wed Dec 16 00:00:00 PST 2015
+5923,485,KDR,CC1=C(C(=O)N(C=C1)c2ccc3c(c2)NCC3(C)C)c4ccc5c(c4)cnc(n5)N,6786,3cp9,,A,7,C19,0,out,out,True,Human,Tue Jun 17 00:00:00 PDT 2008
+5924,485,KDR,Cc1ccc(cc1C(=O)Nc2ccc(nc2)N)C(=O)NCCC3CCCC3,6787,3cpb,,A,9,C92,0,out,out,True,Human,Tue Jun 17 00:00:00 PDT 2008
+5926,485,KDR,Cc1c(c2ccc(cc2o1)Oc3ccnc4c3ccc(c4)OCCN5CCOCC5)C(=O)NC,6789,2xir,,A,0,00J,0,out,out,True,Human,Wed Apr 13 00:00:00 PDT 2011
+5932,485,KDR,CC(C)n1cc(cn1)NC(=O)Cc2ccc(cc2OC)Oc3c4cc(c(cc4ncn3)OC)OC,10580,6gqo,A,A,0,F82,0,out,out,True,Human,Wed Sep 19 00:00:00 PDT 2018
+5933,485,KDR,CC(C)c1cn(nn1)CC(=O)Nc2ccc(cc2)Oc3c4cc(c(cc4ncn3)OC)OC,10581,6gqq,A,A,0,F8B,0,out,out,True,Human,Wed Sep 19 00:00:00 PDT 2018
+5934,485,KDR,CCn1cc(cn1)CC(=O)Nc2ccc(cc2)Oc3c4cc(c(cc4ncn3)OC)OC,10582,6gqp,A,A,0,F88,0,out,out,True,Human,Wed Sep 19 00:00:00 PDT 2018
+5948,451,KIT,c1cc2c(c[nH]c2nc1)Cc3ccc(nc3)NCc4ccc(cc4)C(F)(F)F,403,4hvs,,A,0,647,0,out,out,True,Human,Wed Mar 27 00:00:00 PDT 2013
+5955,451,KIT,CC(C)c1cn(nn1)CC(=O)Nc2ccc(cc2)Nc3c4c(cc(cc4F)OCCOC)ncn3,10359,6gqm,,A,0,F8H,0,out,out,True,Human,Wed Sep 19 00:00:00 PDT 2018
+5962,451,KIT,CCN1c2cc(ncc2C=C(C1=O)c3cc(c(cc3Cl)F)NC(=O)Nc4ccccc4)NC,11469,6mob,A,A,0,JWY,0,out,out,True,Human,Wed Jul 31 00:00:00 PDT 2019
+5964,451,KIT,Cc1cccc(c1C)Nc2[nH]c(nn2)c3ccc(cc3)Oc4ccncc4,11628,6hh1,B,A,0,G4E,0,out,out,True,Human,Wed Sep 18 00:00:00 PDT 2019
+5966,451,KIT,CCc1cc(no1)NC(=O)Nc2ccc(cc2)c3cnc(s3)Nc4cc(ncn4)N5C=CN(C=C5)CC,11824,6itt,B,A,0,AWO,0,out,out,True,Human,Wed Nov 27 00:00:00 PST 2019
+5967,451,KIT,CCN1CCN(CC1)c2cc(nc(n2)C)Nc3ncc(s3)c4ccncc4,11825,6kla,A,A,0,DJX,0,out,out,True,Human,Wed Nov 27 00:00:00 PST 2019
+5978,466,LCK,Cc1ccc(cc1c2ccc3c(c2)cnc(n3)N)C(=O)Nc4cccc(c4)C(F)(F)F,2294,2ofv,,B,0,242,0,out,out,True,Human,Tue Feb 27 00:00:00 PST 2007
+5988,466,LCK,CCN(CC)CC(=O)Nc1ccc(cc1NC(=O)c2ccc(c(c2)c3ccc4c(c3)cnc(n4)NC)C)C(F)(F)F,2282,2og8,,B,0,1N8,0,out,out,True,Human,Tue Feb 27 00:00:00 PST 2007
+6010,466,LCK,Cc1ccc(cc1C(=O)Nc2cnc(nc2)Nc3ccc(cc3)N4CCN(CC4)C)NC(=O)c5cccc(c5C)C(F)(F)F,2288,3byu,,A,1,AM6,0,out,out,True,Human,Tue Sep 16 00:00:00 PDT 2008
+6014,466,LCK,Cc1ccc(cc1C(=O)Nc2cnc(nc2)Nc3ccc(cc3)N4CCN(CC4)C)C(=O)Nc5cccc(c5)C(F)(F)F,2293,3bys,,A,1,AM5,0,out,out,True,Human,Tue Sep 16 00:00:00 PDT 2008
+6031,491,LIMK2,CN(Cc1ccc(cc1)[C@@H](CO)O)C(=O)c2ccc(cc2)S(=O)(=O)Nc3ccccc3,2475,4tpt,,B,0,35H,0,out,out,True,Human,Wed Oct 22 00:00:00 PDT 2014
+6033,491,LIMK2,CCCN(Cc1ccccc1)C(=O)c2ccc(cc2)S(=O)(=O)Nc3cccc(c3)Cl,7621,5nxd,B,A,0,9D8,0,out,out,True,Human,Wed May 24 00:00:00 PDT 2017
+6302,504,MAP3K7,CCN1CCN(CC1)Cc2ccc(cc2C(F)(F)F)NC(=O)c3ccc(c(c3)Oc4ccnc5c4cc[nH]5)C,1888,4o91,,A,2,NG2,0,out,out,True,Human,Wed Jul 30 00:00:00 PDT 2014
+6304,504,MAP3K7,CC(C)(C)C1=C/C(=N\C(=O)Nc2ccc(cc2)Oc3cccnc3)/N(N1)c4cccc(c4)F,1890,2yiy,,A,2,YIY,0,out,out,True,Human,Wed May 23 00:00:00 PDT 2012
+6310,504,MAP3K7,CC(C)Oc1cc(ccc1NC(=O)c2csc(n2)c3cccc(c3)NC(=O)Nc4ccccc4)C(=O)N5CCN(CC5)C,7264,5gjf,,A,0,6V4,0,out,out,True,Human,Wed Nov 16 00:00:00 PST 2016
+6312,504,MAP3K7,CN1CCN(CC1)c2cccc3c2ccc(c3)NC(=O)Nc4ccc(cc4)Oc5ccnc6c5cc[nH]6,7263,5gjd,,A,0,6V3,0,out,out,True,Human,Wed Nov 16 00:00:00 PST 2016
+6709,251,MAPK13,CC(C)(C)c1cc(n(n1)C)NC(=O)Nc2ccc(cc2)Oc3ccncc3,2949,4eyj,,A,1,N61,0,out,out,True,Human,Wed Dec 19 00:00:00 PST 2012
+6792,249,MAPK14,Cc1cccc(c1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)Nc4ccnc5c4cc(cc5)N,5012,3hv3,A,A,3,R49,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6793,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nccs3,5001,3lfb,B,A,5,Z87,0,out,out,True,Human,Wed Apr 20 00:00:00 PDT 2011
+6797,249,MAPK14,CCn1c(c(c(c1C(=O)OCC)C)C(=O)N2CCN(CC2)Cc3ccccc3)C,4990,3iw6,A,A,2,PP0,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6798,249,MAPK14,CC(C)(C)C1=CC(=NC(=O)Nc2cccc(c2Cl)Cl)N(N1)c3cccc(c3)CC(=O)N,5002,3nnx,,A,1,EDD,0,out,out,True,Human,Wed Sep 15 00:00:00 PDT 2010
+6807,249,MAPK14,Cc1ccc(cc1c2ccc3c(c2)onc3C4CCNCC4)C(=O)Nc5cccc(c5)N6CCOCC6,5004,3e93,B,A,1,19B,0,out,out,True,Human,Tue Sep 30 00:00:00 PDT 2008
+6815,249,MAPK14,c1cc(cnc1)OCc2cc(ccc2Cl)NC(=O)C3=CC(CC(C3)N4CCOCC4)F,4986,1w83,,A,0,L11,0,out,out,True,Human,Tue Feb 08 00:00:00 PST 2005
+6834,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4c5cc(ccc5ncn4)N,5032,3gcu,A,A,0,R48,0,out,out,True,Human,Tue Jun 09 00:00:00 PDT 2009
+6837,249,MAPK14,Cc1ccc(cc1NC(=O)c2ccc(nc2)NCC[C@@H]3CCC[N@]3C)NC(=O)c4ccnc(c4)N5CCOCC5,5057,3kq7,B,A,0,KQ7,0,out,out,True,Human,Tue Dec 01 00:00:00 PST 2009
+6842,249,MAPK14,Cc1ccc(cc1c2ccc(cc2)C(=O)NCC3CC3)NC(=O)c4ccnc(c4)N5CCOCC5,5028,3d83,,A,0,GK6,0,out,out,True,Human,Tue Jul 22 00:00:00 PDT 2008
+6844,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccc(cc2)CO)NC(=O)Nc3cccc4c3cccc4,5037,3nnv,A,A,0,437,0,out,out,True,Human,Wed Sep 15 00:00:00 PDT 2010
+6856,249,MAPK14,Cc1cccc(c1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)Nc4c5cc(ccc5ncn4)N,5053,3gcq,B,A,5,1BU,0,out,out,True,Human,Tue Jun 09 00:00:00 PDT 2009
+6857,249,MAPK14,c1c(cc(c(c1F)COc2c(c(sn2)NC(=O)NCCCCN3CCCC3)C(=O)N)F)Br,5055,3l8s,,A,6,BFF,0,out,out,True,Human,Tue Mar 09 00:00:00 PST 2010
+6860,249,MAPK14,c1cc(cc(c1)N2/C(=N/C(=O)Nc3cccc(c3Cl)Cl)/C=C(N2)c4cccs4)CC(=O)N,5059,3nnu,B,A,0,EDB,0,out,out,True,Human,Wed Sep 15 00:00:00 PDT 2010
+6864,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4ccnc5c4cc(cc5)N,5064,3hv4,,B,0,L51,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6870,249,MAPK14,c1cc2c(cc1Nc3ccc(cc3F)F)CCc4ccc(cc4C2=O)OC[C@@H](CO)O,5095,3que,,A,0,3FF,0,out,out,True,Human,Wed Jan 18 00:00:00 PST 2012
+6874,249,MAPK14,Cc1ccc(cc1Nc2c3cc(c(cc3ncn2)OC)OCCN4CCCC4)NC(=O)c5ccnc(c5)N6CCOCC6,5114,2bak,,A,2,AQZ,0,out,out,True,Human,Tue Dec 06 00:00:00 PST 2005
+6876,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nc(cs3)CCOCc4cccnc4,5096,3pg3,B,A,2,DG7,0,out,out,True,Human,Wed Nov 02 00:00:00 PDT 2011
+6892,249,MAPK14,c1cc(cc2c1ccn2CCc3ccncc3)NC(=O)c4cc(cc(c4)F)N5CCOCC5,5082,1wbt,,A,0,WBT,0,out,out,True,Human,Thu Nov 03 00:00:00 PST 2005
+6893,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)OCCN4CCOCC4,5101,3hv6,,A,7,R39,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6896,249,MAPK14,Cc1ccc(cc1N2C=Nc3ccc(cc3C2=O)N4CCN(CC4)C)NC(=O)c5ccnc(c5)N6CCOCC6,5132,4aa0,B,A,7,AA0,0,out,out,True,Human,Wed May 16 00:00:00 PDT 2012
+6898,249,MAPK14,c1ccc(cc1)CC2CCN(CC2)C(=O)c3ccc(cc3)CSc4[nH]c5cnccc5n4,5084,3iw7,,A,2,IPK,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6899,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccc(cc2)CC(=O)O)NC(=O)Nc3nccs3,5120,3lff,B,A,2,Z83,0,out,out,True,Human,Wed Apr 20 00:00:00 PDT 2011
+6900,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nc(cs3)CCOCc4ccccc4,5102,3lfd,,A,8,Z85,0,out,out,True,Human,Wed Apr 20 00:00:00 PDT 2011
+6902,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4ccnc5c4cc(cc5)[N+](=O)[O-],5085,3hv5,A,B,0,R24,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6910,249,MAPK14,Cc1cccc(c1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4c5cc(ccc5ncn4)N,5088,3gcv,A,A,2,SS6,0,out,out,True,Human,Tue Jun 09 00:00:00 PDT 2009
+6926,249,MAPK14,CC(C)(C)C1=CC(=NC(=O)Nc2ccc(cc2)Cl)N(N1)c3ccccc3,5165,1w82,,A,0,L10,0,out,out,True,Human,Tue Feb 08 00:00:00 PST 2005
+6946,249,MAPK14,c1cc2c(cc[nH]2)cc1NC(=O)c3cc(cc(c3)F)N4CCOCC4,5148,1wbv,,A,0,LI3,0,out,out,True,Human,Thu Nov 03 00:00:00 PST 2005
+6947,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccc(cc2)CC(=O)O)NC(=O)Nc3nc(cs3)CCOCc4ccccc4,5160,3lfc,,A,6,Z86,0,out,out,True,Human,Wed Apr 20 00:00:00 PDT 2011
+6953,249,MAPK14,c1ccc(cc1)COC[C@H](c2csc(n2)NC(=O)Nc3ccc(c(c3)Cl)F)N,5181,3iw8,,A,3,HIZ,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+6959,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3nc(cs3)CCOCc4ccncc4,5173,3lfe,,A,4,Z84,0,out,out,True,Human,Wed Apr 20 00:00:00 PDT 2011
+6962,249,MAPK14,CC(C)(C)c1cc(n(n1)c2ccccc2)NC(=O)Nc3cccc(c3Cl)Cl,5176,2baj,,A,5,1PP,0,out,out,True,Human,Tue Dec 06 00:00:00 PST 2005
+6986,249,MAPK14,CC(C)(C)c1cc(c(c(c1)NS(=O)(=O)C)OC)NC(=O)Nc2ccc(c3c2cccc3)c4ccc(nc4)CN5CCOCC5,5226,3gi3,,A,9,B10,0,out,out,True,Human,Tue Oct 20 00:00:00 PDT 2009
+6996,249,MAPK14,CC(C)(C)c1cc([nH]n1)NC(=O)Nc2ccc(c(c2)COc3cccnc3)Cl,5257,1wbn,,A,0,L09,0,out,out,True,Human,Thu Nov 03 00:00:00 PST 2005
+7006,249,MAPK14,c1cc2c(cc1NC(=O)c3cc(cc(c3)F)N4CCOCC4)c(c[nH]2)CCc5ccncc5,5258,1wbs,,A,0,LI2,0,out,out,True,Human,Thu Nov 03 00:00:00 PST 2005
+7017,249,MAPK14,Cc1ccc(cc1n2cc(nn2)C(=O)NCc3ccccc3)C(=O)Nc4cc(cc(c4OC)NS(=O)(=O)C)C(C)(C)C,5220,3ctq,,A,1,337,0,out,out,True,Human,Tue May 27 00:00:00 PDT 2008
+7018,249,MAPK14,CC(C)(C)c1cc(n(n1)C)NC(=O)Nc2ccc(cc2)Cl,5250,3o8u,,A,4,BMU,0,out,out,True,Human,Wed Sep 01 00:00:00 PDT 2010
+7020,249,MAPK14,CC(C)(C)c1cc(n(n1)c2cccc(c2)N)NC(=O)Nc3cccc4c3cccc4,5223,3hv7,,A,6,1AU,0,out,out,True,Human,Tue Nov 17 00:00:00 PST 2009
+7032,249,MAPK14,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc(c3)Nc4ccc5c(c4)CCCCC5=O,6879,3uvr,B,A,0,06F,0,out,out,True,Human,Wed Dec 12 00:00:00 PST 2012
+7053,249,MAPK14,CN1c2c([nH]nc2c3ccc(cc3)F)-c4ccccc4S1(=O)=O,11245,5omg,B,A,2,9Y8,0,out,out,True,Human,Wed Mar 13 00:00:00 PDT 2019
+7059,249,MAPK14,Cc1ccccc1n2cc(cn2)C(=O)Nc3cc(ccc3C)C(=O)N[C@@H](CCC4CCCCC4)C(=O)N,11618,6sfj,C,A,0,LBB,0,out,out,True,Human,Wed Sep 11 00:00:00 PDT 2019
+7060,249,MAPK14,Cc1ccccc1n2cc(cn2)C(=O)NCc3ncc(s3)C(=O)N[C@@H](CCC4CCCCC4)C(=O)N,11619,6sfi,B,A,0,LB5,0,out,out,True,Human,Wed Sep 11 00:00:00 PDT 2019
+7061,249,MAPK14,Cc1ccc(cc1NC(=O)c2cnn(c2C(F)(F)F)c3ccccc3)C(=O)N[C@@H](CCC4CCCCC4)C(=O)N,11620,6sfk,B,A,1,LB8,0,out,out,True,Human,Wed Sep 11 00:00:00 PDT 2019
+7062,249,MAPK14,c1ccc(cc1)n2c(c(cn2)C(=O)NCc3ccc(cc3)C(=O)NCCCC4CCCCC4)N,11621,6sfo,B,A,4,LBE,0,out,out,True,Human,Wed Sep 11 00:00:00 PDT 2019
+7434,128,MELK,COc1cccc(c1)Nc2ncc(c(n2)OCC3CCNCC3)c4ccc(cc4)C(=O)NCC(=O)Nc5ccccc5,7497,5k00,A,A,2,6PV,0,out,out,True,Human,Wed Mar 01 00:00:00 PST 2017
+7512,446,MET,CC1=CC=C(C(=O)N1c2ccc(cc2)F)C(=O)Nc3ccc(c(c3)F)Oc4cc5cnn(c5cc4c6c[nH]nc6)C,3023,4eev,B,A,2,L1X,0,out,out,True,Human,Wed Apr 10 00:00:00 PDT 2013
+7519,446,MET,CCOC1=C(C(=O)N(C=C1)c2ccc(cc2)F)C(=O)Nc3ccc(c(c3)F)Oc4ccnc(c4Cl)N,2977,3f82,,A,2,353,0,out,out,True,Human,Tue Mar 31 00:00:00 PDT 2009
+7526,446,MET,c1cc(c(nc1)Nc2ccc(c(c2)F)Oc3ccnc(c3)N)C(=O)Nc4ccc(cc4F)F,2978,3l8v,,A,2,L8V,0,out,out,True,Human,Wed May 05 00:00:00 PDT 2010
+7532,446,MET,COc1cc2c(ccnc2cc1OCCCN3CCOCC3)Oc4ccc(cc4F)NC(=O)C5(CC5)C(=O)Nc6ccc(cc6)F,2964,3lq8,B,A,0,88Z,0,out,out,True,Human,Wed May 19 00:00:00 PDT 2010
+7537,446,MET,c1cc(ccc1CC(=O)NC(=O)Nc2ccc(c(c2)F)Oc3c4c(ccn4ncn3)CN5CCC(CC5)N)F,3020,3c1x,,A,3,CKK,0,out,out,True,Human,Tue Mar 18 00:00:00 PDT 2008
+7557,446,MET,CN1C(=NC=C(C1=O)c2ccc(c(c2)F)Oc3ccnc4c3cc(c(c4)OC)OC)Cc5ccccc5,3015,3efj,,A,3,MT3,0,out,out,True,Human,Tue Oct 07 00:00:00 PDT 2008
+7592,446,MET,c1cc(ccc1CC(=O)NC(=O)Nc2ccc(c(c2)F)Oc3ccnc4c3cc[nH]4)F,6766,3ctj,B,A,3,320,0,out,out,True,Human,Tue Jun 10 00:00:00 PDT 2008
+7594,446,MET,c1cc(ccc1CC(=O)NC(=O)Nc2ccc(c(c2)F)Oc3ccnc(c3)N)F,6768,3cth,,A,2,319,0,out,out,True,Human,Tue Jun 10 00:00:00 PDT 2008
+7595,446,MET,c1cc(ccc1N2C=CC=C(C2=O)C(=O)Nc3ccc(c(c3)F)Oc4ccnc5c4cc[nH]5)F,6769,3ce3,,A,2,1FN,0,out,out,True,Human,Tue Aug 26 00:00:00 PDT 2008
+7596,446,MET,Cn1cc(cn1)c2cc(ccn2)Oc3cc(c(cc3F)NC(=O)C4(CC4)C(=O)Nc5ccc(cc5)F)F,7034,5dg5,B,A,0,5B4,0,out,out,True,Human,Wed Aug 31 00:00:00 PDT 2016
+7613,446,MET,c1cc(ccc1NC(=O)C2(CC2)C(=O)Nc3ccc(c(c3)F)Oc4ccnc5c4cnc(c5)OCCN6CCOCC6)F,8009,5hti,B,A,0,66L,0,out,out,True,Human,Wed Feb 01 00:00:00 PST 2017
+7717,286,NEK2,CC[C@H]1C[N@@](CC[C@H]1C(=O)O)c2c(ncc(n2)c3cc(c(c(c3)OC)OC)OC)N,318,2xk7,B,A,14,30E,0,out,out,True,Human,Wed Oct 27 00:00:00 PDT 2010
+7755,480,NTRK1,c1ccc(cc1)c2nc(no2)Cn3c4ccnc(c4cc3C(=O)O)c5cccc6c5cccc6,3601,4pms,B,A,0,31X,0,out,out,True,Human,Wed Jun 18 00:00:00 PDT 2014
+7760,480,NTRK1,c1cc(cc(c1)c2nccs2)CN(C3CC3)C(=O)Nc4ccc(cc4)OC(F)(F)F,3608,4pmp,B,A,0,31W,0,out,out,True,Human,Wed Jun 18 00:00:00 PDT 2014
+7768,480,NTRK1,Cc1cn(cn1)c2ccc(cc2OC)c3cn(nn3)CC(=O)Nc4cc(nn4c5ccccc5)C6CC6,3618,4pmm,A,A,0,31V,0,out,out,True,Human,Wed Jun 18 00:00:00 PDT 2014
+7772,480,NTRK1,Cc1ncc(c(n1)c2ccccc2)NC(=O)Nc3cccc4c3cccc4,7331,5kmm,,A,0,6UJ,0,out,out,True,Human,Wed Dec 28 00:00:00 PST 2016
+7774,480,NTRK1,Cc1c(c(no1)c2ccccc2)NC(=O)NCc3ccccc3C(F)(F)F,7333,5kml,,A,0,6UH,0,out,out,True,Human,Wed Dec 28 00:00:00 PST 2016
+7775,480,NTRK1,c1ccc2c(c1)cc(n2CC(=O)NCc3ccccn3)c4cccs4,7334,5kmj,A,A,0,6UF,0,out,out,True,Human,Wed Dec 28 00:00:00 PST 2016
+7776,480,NTRK1,Cc1ncc(c(n1)c2ccccc2)NC(=O)NC3c4ccccc4-c5c3cccc5,7330,5kmi,,A,0,6UE,0,out,out,True,Human,Wed Dec 28 00:00:00 PST 2016
+7777,480,NTRK1,Cc1ncc(c(n1)c2ccccc2)NC(=O)NCc3ccccc3C(F)(F)F,7332,5kmn,,A,0,6UK,0,out,out,True,Human,Wed Dec 28 00:00:00 PST 2016
+7778,480,NTRK1,Cc1ccc(c(n1)c2ccc(cc2)F)NC(=O)c3ccc(cc3F)C(F)(F)F,7336,5kmk,,A,0,6UG,0,out,out,True,Human,Wed Dec 28 00:00:00 PST 2016
+7780,480,NTRK1,CCOc1c(c(n(n1)c2ccccc2)NC(=O)N[C@@H]3CN(C[C@H]3c4ccc(c(c4)F)F)CCOC)C,7460,5h3q,B,A,0,7HF,0,out,out,True,Human,Wed Feb 22 00:00:00 PST 2017
+7782,480,NTRK1,CC(C)n1cc(c2c1ncnc2)C(=O)c3cc(cnc3)NC(=O)Cc4ccc(cc4)C#N,7500,5jfw,A,A,2,6K2,0,out,out,True,Human,Wed Mar 01 00:00:00 PST 2017
+7783,480,NTRK1,CC(C)(CO)n1cc(c2c1nc(nc2)N)C(=O)c3cc(cnc3)NC(=O)Cc4ccc(cn4)Cl,7501,5jfx,,A,2,6K4,0,out,out,True,Human,Wed Mar 01 00:00:00 PST 2017
+7784,480,NTRK1,CC(C)n1cc(c2c1ncnc2N)C(=O)c3ccnc(c3)NC(=O)Nc4ccc(cc4F)F,7502,5jfs,B,A,2,6K0,0,out,out,True,Human,Wed Mar 01 00:00:00 PST 2017
+7785,480,NTRK1,CC(C)n1cc(c2c1ncnc2N)C(=O)c3cc(cnc3)NC(=O)Cc4ccc(cc4)Cl,7503,5jfv,B,A,2,6K1,0,out,out,True,Human,Wed Mar 01 00:00:00 PST 2017
+7791,480,NTRK1,Cc1cc(cc(n1)C#Cc2ccc3c(c2)oc4c3C(=O)c5ccc(cc5C4(C)C)NS(=O)(=O)C)C(=O)NC(C)(C)C,8737,5wr7,,A,0,RCH,0,out,out,True,Human,Wed Dec 06 00:00:00 PST 2017
+7795,480,NTRK1,Cc1cc(n(n1)c2ccccc2)NC(=O)c3ccc(cc3Cl)Cl,9871,6d1y,B,A,0,FQJ,0,out,out,True,Human,Wed May 02 00:00:00 PDT 2018
+7800,480,NTRK1,Cn1cc(nc1)c2ccc(c(c2)C(=O)N)OC3CCN(CC3)C(=O)Cc4ccc(cc4)OC(F)(F)F,10064,6dkw,B,B,5,GXA,0,out,out,True,Human,Wed Jul 11 00:00:00 PDT 2018
+7802,480,NTRK1,Cn1cc(nc1)c2cc(c(nc2)O[C@H]3CCN(C[C@H]3F)C(=O)Cc4ccc(cc4)OC(F)(F)F)C(=O)N,10057,6dkb,,A,2,FKY,0,out,out,True,Human,Wed Jul 11 00:00:00 PDT 2018
+7808,480,NTRK1,CC(C)(C)c1ccc(cc1)C(=O)Nc2cc(nn2c3ccccc3)c4ccccc4,11172,6npt,,A,0,KWY,0,out,out,True,Human,Wed May 22 00:00:00 PDT 2019
+7809,480,NTRK1,Cc1cccn2c1nc(c2NC(=O)CN3c4ccccc4SCC3=O)c5ccccc5,11173,6nsp,A,A,0,L0P,0,out,out,True,Human,Wed May 22 00:00:00 PDT 2019
+7816,480,NTRK1,CC(C)(C)c1cc(n(n1)c2ccccc2)NC(=O)CSc3nnnn3c4ccc(cc4)O,11598,6pl2,,A,0,OOM,0,out,out,True,Human,Wed Sep 04 00:00:00 PDT 2019
+7817,480,NTRK1,CC1=CN2C(=NC(=CC2=O)CSc3nnc(s3)NC(=O)Nc4cccc(c4)C(F)(F)F)C=C1,11722,6pl1,A,A,0,OOJ,0,out,out,True,Human,Wed Oct 09 00:00:00 PDT 2019
+7818,480,NTRK1,CC(C)(C)c1cc(n(n1)c2ccccc2)NC(=O)COC(=O)c3ccc(cc3)n4cnnn4,11599,6pl3,A,A,0,OOD,0,out,out,True,Human,Wed Sep 04 00:00:00 PDT 2019
+7829,481,NTRK2,c1cc(ccc1c2csc3c2c(ncn3)N)NC(=O)Nc4cc(ccc4F)C(F)(F)F,3598,4at4,,A,0,T6E,0,out,out,True,Human,Wed Aug 22 00:00:00 PDT 2012
+7832,482,NTRK3,c1cc(cc(c1)NC(=O)Nc2cccc(c2)Nc3ccc\4c(c3)NC(=O)/C4=C\c5ccc[nH]5)C(F)(F)F,97,3v5q,,B,5,0F4,0,out,out,True,Human,Wed Feb 08 00:00:00 PST 2012
+7834,482,NTRK3,c1ccc(cc1)CNc2ccc3ncc(n3n2)c4ccc(cc4)C#N,98,4ymj,B,A,2,4EJ,0,out,out,True,Human,Wed Jun 03 00:00:00 PDT 2015
+7838,482,NTRK3,Cc1c(cccc1C(=O)Nc2cc(cc(c2)N3CCN(CC3)C)C(F)(F)F)C#Cc4cnc5n4ccnc5,11696,6kzc,,A,0,DZC,0,out,out,True,Human,Wed Oct 09 00:00:00 PDT 2019
+7839,482,NTRK3,Cc1c(cccc1C(=O)Nc2cc(cc(c2)N3CCN(CC3)C)C(C)C)C#Cc4cnc5n4cc(nc5)c6ccc(cc6)N,11697,6kzd,,A,0,DZ6,0,out,out,True,Human,Wed Oct 09 00:00:00 PDT 2019
+7867,367,PAK1,CCN1c2ccc(cc2C(=Nc3c1ccc(c3)F)N[C@H]4CCN(C4)C(=O)NC(C)(C)C)Cl,162,4zjj,B,D,0,4OR,0,out,out,True,Human,Wed Jun 24 00:00:00 PDT 2015
+7991,452,PDGFRA,Cc1ccc(cc1Nc2nccc(n2)c3cccnc3)NC(=O)c4ccc(cc4)CN(CCN(C)C)C(=O)c5cccnc5,9478,5grn,B,A,0,748,0,out,out,True,Human,Wed Aug 16 00:00:00 PDT 2017
+8043,27,PDPK1,c1ccc(cc1)[C@H](COc2ccc3c(c2)NC(=O)N3)NC(=O)C4=CC=CN(C4=O)Cc5ccc(c(c5)F)F,3200,3nax,,A,0,MP7,0,out,out,True,Human,Wed Nov 24 00:00:00 PST 2010
+9094,425,PTK2,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)n4cnc5c4ncnc5N,233,4k9y,B,A,0,K9Y,0,out,out,True,Human,Wed Sep 11 00:00:00 PDT 2013
+9119,425,PTK2,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3ccc(cc3)c4cccnc4,248,4kao,,A,2,KAO,0,out,out,True,Human,Wed Sep 11 00:00:00 PDT 2013
+9135,424,PTK2B,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cccc4c3[nH]c(c4)C(=O)NC(C)C,89,4h1m,,A,0,0YJ,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2012
+9137,424,PTK2B,Cc1ccc(cc1)n2c(cc(n2)C(C)(C)C)NC(=O)Nc3cc(n[nH]3)c4ccc(cc4C)OC,91,4h1j,,A,0,0YH,0,out,out,True,Human,Wed Nov 28 00:00:00 PST 2012
+9138,424,PTK2B,Cc1ccc(cc1)N2C(=NC(=O)Nc3cc(n[nH]3)COc4cccnc4)C=C(N2)C(C)(C)C,86,3fzt,,A,0,4JZ,0,out,out,True,Human,Tue Mar 31 00:00:00 PDT 2009
+9233,511,RIPK1,CC(C)(C)c1cc(no1)NC(=O)Nc2ccc(cc2)c3cccc4c3ccnc4N,561,4neu,B,A,0,Q1A,0,out,out,True,Human,Wed Nov 20 00:00:00 PST 2013
+9234,511,RIPK1,CN1C(=O)[C@H](NC1=O)Cc2c[nH]c3c2cccc3Cl,564,4ith,A,B,6,RCM,0,out,out,True,Human,Wed Mar 13 00:00:00 PDT 2013
+9235,511,RIPK1,COc1ccc2c(c1)C3=NN([C@@H]([C@@H]3CC2)c4ccc(c(c4)F)OC(F)(F)F)C(=O)CO,562,4iti,A,B,7,1HW,0,out,out,True,Human,Wed Mar 13 00:00:00 PDT 2013
+9237,511,RIPK1,C[C@@H](c1c(cccc1Cl)F)NC(=O)c2ccc(n2C)C#N,565,4itj,A,B,0,1HX,0,out,out,True,Human,Wed Mar 13 00:00:00 PDT 2013
+9249,511,RIPK1,CN1c2ccccc2OC[C@@H](C1=O)NC(=O)c3cc(on3)Cc4ccccc4,6417,5hx6,,A,3,65U,0,out,out,True,Human,Wed Mar 02 00:00:00 PST 2016
+9252,511,RIPK1,CN1c2ccccc2OC[C@@H](C1=O)NC(=O)c3[nH]nc(n3)Cc4ccccc4,8215,5tx5,B,B,2,7MJ,0,out,out,True,Human,Wed Jul 05 00:00:00 PDT 2017
+9255,511,RIPK1,c1ccc(cc1)Cc2[nH]c3ccc(cc3n2)[N+](=O)[O-],9750,6c3e,A,A,0,EJY,0,out,out,True,Human,Wed Mar 21 00:00:00 PDT 2018
+9257,511,RIPK1,CN1c2ccc(cc2OC[C@@H](C1=O)N3CCc4c(nn(c4Cl)Cc5ccccc5)C3=O)C#N,9752,6c4d,,B,6,EJP,0,out,out,True,Human,Wed Mar 21 00:00:00 PDT 2018
+9263,511,RIPK1,c1c(cc(cc1F)F)[C@@H]2CCNN2C(=O)C3CCN(CC3)c4cc(ncn4)C#N,10784,6hho,,B,8,G4W,0,out,out,True,Human,Wed Dec 12 00:00:00 PST 2018
+9265,511,RIPK1,Cc1nnc(o1)N2CCC(CC2)C(=O)N3[C@@H](CCN3)c4cc(cc(c4)F)F,11044,6r5f,,B,10,JSW,0,out,out,True,Human,Wed May 01 00:00:00 PDT 2019
+9269,511,RIPK1,CC(C)(C)C(=O)N1CCC[C@H]1c2cccc(c2)F,11046,6ocq,A,A,6,M5J,0,out,out,True,Human,Wed May 08 00:00:00 PDT 2019
+9277,511,RIPK1,CN1c2cnc(cc2CC[C@@H](C1=O)NC(=O)c3nc4n(n3)[C@@H](CC4)c5ccccc5)OC,11056,6nyh,,B,9,L8D,0,out,out,True,Human,Wed May 29 00:00:00 PDT 2019
+9279,511,RIPK1,c1ccc(cc1)Cc2nc([nH]n2)C(=O)N[C@H]3CCc4cc(cc(c4NC3=O)F)F,11382,6rln,,B,9,K8K,0,out,out,True,Human,Wed Jul 03 00:00:00 PDT 2019
+9285,512,RIPK2,CC(C)(C)c1cc(no1)NC(=O)Nc2ccc(cc2)Oc3ccncc3,6174,5ar7,A,A,0,SR8,0,out,out,True,Human,Wed Oct 21 00:00:00 PDT 2015
+9331,512,RIPK2,CNC(=O)c1cc(ccn1)Oc2ccc(c(c2)F)NC(=O)Nc3ccc(c(c3)F)SCC(=O)O,9574,6es0,,A,0,BW8,0,out,out,True,Human,Wed Feb 21 00:00:00 PST 2018
+9668,373,STK10,CN1CCN(CC1)C(=O)c2cccc(c2)NC(=O)Nc3ccc(cc3)N(C)c4ccnc(n4)Nc5ccc(cc5)CS(=O)(=O)C,944,4aot,B,A,0,GW8,0,out,out,True,Human,Wed Apr 11 00:00:00 PDT 2012
+9671,373,STK10,Cc1ccc(cc1Nc2c(cccn2)c3ncnc(n3)Nc4ccc(cc4)OC)NC(=O)c5cccc(c5)C(F)(F)F,959,4equ,B,B,0,G6I,0,out,out,True,Human,Wed Nov 07 00:00:00 PST 2012
+9698,373,STK10,c1cc(oc1)C(=O)Nc2[nH]c3ccc(cc3n2)Oc4ccc(cc4)NC(=O)Nc5cc(ccc5F)C(F)(F)F,8623,6eim,A,B,0,B6E,0,out,out,True,Human,Wed Nov 01 00:00:00 PDT 2017
+9851,470,SYK,Cc1ccc(cc1C2=Cc3cnc(nc3N(C2=O)C)Nc4ccccc4)NC(=O)c5cccc(c5)C(F)(F)F,1176,3tud,,A,2,FPX,0,out,out,True,Human,Wed Aug 29 00:00:00 PDT 2012
+9854,470,SYK,COc1cc2c(ccnc2cc1OC)Oc3ccc(nc3)NC(=O)N[C@@H]4C[C@H]4c5ccccc5,1179,3tub,,A,1,FPU,0,out,out,True,Human,Wed Aug 29 00:00:00 PDT 2012
+9986,477,TEK,Cc1ccc(cc1Oc2c(cccn2)c3ccnc(n3)NC)C(=O)Nc4cc(ccc4N5CCOCC5)C(F)(F)F,5550,2p4i,,B,9,MR9,0,out,out,True,Human,Tue Mar 20 00:00:00 PDT 2007
+9988,477,TEK,c1cc(ccc1NC(=O)Nc2cc(ccc2F)C(F)(F)F)N3C=CC(=O)c4c3ncnc4N,5552,4x3j,,A,19,3WR,0,out,out,True,Human,Wed Dec 24 00:00:00 PST 2014
+9992,477,TEK,Cc1ccc(cc1Nc2c(cccn2)c3ccncn3)NC(=O)c4cccc(c4)C(F)(F)F,5555,2osc,,A,10,MUH,0,out,out,True,Human,Tue Mar 20 00:00:00 PDT 2007
+10115,394,TNK2,Cc1ccc(cc1N2Cc3cnc(nc3N(C2=O)C)Nc4ccc(nc4)N5CCN(CC5)C(=O)C)NC(=O)c6cccc(c6)C(F)(F)F,10493,5zxb,A,B,7,9KO,0,out,out,True,Human,Wed Sep 26 00:00:00 PDT 2018

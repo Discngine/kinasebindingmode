@@ -9,6 +9,24 @@ Simply install the conda environment on your machine using.
 `conda activate kinaseBindingMode`
 
 ## Scripts:
+
+### I: Prepare initial public data-set
+Download all annotations from KLIFS and gather ligand structures from the RCSB PDB and writes them to scripts/kinaseBindingModesKlifs.csv. This is raw annotation taken as input for other scripts
+
+`cd scripts; python establishReferenceSet.py`
+
+Next rules to split all inhibitors into different inhibitor type classes are available are encoded in the scripts/classifyByType.py
+
+`cd scripts; python classifyByType.py`
+
+This classfication step does a bit of cleaning un duplicate checking and puts output into prepared_data/typeX.csv files.
+At the time of writing the paper the following statistics were obtained: 
+- 1775 unique type 1 molecules
+- 495 unique type 1 1/2 molecules
+- 238 unique type 2 molecules
+
+
+
 `evaluateGlobalSets.py:` contains the 50/50 evaluation protocol
 
 ## Folder structure

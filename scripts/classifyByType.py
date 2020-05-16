@@ -31,7 +31,7 @@ tmp+=[ligand for ligand in type1_2.ligand if sum( type1.ligand==ligand) or sum(t
 ligandsToDiscard=np.unique(tmp)
 
 #let's get ligands where the binding mode is unclear (common compounds between lists)
-
+print("Discarding unclear binding modes")
 for ligand in ligandsToDiscard:
     type1 = type1[type1.ligand != ligand]
     type1_2 = type1_2[type1_2.ligand != ligand]
@@ -51,9 +51,9 @@ unique_type2=type2.drop_duplicates(subset="smiles")
 unique_type1_2=type1_2.drop_duplicates(subset="smiles")
 
 
-unique_type1.to_csv("prepared_data/type1.csv")
-unique_type1_2.to_csv("prepared_data/type1_2.csv")
-unique_type2.to_csv("prepared_data/type2.csv")
+unique_type1.to_csv("../prepared_data/type1.csv")
+unique_type1_2.to_csv("../prepared_data/type1_2.csv")
+unique_type2.to_csv("../prepared_data/type2.csv")
 #try to set up global model dataset approach according to Miljkovic et al:
 
 
