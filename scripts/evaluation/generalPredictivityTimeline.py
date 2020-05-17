@@ -139,83 +139,83 @@ def generateFingerprints(smiles,fingerprintMethod,morganFpRadius=2):
             pass
     return(fp,mols,sm)
 
-radius=1
-#for radius in range(1,4):
-from datetime import date
-from dateutil.relativedelta import relativedelta
-start_date = date(1999, 1, 1)
-end_date = date(2019, 12, 31)
-delta = relativedelta(months=+6)
 
-o=open("{}_radius_{}_{}.csv".format(outputPrefix,radius,simMetric),"w")
-o.write("Cycle\tCorrect\tPrediction\tActualClass\tSimilarity\tsmiles\trandomCorrect\trandomSimilarity\tdateThreshold\n")
+for radius in range(1,4):
+    from datetime import date
+    from dateutil.relativedelta import relativedelta
+    start_date = date(1999, 1, 1)
+    end_date = date(2019, 12, 31)
+    delta = relativedelta(months=+6)
+
+    o=open("{}_radius_{}_{}.csv".format(outputPrefix,radius,simMetric),"w")
+    o.write("Cycle\tCorrect\tPrediction\tActualClass\tSimilarity\tsmiles\trandomCorrect\trandomSimilarity\tdateThreshold\n")
 
 
-while start_date <= end_date:
-    print (start_date.strftime("%Y-%m-%d"))
-    start_date += delta
+    while start_date <= end_date:
+        print (start_date.strftime("%Y-%m-%d"))
+        start_date += delta
 
-    for cycle in range(10):
+        for cycle in range(10):
 
-        (type1_train,type1_test)=getTrainTestSet("prepared_data/type1.csv",start_date)
+            (type1_train,type1_test)=getTrainTestSet("prepared_data/type1.csv",start_date)
 
-        type1_train["type"]="type1"
-        type1_test["type"]="type1"
-        if debug:    
-            print("TYPE 1:")
-            print("      - %d molecules in training set."%(len(type1_train)))
-            print("      - %d molecules in test set."%(len(type1_test)))
+            type1_train["type"]="type1"
+            type1_test["type"]="type1"
+            if debug:    
+                print("TYPE 1:")
+                print("      - %d molecules in training set."%(len(type1_train)))
+                print("      - %d molecules in test set."%(len(type1_test)))
+                
+
+            (type2_train,type2_test)=getTrainTestSet("prepared_data/type2.csv",start_date)
+            type2_train["type"]="type2"
+            type2_test["type"]="type2"
+
+            if debug:  
+                print("TYPE 2:")
+                print("      - %d molecules in training set."%(len(type2_train)))
+                print("      - %d molecules in test set."%(len(type2_test)))
+                
+
+            (type1_2_train,type1_2_test)=getTrainTestSet("prepared_data/type1_2.csv",start_date)
+            type1_2_train["type"]="type1_2"
+            type1_2_test["type"]="type1_2"
+
+            if debug:  
+                print("TYPE 1 1/2:")
+                print("      - %d molecules in training set."%(len(type1_2_train)))
+                print("      - %d molecules in test set."%(len(type1_2_test)))
             
-
-        (type2_train,type2_test)=getTrainTestSet("prepared_data/type2.csv",start_date)
-        type2_train["type"]="type2"
-        type2_test["type"]="type2"
-
-        if debug:  
-            print("TYPE 2:")
-            print("      - %d molecules in training set."%(len(type2_train)))
-            print("      - %d molecules in test set."%(len(type2_test)))
-            
-
-        (type1_2_train,type1_2_test)=getTrainTestSet("prepared_data/type1_2.csv",start_date)
-        type1_2_train["type"]="type1_2"
-        type1_2_test["type"]="type1_2"
-
-        if debug:  
-            print("TYPE 1 1/2:")
-            print("      - %d molecules in training set."%(len(type1_2_train)))
-            print("      - %d molecules in test set."%(len(type1_2_test)))
-        
-        #smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
-        smiles_train=list(type1_train.smiles)+list(type2_train.smiles)+list(type1_2_train.smiles)
-        if(len(smiles_train)>0): 
-            train=pd.concat([type1_train, type2_train,type1_2_train])
-            train_outcome=list(type1_train.type)+list(type2_train.type)+list(type1_2_train.type)
-            smiles_test=list(type1_test.smiles)+list(type2_test.smiles)+list(type1_2_test.smiles)
-            test=pd.concat([type1_test, type2_test,type1_2_test])
-            
-            test_outcome=list(type1_test.type)+list(type2_test.type)+list(type1_2_test.type)
-            
-            morganFpRadius=radius
-            fingerprintMethod=AllChem.GetMorganFingerprint
+            #smiles_train=list(type1_train.smiles)+list(type2_train.smiles)
+            smiles_train=list(type1_train.smiles)+list(type2_train.smiles)+list(type1_2_train.smiles)
+            if(len(smiles_train)>0): 
+                train=pd.concat([type1_train, type2_train,type1_2_train])
+                train_outcome=list(type1_train.type)+list(type2_train.type)+list(type1_2_train.type)
+                smiles_test=list(type1_test.smiles)+list(type2_test.smiles)+list(type1_2_test.smiles)
+                test=pd.concat([type1_test, type2_test,type1_2_test])
+                
+                test_outcome=list(type1_test.type)+list(type2_test.type)+list(type1_2_test.type)
+                
+                morganFpRadius=radius
+                fingerprintMethod=AllChem.GetMorganFingerprint
 
 
-            (fp_train,mol_train,tr_sm)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
-            (fp_test,mol_test,te_sm)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
-            (predictions,similarity)=getMaxSimilarity(fp_test,fp_train,train_outcome)
-            (ranpredictions,ransimilarity)=getRandomPrediction(fp_test,fp_train,train_outcome)
+                (fp_train,mol_train,tr_sm)=generateFingerprints(smiles_train,fingerprintMethod,morganFpRadius=morganFpRadius)
+                (fp_test,mol_test,te_sm)=generateFingerprints(smiles_test,fingerprintMethod,morganFpRadius=morganFpRadius)
+                (predictions,similarity)=getMaxSimilarity(fp_test,fp_train,train_outcome)
+                (ranpredictions,ransimilarity)=getRandomPrediction(fp_test,fp_train,train_outcome)
 
-            # print(len(fp_test),len(test["smiles"]),len(fp_test),len(mol_test))
-            # print(len(fp_train),len(train["smiles"]),len(fp_train),len(mol_train))
-            # print(len(similarity),len(predictions))
-            pred=np.array(predictions)
-            y_true=np.array(test_outcome)
-            mask=pred==y_true
-            randomMask=np.array(ranpredictions)==y_true
-            #print(mask)
-            print("AUC:")
-            print(sklearn.metrics.roc_auc_score(mask,similarity))
-            for idx,el in enumerate(mask):
-                o.write("{}\t{}\t{}\t{}\t{}\t\"{}\"\t{}\t{}\t{}\n".format(cycle,el,pred[idx],y_true[idx],similarity[idx],smiles_test[idx],randomMask[idx],ransimilarity[idx],start_date))
+                # print(len(fp_test),len(test["smiles"]),len(fp_test),len(mol_test))
+                # print(len(fp_train),len(train["smiles"]),len(fp_train),len(mol_train))
+                # print(len(similarity),len(predictions))
+                pred=np.array(predictions)
+                y_true=np.array(test_outcome)
+                mask=pred==y_true
+                randomMask=np.array(ranpredictions)==y_true
+                #print(mask)
+                print("AUC:")
+                print(sklearn.metrics.roc_auc_score(mask,similarity))
+                for idx,el in enumerate(mask):
+                    o.write("{}\t{}\t{}\t{}\t{}\t\"{}\"\t{}\t{}\t{}\n".format(cycle,el,pred[idx],y_true[idx],similarity[idx],smiles_test[idx],randomMask[idx],ransimilarity[idx],start_date))
 
-o.close()
+    o.close()
