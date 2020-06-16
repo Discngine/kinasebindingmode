@@ -78,7 +78,8 @@ prepareData<-function(inputData,returnRandom,curDateThreshold){
     final_type1=data.frame()
     final_type2=data.frame()
     final_type1_2=data.frame()
-    for(i in seq(10)){
+    print("here")
+    for(i in seq(1)){
         accs=c()
         raccs=c()
         ns=c()
@@ -195,64 +196,77 @@ prepareData<-function(inputData,returnRandom,curDateThreshold){
 
 
 
-generatePlot<-function(fname,outname,label,threshold){
+generatePlot<-function(fname,label){
 
     r=read.table(fname,h=T)
     uniqueDates=unique(r$dateThreshold)
 
-    threshold="0.45"
-
-    n=0
-    results=c()
-    for(currentDate in uniqueDates){
-        mfp1=prepareData(read.table(fname,h=T),0,currentDate)
-        line=mfp1[mfp1$cutoff==threshold,]
-        if(n==0) results=line
-        else {
-            results=rbind(results,line)
+    thresholds=seq(0.1,1.0,0.05)
+    for(th in thresholds){
+        threshold=as.character(th)
+    
+        n=0
+        results=c()
+        for(currentDate in uniqueDates){
+            mfp1=prepareData(read.table(fname,h=T),0,currentDate)
+            line=mfp1[mfp1$cutoff==threshold,]
+            if(n==0) results=line
+            else {
+                results=rbind(results,line)
+            }
+            n=n+1
         }
-        n=n+1
+
+        outname=sprintf("images/%s Threshold %s.svg",label,threshold)
+
+        results$date=as.Date(results$date)
+
+        mfp3=results
+        p=ggplot(results, aes(x=date, y=type1_mean)) + 
+        geom_line(aes(colour='Type I'),size=2)+
+        geom_line(aes(y=type2_mean,colour='Type II'),size=2)+
+        geom_line(aes(y=type1_2_mean,colour='Type I 1/2'),size=2)+
+        labs(y = "MCC",
+                        x = "Date",colour="",title=label) + 
+                        scale_colour_Publication2() +  
+                        theme_Publication() + 
+                        scale_y_continuous(breaks=seq(0.0,1.0,0.1),limits=c(0.0,1.0)) 
+        ggsave(file=outname, plot=p, width=8, height=8)
     }
-
-
-    results$date=as.Date(results$date)
-
-    mfp3=results
-    p=ggplot(results, aes(x=date, y=type1_mean)) + 
-    geom_line(aes(colour='Type I'),size=2)+
-    geom_line(aes(y=type2_mean,colour='Type II'),size=2)+
-    geom_line(aes(y=type1_2_mean,colour='Type I 1/2'),size=2)+
-    labs(y = "MCC",
-                    x = "Date",colour="",title=label) + 
-                    scale_colour_Publication2() +  
-                    theme_Publication() + 
-                    scale_y_continuous(breaks=seq(0.0,1.0,0.1),limits=c(0.0,1.0)) 
-    print(p)
-    ggsave(file=outname, plot=p, width=8, height=8)
-
-
-
 }
-fname="predictivity_radius_3_tanimoto.csv"
-outname="timelinePredictionTanimotoECFP6.svg"
-label="Tanimoto Similarity MFP3"
-threshold="0.45"
-generatePlot(fname,outname,label,threshold)
 
-fname="predictivity_radius_2_tanimoto.csv"
-outname="timelinePredictionTanimotoECFP4.svg"
-label="Tanimoto Similarity MFP2"
-threshold="0.45"
-generatePlot(fname,outname,label,threshold)
 
-fname="predictivity_radius_1_tanimoto.csv"
-outname="timelinePredictionTanimotoECFP2.svg"
-label="Tanimoto Similarity MFP1"
-threshold="0.45"
-generatePlot(fname,outname,label,threshold)
+fingerprints=c("Tanimoto","Dice","Tversky")
+radii=c(1,2,3)
 
-fname="predictivity_radius_3_dice.csv"
-outname="timelinePredictionDiceECFP6.svg"
-label="Dice Similarity MFP3"
-threshold="0.45"
-generatePlot(fname,outname,label,threshold)
+for(fp in fingerprints){
+    for(radius in radii){
+        fname=sprintf("predictivity_radius_%d_%s.csv",radius,tolower(fp))
+        label=sprintf("%s Similarity MFP%d",fp,radius)
+        generatePlot(fname,label)
+    }
+}
+
+# fname="predictivity_radius_3_tanimoto.csv"
+# outname="timelinePredictionTanimotoECFP6.svg"
+# label="Tanimoto Similarity MFP3"
+# threshold="0.45"
+# generatePlot(fname,outname,label,threshold)
+
+# fname="predictivity_radius_2_tanimoto.csv"
+# outname="timelinePredictionTanimotoECFP4.svg"
+# label="Tanimoto Similarity MFP2"
+# threshold="0.45"
+# generatePlot(fname,outname,label,threshold)
+
+# fname="predictivity_radius_1_tanimoto.csv"
+# outname="timelinePredictionTanimotoECFP2.svg"
+# label="Tanimoto Similarity MFP1"
+# threshold="0.45"
+# generatePlot(fname,outname,label,threshold)
+
+# fname="predictivity_radius_3_dice.csv"
+# outname="timelinePredictionDiceECFP6.svg"
+# label="Dice Similarity MFP3"
+# threshold="0.45"
+# generatePlot(fname,outname,label,threshold)
